@@ -1,0 +1,3 @@
+# 统一用 LF，避免跨平台行尾漂移
+* text=auto eol=lf
+*.png binary

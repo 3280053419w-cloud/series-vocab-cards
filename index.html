@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e1015">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>剧集记忆卡 · Series Vocab</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%237c8cff'/%3E%3Crect x='20' y='28' width='60' height='36' rx='7' fill='%23fff'/%3E%3Crect x='30' y='56' width='40' height='7' rx='3.5' fill='%23fff' opacity='.55'/%3E%3Ccircle cx='34' cy='44' r='5' fill='%237c8cff'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0e1015; --surface:#171a21; --surface2:#1f232c; --surface3:#262b36;
+  --text:#e9ecf1; --text2:#9aa3b2; --text3:#6b7383;
+  --accent:#7c8cff; --accent-dim:#7c8cff33;
+  --again:#ff6b6b; --hard:#f0a44e; --good:#4ecb8f; --easy:#5aa9ff;
+  --border:#262b35; --shadow:0 8px 32px rgba(0,0,0,.45);
+  --radius:16px;
+}
+html[data-theme="light"]{
+  --bg:#f4f6fa; --surface:#ffffff; --surface2:#eef1f7; --surface3:#e3e8f0;
+  --text:#151922; --text2:#5a6474; --text3:#8b94a5;
+  --accent:#5661d6; --accent-dim:#5661d622;
+  --border:#dde3ed; --shadow:0 8px 32px rgba(30,40,70,.10);
+  --again:#e04b4b; --hard:#d1832a; --good:#2ba86e; --easy:#3b87d6;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+#app{height:100%;display:flex;flex-direction:column;max-width:760px;margin:0 auto;
+     padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.view{display:none;flex-direction:column;height:100%;min-height:0}
+.view.active{display:flex}
+
+/* ========== 顶栏 ========== */
+.topbar{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;flex:0 0 auto}
+.topbar h1{font-size:17px;font-weight:650;margin:0;flex:1;letter-spacing:.2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text2);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.15s;flex:0 0 auto}
+.iconbtn:hover{background:var(--surface2);color:var(--text)}
+.iconbtn:active{transform:scale(.94)}
+
+/* ========== 牌组列表 ========== */
+.deckscroll{flex:1;overflow-y:auto;padding:6px 16px 24px;-webkit-overflow-scrolling:touch}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 18px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:10px 6px;text-align:center}
+.stat .n{font-size:20px;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
+.stat .l{font-size:10.5px;color:var(--text2);margin-top:3px;letter-spacing:.3px}
+.stat.due .n{color:var(--accent)}
+.stat.new .n{color:var(--easy)}
+.stat.learn .n{color:var(--hard)}
+.stat.done .n{color:var(--good)}
+
+.deck{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;margin-bottom:12px;cursor:pointer;transition:.16s;position:relative;overflow:hidden}
+.deck:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow)}
+.deck:active{transform:scale(.99)}
+.deck .dtitle{font-size:16.5px;font-weight:650;margin-bottom:3px}
+.deck .dsub{font-size:12.5px;color:var(--text2);margin-bottom:12px}
+.deck .dsub b{color:var(--accent);font-weight:600}
+.bar{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%;transition:width .4s ease}
+.bar .b-done{background:var(--good)}
+.bar .b-learn{background:var(--hard)}
+.bar .b-new{background:var(--easy);opacity:.5}
+.deck .dmeta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--text3);margin-top:8px}
+.deck .badge{background:var(--accent);color:#fff;font-size:11px;font-weight:700;
+  padding:3px 9px;border-radius:20px;position:absolute;top:16px;right:16px}
+
+/* ========== 刷卡区 ========== */
+.studyhead{flex:0 0 auto;padding:0 16px 8px}
+.pbar{height:5px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--accent);transition:width .3s ease;border-radius:3px}
+.hud{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);
+  margin-top:8px;font-variant-numeric:tabular-nums}
+.hud .counts span{margin-right:10px}
+.hud .c-new{color:var(--easy)} .hud .c-learn{color:var(--hard)}
+.hud .c-rev{color:var(--accent)} .hud .c-done{color:var(--good)}
+
+.cardwrap{flex:1;display:flex;align-items:center;justify-content:center;
+  padding:14px 16px;min-height:0;overflow-y:auto}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  width:100%;box-shadow:var(--shadow);padding:26px 22px;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:16px;cursor:pointer;min-height:230px;
+  transition:border-color .2s,transform .18s;animation:pop .26s cubic-bezier(.2,.9,.3,1)}
+/* 朗读按钮 */
+.speakbtn{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--border);background:var(--surface2);color:var(--text2);
+  font-size:16px;line-height:1;cursor:pointer;z-index:3;
+  display:flex;align-items:center;justify-content:center;transition:.16s}
+.speakbtn:hover{color:var(--accent);border-color:var(--accent);transform:scale(1.06)}
+.speakbtn:active{transform:scale(.92)}
+.speakbtn.on{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);
+  animation:pulse 1.15s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--accent-dim)}50%{box-shadow:0 0 0 7px transparent}}
+.speakbtn.off{opacity:.35;cursor:not-allowed}
+@keyframes pop{from{opacity:0;transform:scale(.97) translateY(6px)}to{opacity:1;transform:none}}
+.card.answer{border-color:var(--accent);cursor:default}
+.qtext{font-size:23px;line-height:1.5;font-weight:500;letter-spacing:.1px;word-break:break-word}
+.qtext .hl{color:var(--accent);font-weight:650;border-bottom:2px solid var(--accent-dim);padding-bottom:1px}
+.atext{font-size:19px;line-height:1.55;color:var(--text);word-break:break-word}
+.defbox{width:100%;border-top:1px dashed var(--border);padding-top:15px;
+  display:flex;flex-direction:column;gap:5px}
+.defword{font-size:20px;font-weight:700;color:var(--accent);letter-spacing:.2px}
+.defcn{font-size:15px;color:var(--text)}
+.defipa{font-size:13px;color:var(--text2);font-family:"SF Mono",Consolas,monospace}
+.hint{font-size:12.5px;color:var(--text3);margin-top:4px;letter-spacing:.3px}
+.reveal{opacity:0;animation:fade .3s .05s forwards}
+@keyframes fade{to{opacity:1}}
+
+/* ========== 底部控制 ========== */
+.controls{flex:0 0 auto;padding:10px 16px calc(16px + env(safe-area-inset-bottom))}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grade{border:1px solid var(--border);background:var(--surface);color:var(--text);
+  border-radius:13px;padding:11px 4px 9px;cursor:pointer;transition:.14s;
+  display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;overflow:hidden}
+.grade .gt{font-size:11px;color:var(--text2);font-variant-numeric:tabular-nums;letter-spacing:.2px}
+.grade .gn{font-size:14.5px;font-weight:650}
+.grade:active{transform:scale(.95)}
+.grade::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:currentColor}
+.grade.g0{color:var(--again)} .grade.g1{color:var(--hard)}
+.grade.g2{color:var(--good)}  .grade.g3{color:var(--easy)}
+.grade .gn,.grade .gt{color:var(--text)}
+.grade.g0 .gn{color:var(--again)} .grade.g1 .gn{color:var(--hard)}
+.grade.g2 .gn{color:var(--good)}  .grade.g3 .gn{color:var(--easy)}
+.grade:hover{background:var(--surface2);border-color:currentColor}
+.grade .kb{position:absolute;top:4px;right:6px;font-size:9px;color:var(--text3);
+  border:1px solid var(--border);border-radius:4px;padding:0 3px;line-height:1.4}
+.showbtn{width:100%;padding:17px;border-radius:14px;border:none;cursor:pointer;
+  background:var(--accent);color:#fff;font-size:16px;font-weight:650;letter-spacing:.4px;
+  transition:.15s;box-shadow:0 4px 18px var(--accent-dim)}
+.showbtn:hover{filter:brightness(1.08)}
+.showbtn:active{transform:scale(.98)}
+.hidden{display:none!important}
+
+/* ========== 完成页 ========== */
+.finish{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;padding:30px 24px;text-align:center}
+.finish .big{font-size:52px;line-height:1}
+.finish h2{margin:0;font-size:21px;font-weight:650}
+.finish p{margin:0;color:var(--text2);font-size:14px;line-height:1.7;max-width:400px}
+.finish .next{background:var(--surface);border:1px solid var(--border);border-radius:13px;
+  padding:13px 20px;font-size:13.5px;color:var(--text2);line-height:1.8;width:100%;max-width:400px}
+.finish .next b{color:var(--text);font-variant-numeric:tabular-nums}
+.finish .row{display:flex;gap:10px;width:100%;max-width:400px;margin-top:4px}
+.btn{flex:1;padding:14px;border-radius:13px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);font-size:14.5px;font-weight:600;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--surface2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn:active{transform:scale(.97)}
+
+/* ========== 设置面板 ========== */
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;
+  display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.sheet.hidden{display:none}
+.sheetbox{background:var(--surface);border-radius:22px 22px 0 0;width:100%;max-width:760px;
+  padding:22px 20px calc(24px + env(safe-area-inset-bottom));animation:up .25s cubic-bezier(.2,.9,.3,1)}
+@keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.sheetbox h3{margin:0 0 18px;font-size:17px;font-weight:650}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:13px 0;
+  border-bottom:1px solid var(--border);font-size:14.5px}
+.srow:last-of-type{border-bottom:none}
+.srow .lab{color:var(--text)}
+.srow .sub{font-size:11.5px;color:var(--text3);margin-top:3px}
+.sel{background:var(--surface2);border:1px solid var(--border);color:var(--text);
+  border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.danger{color:var(--again)}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{flex:1;padding:10px;text-align:center;border-radius:11px;background:var(--surface2);
+  border:1px solid transparent;cursor:pointer;font-size:14px;font-weight:600;color:var(--text2)}
+.tab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* 牌组管理 */
+.mrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.mrow:last-child{border-bottom:none}
+.mrow .minfo{flex:1;min-width:0}
+.mrow .mname{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .msub{font-size:11.5px;color:var(--text3);margin-top:3px}
+.mrow .msub b{color:var(--text2)}
+.mrow.removed .mname{color:var(--text3);text-decoration:line-through}
+.btn.tiny{flex:0 0 auto;padding:7px 13px;font-size:12.5px;border-radius:9px}
+.empty{color:var(--text3);font-size:13px;text-align:center;padding:16px 0;line-height:1.8}
+.mgroup{font-size:12px;color:var(--text3);margin:14px 0 2px;letter-spacing:.3px}
+
+/* 确认弹窗（居中，替代 window.confirm） */
+.sheet.center{align-items:center;padding:22px}
+.confirmbox{background:var(--surface);border-radius:18px;width:100%;max-width:400px;
+  padding:22px;box-shadow:var(--shadow);animation:pop .2s cubic-bezier(.2,.9,.3,1)}
+.confirmbox h3{margin:0 0 10px;font-size:17px;font-weight:650}
+.confirmbox p{margin:0 0 20px;color:var(--text2);font-size:14px;line-height:1.75;white-space:pre-line}
+
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:99;
+  background:var(--surface3);color:var(--text);padding:11px 20px;border-radius:24px;
+  font-size:13.5px;box-shadow:var(--shadow);opacity:0;transition:.25s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(-6px)}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ==================== 牌组列表 ==================== -->
+  <section id="view-decks" class="view active">
+    <div class="topbar">
+      <h1>剧集记忆卡</h1>
+      <button class="iconbtn" id="btnTheme" title="切换主题">◐</button>
+      <button class="iconbtn" id="btnSettings" title="设置">⚙</button>
+    </div>
+    <div class="deckscroll">
+      <div class="stats" id="globalStats"></div>
+      <div id="deckList"></div>
+      <p style="font-size:12px;color:var(--text3);line-height:1.7;margin:18px 2px 0">
+        正面看英文原句 → 点「显示答案」→ 四档评级。不认识的按 <b style="color:var(--again)">重来</b>，
+        它当轮会立刻回来，直到你认熟为止。进度存在本机浏览器里，关掉再开接着刷。
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== 刷卡 ==================== -->
+  <section id="view-study" class="view">
+    <div class="topbar">
+      <button class="iconbtn" id="btnBack" title="返回">←</button>
+      <h1 id="studyTitle">—</h1>
+      <button class="iconbtn" id="btnEdit" title="编辑当前卡">✎</button>
+    </div>
+    <div class="studyhead">
+      <div class="pbar"><i id="pbarFill" style="width:0%"></i></div>
+      <div class="hud">
+        <div class="counts" id="hudCounts"></div>
+        <div id="hudTotal"></div>
+      </div>
+    </div>
+    <div class="cardwrap">
+      <div class="card" id="card">
+        <button class="speakbtn" id="btnSpeak" title="朗读（快捷键 R）">🔊</button>
+        <div class="qtext" id="qtext"></div>
+        <div id="answerArea" class="hidden">
+          <div class="atext reveal" id="atext"></div>
+          <div class="defbox reveal" id="defbox"></div>
+        </div>
+        <div class="hint" id="cardHint">点击卡片或按空格显示答案 · 按 R 朗读</div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="showbtn" id="btnShow">显示答案</button>
+      <div class="grades hidden" id="grades">
+        <button class="grade g0" data-g="0"><span class="kb">1</span><span class="gt" id="iv0">—</span><span class="gn">重来</span></button>
+        <button class="grade g1" data-g="1"><span class="kb">2</span><span class="gt" id="iv1">—</span><span class="gn">困难</span></button>
+        <button class="grade g2" data-g="2"><span class="kb">3</span><span class="gt" id="iv2">—</span><span class="gn">良好</span></button>
+        <button class="grade g3" data-g="3"><span class="kb">4</span><span class="gt" id="iv3">—</span><span class="gn">简单</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 完成 ==================== -->
+  <section id="view-done" class="view">
+    <div class="finish">
+      <div class="big" id="doneEmoji">🎉</div>
+      <h2 id="doneTitle">本轮刷完了</h2>
+      <p id="doneMsg"></p>
+      <div class="next" id="doneNext"></div>
+      <div class="row">
+        <button class="btn" id="btnDoneBack">回到牌组</button>
+        <button class="btn primary" id="btnContinue">再刷一轮</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== 设置面板 ==================== -->
+<div class="sheet hidden" id="sheet">
+  <div class="sheetbox">
+    <h3>设置</h3>
+    <div class="srow">
+      <div><div class="lab">每日新卡上限</div><div class="sub">一次最多放进来多少张没见过的卡</div></div>
+      <select class="sel" id="setNew">
+        <option value="10">10 张</option>
+        <option value="20">20 张</option>
+        <option value="30">30 张</option>
+        <option value="50">50 张</option>
+        <option value="999">不限</option>
+      </select>
+    </div>
+    <div class="srow">
+      <div><div class="lab">语音朗读</div><div class="sub">用系统内置语音朗读英文原句（不联网）</div></div>
+      <select class="sel" id="setSpeak">
+        <option value="auto">自动朗读</option>
+        <option value="manual">只手动点朗读</option>
+        <option value="off">关闭</option>
+      </select>
+    </div>
+    <div class="srow">
+      <div><div class="lab">当前英文语音</div><div class="sub" id="speakInfo">—</div></div>
+      <button class="btn" style="flex:0 0 auto;padding:9px 14px;font-size:13px" id="btnTestSpeak">试听</button>
+    </div>
+    <div class="srow" id="speakWarn" style="display:none;align-items:flex-start">
+      <div>
+        <div class="lab" style="color:var(--hard)">⚠ 系统里没检测到英文语音</div>
+        <div class="sub" style="line-height:1.75;margin-top:6px">
+          现在读英文只能用中文音色硬读，口音会歪。装一个英文语音包就好：<br>
+          <b>Windows 设置</b> → 时间和语言 → 语言和区域 → 添加语言「English (United States)」<br>
+          → 在该语言右侧「⋯」里选「语言选项」→ 找到「语音」点下载<br>
+          装完<b>重启浏览器</b>再回来，这里就会显示英文音色名。
+        </div>
+      </div>
+    </div>
+    <div class="srow">
+      <div><div class="lab">朗读语速</div><div class="sub">听不懂就调慢，想练听力往上调</div></div>
+      <select class="sel" id="setRate">
+        <option value="0.7">0.7× 慢</option>
+        <option value="0.85">0.85× 稍慢</option>
+        <option value="1">1.0× 正常</option>
+        <option value="1.15">1.15× 稍快</option>
+        <option value="1.3">1.3× 快</option>
+      </select>
+    </div>
+    <div class="srow">
+      <div><div class="lab">背面朗读中文译句</div><div class="sub">翻面后连中文一起读，练听力时建议关</div></div>
+      <select class="sel" id="setReadCn">
+        <option value="0">不读</option>
+        <option value="1">读中文</option>
+      </select>
+    </div>
+    <div class="srow">
+      <div><div class="lab">主题</div><div class="sub">跟随系统 / 强制深色 / 强制浅色</div></div>
+      <select class="sel" id="setTheme">
+        <option value="auto">跟随系统</option>
+        <option value="dark">深色</option>
+        <option value="light">浅色</option>
+      </select>
+    </div>
+    <div class="srow" style="display:block">
+      <div class="lab">管理牌组</div>
+      <div class="sub" style="margin:4px 0 8px">删除后从列表消失，学习进度会保留，随时能恢复</div>
+      <div id="deckManage"></div>
+    </div>
+    <div class="srow">
+      <div><div class="lab">学习数据</div><div class="sub" id="dataInfo">—</div></div>
+      <button class="btn danger" style="flex:0 0 auto;padding:9px 14px;font-size:13px" id="btnReset">清空进度</button>
+    </div>
+    <div class="srow">
+      <div><div class="lab">导出进度</div><div class="sub">把学习记录存成文件，换设备可导入</div></div>
+      <button class="btn" style="flex:0 0 auto;padding:9px 14px;font-size:13px" id="btnExport">导出</button>
+    </div>
+    <button class="btn primary" style="width:100%;margin-top:18px" id="btnCloseSheet">完成</button>
+  </div>
+</div>
+
+<!-- ==================== 确认弹窗 ==================== -->
+<div class="sheet center hidden" id="confirm">
+  <div class="confirmbox">
+    <h3 id="confirmTitle">确认</h3>
+    <p id="confirmMsg"></p>
+    <div style="display:flex;gap:10px">
+      <button class="btn" id="confirmNo">取消</button>
+      <button class="btn danger" id="confirmYes">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ==================================================================
+   数据：每集一个 deck。加新集只需往 DECKS 里再加一项，键名随意。
+   ================================================================== */
+const DECKS = {"better-call-saul":{"show":"Better Call Saul","showCn":"风骚律师","season":4,"episode":5,"epTitle":"Baggage","epTitleCn":"包袱","date":"2026-10-06","source":"Springfield Springfield","cards":[{"id":"bcs-s04e05-01","front":"So, you're living your life free and easy, and then one day, at a time of their choosing bam! They bring the hammer down to Chinatown.","word":"bring the hammer down on","cn":"对某人严惩；从重打击","ipa":"/brɪŋ ðə ˈhæmər daʊn ɑːn/","trans":"你日子过得逍遥自在，然后某天，在他们挑好的时刻，砰！他们就朝唐人街下手了。"},{"id":"bcs-s04e05-02","front":"Drop them off at least five miles from here in separate Dumpsters.","word":"drop off","cn":"把东西放在某处；投递","ipa":"/drɑːp ɔːf/","trans":"把这些东西带到离这儿至少五英里的地方，分开扔进不同的垃圾箱。"},{"id":"bcs-s04e05-03","front":"You will keep your nose clean.","word":"keep your nose clean","cn":"老实守法；安分守己","ipa":"/kiːp jɔːr noʊz kliːn/","trans":"你要老老实实的，别惹事。"},{"id":"bcs-s04e05-04","front":"You will show up on time.","word":"show up","cn":"出现；到场","ipa":"/ʃoʊ ʌp/","trans":"你要按时到。"},{"id":"bcs-s04e05-05","front":"We're not a client you hang up on.","word":"hang up on","cn":"挂断某人电话；冷落某人","ipa":"/hæŋ ʌp ɑːn/","trans":"我们不是你随便挂电话的客人。"},{"id":"bcs-s04e05-06","front":"You're not gonna play dumb, are you?","word":"play dumb","cn":"装傻；装聋作哑","ipa":"/pleɪ dʌm/","trans":"你别想装傻充愣，行吗？"},{"id":"bcs-s04e05-07","front":"Well, people are gobbling these up like Tic Tacs.","word":"gobble up","cn":"抢购；狼吞虎咽","ipa":"/ˈɡɑːbl ʌp/","trans":"嗯，人们像吃薄荷糖一样抢着买这些。"},{"id":"bcs-s04e05-08","front":"I'm going to throw up.","word":"throw up","cn":"呕吐","ipa":"/θroʊ ʌp/","trans":"我要吐了。"},{"id":"bcs-s04e05-09","front":"You're not gonna get away with it.","word":"get away with","cn":"逃过惩罚；蒙混过关","ipa":"/ɡet əˈweɪ wɪð/","trans":"你蒙混不过去的。"},{"id":"bcs-s04e05-10","front":"Pull the short end.","word":"pull the short end","cn":"抽到坏签；吃亏倒霉","ipa":"/pʊl ðə ʃɔːrt end/","trans":"你抽到短的那一头。"},{"id":"bcs-s04e05-11","front":"Live with it.","word":"live with it","cn":"忍着吧；接受现实","ipa":"/lɪv wɪð ɪt/","trans":"忍着吧。"},{"id":"bcs-s04e05-12","front":"I'll call you in about 20 minutes and talk you through the rest of it, okay?","word":"talk someone through","cn":"一步步指导某人","ipa":"/tɔːk ˈsʌmwʌn θruː/","trans":"我大概二十分钟后打给你，一步步带你走完剩下的流程，好吗？"},{"id":"bcs-s04e05-13","front":"I have tons of Mesa Verde to catch up on.","word":"catch up on","cn":"补上落下的工作；赶上进度","ipa":"/kætʃ ʌp ɑːn/","trans":"我有一大堆美萨维德的活儿要赶。"},{"id":"bcs-s04e05-14","front":"Do me a favor.","word":"do me a favor","cn":"帮我个忙","ipa":"/duː miː ə ˈfeɪvər/","trans":"帮我个忙。"},{"id":"bcs-s04e05-15","front":"Beat it, narc.","word":"beat it","cn":"走开；滚蛋","ipa":"/biːt ɪt/","trans":"滚吧，条子。"},{"id":"bcs-s04e05-16","front":"Now, hold on. We're almost there.","word":"hold on","cn":"稍等；等一下","ipa":"/hoʊld ɑːn/","trans":"现在稍等，我们快到了。"},{"id":"bcs-s04e05-17","front":"The judge is gonna issue a bench warrant, and then jail is a done deal.","word":"a done deal","cn":"木已成舟；板上钉钉","ipa":"/ə dʌn diːl/","trans":"法官会签发拘捕令，那坐牢就板上钉钉了。"},{"id":"bcs-s04e05-18","front":"So word to the wise, uh, if you want to talk to your friends on the inside, there is a simple solution.","word":"word to the wise","cn":"明事理的人说的话；忠告","ipa":"/wɜːrd tə ðə waɪz/","trans":"所以明眼人都知道，你要是想跟里面的人联系，有个简单的办法。"},{"id":"bcs-s04e05-19","front":"They know every lick and tittle.","word":"every lick and tittle","cn":"每一丁点；一丝一毫","ipa":"/ˈevri lɪk ənd ˈtɪtl/","trans":"他们什么都知道，一丁点都不漏。"},{"id":"bcs-s04e05-20","front":"That'll keep you clean as a whistle.","word":"clean as a whistle","cn":"清白无瑕；干干净净","ipa":"/kliːn əz ə ˈwɪsl/","trans":"那样就能让你清清白白。"},{"id":"bcs-s04e05-21","front":"Private conversations are few and far between.","word":"few and far between","cn":"寥寥无几；少之又少","ipa":"/fjuː ən fɑːr bɪˈtwiːn/","trans":"私下交谈的机会少之又少。"},{"id":"bcs-s04e05-22","front":"Well, Howard, I guess that's your cross to bear.","word":"a cross to bear","cn":"自己该受的苦；命中注定要背的担子","ipa":"/ə krɔːs tə ber/","trans":"好吧霍华德，我想那就是你该背的担子。"},{"id":"bcs-s04e05-23","front":"Um, what's what's eating you?","word":"what's eating you","cn":"你怎么了；什么事困扰着你","ipa":"/wʌts ˈiːtɪŋ juː/","trans":"嗯，你到底怎么了？"},{"id":"bcs-s04e05-24","front":"Wouldn't wish it on my worst enemy.","word":"wouldn't wish it on my worst enemy","cn":"我可不想让最恨的人也得这份罪","ipa":"/ˈwʊznt wɪʃ ɪt ɑːn maɪ ˈwɜːrst ˈenəmi/","trans":"我可不想让我最恨的人也得这种罪受。"},{"id":"bcs-s04e05-25","front":"It sounds like you were just in the wrong place at the wrong time.","word":"the wrong place at the wrong time","cn":"在错误的时间出现在错误的地点（倒霉透顶）","ipa":"/ðə rɔːŋ pleɪs ət ðə rɔːŋ taɪm/","trans":"听起来你就是赶上了最不该赶上的时间地点。"},{"id":"bcs-s04e05-26","front":"Let's leave it at that.","word":"leave it at that","cn":"到此为止；就说到这里","ipa":"/liːv ɪt æt ðæt/","trans":"就说到这儿吧。"},{"id":"bcs-s04e05-27","front":"I'm just getting the hang of the system, so","word":"get the hang of","cn":"摸清门道；掌握窍门","ipa":"/ɡet ðə hæŋ əv/","trans":"我刚刚摸清这个系统的门道。"},{"id":"bcs-s04e05-28","front":"I'll be there, but if it doesn't ring at 3:00 on the dot, I'm gone.","word":"on the dot","cn":"准点；分秒不差","ipa":"/ɑːn ðə dɑːt/","trans":"我会到，但要是三点整它没响，我就走人。"},{"id":"bcs-s04e05-29","front":"Use your words.","word":"use your words","cn":"有话直说；别含糊","ipa":"/juːz jɔːr wɜːrdz/","trans":"有话直说。"},{"id":"bcs-s04e05-30","front":"Um I lost track of time.","word":"lose track of time","cn":"忘了时间；没留意时间","ipa":"/luːz træk əv taɪm/","trans":"嗯，我压根没注意时间。"},{"id":"bcs-s04e05-31","front":"Don't wait up.","word":"don't wait up","cn":"别等我了（先睡吧）","ipa":"/doʊnt weɪt ʌp/","trans":"别等我了，你先睡。"},{"id":"bcs-s04e05-32","front":"Well, I guess, uh that's it. [CHUCKLES.] Quite a ride, huh?","word":"quite a ride","cn":"一路走来真不容易；人生起伏太大","ipa":"/kwaɪt ə raɪd/","trans":"好了，我猜就这样了。一路够呛的，是吧？"},{"id":"bcs-s04e05-33","front":"And they will clean your bones faster than a school of piranhas.","word":"a school of piranhas","cn":"一群食人鱼；形容一群贪婪狠毒的人","ipa":"/ə skuːl əv pɪˈrɑːnəz/","trans":"他们会把你的骨头啃得比一群食人鱼还干净。"},{"id":"bcs-s04e05-34","front":"Back in the day, I would have spotted those low-rent little skeeves from a mile away.","word":"low-rent skeeves","cn":"下三滥的小混混；次品","ipa":"/ˈloʊ rent skiːvz/","trans":"以前，我一眼就能看出那些下三滥的小混混。"},{"id":"bcs-s04e05-35","front":"And they would have known not to roll me.","word":"roll me","cn":"抢我；打劫我","ipa":"/roʊl miː/","trans":"他们本来应该知道不能抢我。"},{"id":"bcs-s04e05-36","front":"Did you get that ink in Los Lunas? Las Cruces. Off by one.","word":"off by one","cn":"差一个；错一位","ipa":"/ɔːf baɪ wʌn/","trans":"你拿到拉斯卢纳斯那个纹身了吗？——拉斯克鲁塞斯。——差一个。"},{"id":"bcs-s04e05-37","front":"Good look with the junior achievement project.","word":"a junior achievement project","cn":"业余水平的活儿；嫩雏作品","ipa":"/ə ˈdʒuːniər əˈdʒiːvmənt ˈprɑːdʒekt/","trans":"你这个初中生业余作品还挺像样。"},{"id":"bcs-s04e05-38","front":"No, I haven't had the honor, but I used to be a lawyer.","word":"the honor","cn":"荣幸（客套用语，此处带反讽）","ipa":"/ðiː ˈɑːnər/","trans":"没有，我还没那个荣幸——不过我以前是律师。"},{"id":"bcs-s04e05-39","front":"I got mugged.","word":"get mugged","cn":"被人打劫","ipa":"/ɡet mʌɡd/","trans":"我被人打劫了。"},{"id":"bcs-s04e05-40","front":"Meaning, uh, you know, field mice, and, you know, you got your nest-building squirrel.","word":"nest-building squirrel","cn":"囤东西的松鼠；囤积癖","ipa":"/nest ˈbɪldɪŋ ˈskwɜːrəl/","trans":"意思是，呃，田鼠，还有你这种什么都往家里囤的松鼠。"},{"id":"bcs-s04e05-41","front":"Three cheers for morality.","word":"three cheers for morality","cn":"为道德欢呼（反讽）","ipa":"/θriː tʃɪrz fər məˈræləti/","trans":"为道德干杯（反讽）。"},{"id":"bcs-s04e05-42","front":"Jesus, that's cold.","word":"that's cold","cn":"太冷血了；真够狠","ipa":"/ðæts koʊld/","trans":"天哪，太冷血了。"},{"id":"bcs-s04e05-43","front":"Keep the rubber side down!","word":"keep the rubber side down","cn":"（硬币）正面朝下放——别露富","ipa":"/kiːp ðə ˈrʌbər saɪd daʊn/","trans":"把带图案那面朝下！（别让人看出你有钱）"},{"id":"bcs-s04e05-44","front":"Not only will your case be DOA, but she will rip you a new one on the record.","word":"DOA","cn":"（法律缩写）递解庭上即死刑；一上手就没戏","ipa":"/ˌdiː oʊ ˈeɪ/","trans":"你的案子不光当场就是死路，她还会在法庭记录上把你狠批一顿。"},{"id":"bcs-s04e05-45","front":"I want six months probation, time served, no jail.","word":"time served","cn":"已服的刑期（折抵）","ipa":"/taɪm sɜːrvd/","trans":"我要六个月缓刑，刑期折抵，不要坐牢。"},{"id":"bcs-s04e05-46","front":"Strictly gainful employment.","word":"gainful employment","cn":"有报酬的工作（法律用语）","ipa":"/ˈɡeɪnfl ɪmˈplɔɪmənt/","trans":"（这算）正经有报酬的工作。"},{"id":"bcs-s04e05-47","front":"And if you buy it from me with cash, it's completely untraceable.","word":"untraceable","cn":"查不到来源的；无法追踪的","ipa":"/ʌnˈtreɪsəbl/","trans":"你要是用现金从我这儿买，它完全查不到源头。"},{"id":"bcs-s04e05-48","front":"Copy that.","word":"copy that","cn":"收到；明白了（军事/警务用语）","ipa":"/ˈkɑːpi ðæt/","trans":"收到。"},{"id":"bcs-s04e05-49","front":"You need to stay within the footprint of the building.","word":"footprint","cn":"占地面积；范围","ipa":"/ˈfʊtprɪnt/","trans":"你必须待在这栋楼的范围内。"},{"id":"bcs-s04e05-50","front":"Before I can begin excavation, I must support the existing structure to avoid a cave-in.","word":"cave-in","cn":"塌方；坍塌（工程用语）","ipa":"/ˈkeɪv ɪn/","trans":"开挖之前我必须先加固现有结构，以防塌方。"}]}};
+
+/* ==================================================================
+   存储层
+   ================================================================== */
+const LS_KEY = "seriesVocabCards.v1";
+const DAY = 86400000, MIN = 60000;
+
+let store = loadStore();
+function loadStore() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const o = JSON.parse(raw);
+      o.cards = o.cards || {};
+      o.settings = Object.assign({ newPerDay: 20, theme: "auto", speak: "auto", rate: 1, readCn: 0 }, o.settings || {});
+      o.days = o.days || {};
+      o.removed = o.removed || [];   // 已删除（软删除）的牌组 id，可恢复
+      return o;
+    }
+  } catch (e) { console.warn("读取存储失败，已重置", e); }
+  return {
+    cards: {},
+    settings: { newPerDay: 20, theme: "auto", speak: "auto", rate: 1, readCn: 0 },
+    days: {},
+    removed: [],
+  };
+}
+function saveStore() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(store)); }
+  catch (e) { toast("存储失败（浏览器可能禁用了本地存储）"); }
+}
+
+/* ==================================================================
+   间隔重复算法（Anki 简化版：学习步 + 易度因子 + 四档）
+   ================================================================== */
+function freshState() {
+  return { phase: "new", ivl: 0, ease: 2.5, due: 0, reps: 0, lapses: 0 };
+}
+function getState(cardId) {
+  return store.cards[cardId] || freshState();
+}
+function isNew(cardId) {
+  return !store.cards[cardId];
+}
+
+// 纯函数：把评级作用到状态副本上，用于试算与提交
+function applyGrade(s, g, now) {
+  if (s.phase === "new") {
+    if (g === 0)      { s.phase = "learn"; s.ivl = 1 / 1440; }      // 1 分钟
+    else if (g === 1) { s.phase = "learn"; s.ivl = 6 / 1440; }      // 6 分钟
+    else if (g === 2) { s.phase = "learn"; s.ivl = 10 / 1440; }     // 10 分钟
+    else              { s.phase = "review"; s.ivl = 4; }            // 4 天
+  } else if (s.phase === "learn") {
+    if (g === 0)      { s.ivl = 1 / 1440; s.ease = Math.max(1.3, s.ease - 0.2); }
+    else if (g === 1) { s.ivl = Math.max(6 / 1440, s.ivl * 1.5); }
+    else if (g === 2) { s.phase = "review"; s.ivl = 1; }
+    else              { s.phase = "review"; s.ivl = 4; s.ease += 0.15; }
+  } else { // review
+    if (g === 0)      { s.lapses++; s.ease = Math.max(1.3, s.ease - 0.2); s.phase = "learn"; s.ivl = 1 / 1440; }
+    else if (g === 1) { s.ease = Math.max(1.3, s.ease - 0.15); s.ivl = Math.max(1, s.ivl * 1.2); }
+    else if (g === 2) { s.ivl = Math.max(1, s.ivl * s.ease); }
+    else              { s.ease += 0.15; s.ivl = Math.max(1, s.ivl * s.ease * 1.3); }
+    if (s.ivl > 365) s.ivl = 365;
+  }
+  s.reps++;
+  // 重来 → 当轮立刻重推（让他在这一轮就撞见第二次，符合「反复推到你记住」）
+  s.due = (g === 0) ? now : now + s.ivl * DAY;
+  return s;
+}
+function previewIvl(s, g, now) {
+  const c = Object.assign({}, s);
+  applyGrade(c, g, now);
+  return c.ivl;
+}
+function fmtIvl(days) {
+  if (days <= 0) return "<1分";
+  const min = days * 1440;
+  if (min < 60) return Math.round(min) + "分";
+  if (days < 1) return (days * 24).toFixed(1) + "小时";
+  if (days < 30) return (days < 10 ? days.toFixed(1) : Math.round(days)) + "天";
+  if (days < 365) return (days / 30).toFixed(1) + "个月";
+  return (days / 365).toFixed(1) + "年";
+}
+
+/* ==================================================================
+   队列构建
+   ================================================================== */
+function todayKey(now) {
+  const d = new Date(now);
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+function newIntroducedToday() {
+  const t = todayKey(Date.now());
+  return store.days[t] || 0;
+}
+function bumpNewCounter() {
+  const t = todayKey(Date.now());
+  store.days[t] = (store.days[t] || 0) + 1;
+}
+
+function deckStats(deckId) {
+  const deck = DECKS[deckId], now = Date.now();
+  let nNew = 0, nLearn = 0, nRev = 0, nDone = 0, nDue = 0;
+  for (const c of deck.cards) {
+    const s = store.cards[c.id];
+    if (!s) { nNew++; continue; }
+    if (s.phase === "learn") { nLearn++; nDue++; }
+    else if (s.phase === "review") {
+      if (s.due <= now) { nRev++; nDue++; } else { nDone++; }
+    } else nNew++;
+  }
+  return { total: deck.cards.length, nNew, nLearn, nRev, nDone, nDue };
+}
+
+// 取本轮要刷的卡：到期卡 + 每日额度内新卡；学习中优先（按逾期时长）
+function buildQueue(deckId) {
+  const deck = DECKS[deckId], now = Date.now();
+  const quota = store.settings.newPerDay;
+  const learn = [], rev = [], fresh = [];
+  for (const c of deck.cards) {
+    const s = store.cards[c.id];
+    if (!s) { fresh.push(c); continue; }
+    if (s.due <= now) (s.phase === "learn" ? learn : rev).push(c);
+  }
+  learn.sort((a, b) => getState(a.id).due - getState(b.id).due);
+  rev.sort((a, b) => getState(a.id).due - getState(b.id).due);
+  const allowance = Math.max(0, quota - newIntroducedToday());
+  return learn.concat(rev, fresh.slice(0, allowance));
+}
+// 收尾顺序：先学习中（都答对才能出师）→ 再复习 → 最后新卡
+function pickNext(queue) {
+  if (!queue.length) return null;
+  const now = Date.now();
+  const learn = queue.filter(c => getState(c.id).phase === "learn");
+  if (learn.length) return learn[0];
+  const rev = queue.filter(c => { const s = getState(c.id); return s.phase === "review" && s.due <= now; });
+  if (rev.length) return rev[0];
+  const fresh = queue.filter(c => isNew(c.id));
+  if (fresh.length) return fresh[0];
+  return queue[0];
+}
+
+/* ==================================================================
+   视图状态
+   ================================================================== */
+let cur = { deckId: null, card: null, revealed: false, queue: [], sessionStart: 0, done: 0, again: 0 };
+
+const $ = id => document.getElementById(id);
+function show(view) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  $("view-" + view).classList.add("active");
+}
+function toast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("on");
+  clearTimeout(t._tm);
+  t._tm = setTimeout(() => t.classList.remove("on"), 1900);
+}
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+}
+// 把正面句子里的目标词加粗高亮。
+// 原文里短语常因时态/介词变化（如词条 bring the hammer down on，原文是 down to），
+// 所以按「完整短语 → 去掉尾部介词 → 首个实词」逐级退让，取第一个能命中的。
+function highlight(sentence, word) {
+  const rx = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const cands = [
+    word,
+    word.replace(/\s+(on|in|of|at|to|with|for|about|into|from|up|out|off)$/i, ""),
+    word.split(/\s+/)[0],
+  ].filter(c => c && c.length >= 2);
+  const low = sentence.toLowerCase();
+  for (const cand of cands) {
+    const i = low.indexOf(cand.toLowerCase());
+    if (i >= 0) {
+      return esc(sentence.slice(0, i)) +
+             '<span class="hl">' + esc(sentence.slice(i, i + cand.length)) + "</span>" +
+             esc(sentence.slice(i + cand.length));
+    }
+  }
+  return esc(sentence);
+}
+
+/* ==================================================================
+   语音朗读（Web Speech API — 浏览器内置，不联网、零依赖）
+   ================================================================== */
+const TTS = (() => {
+  const supported = typeof window !== "undefined" && "speechSynthesis" in window;
+  let enVoice = null, zhVoice = null, ready = false;
+
+  function pick() {
+    if (!supported) return;
+    let vs = [];
+    try { vs = speechSynthesis.getVoices() || []; } catch (e) { return; }
+    if (!vs.length) return;
+    enVoice = vs.find(v => /^en[-_]US/i.test(v.lang) && /natural|aria|jenny|guy|michelle|david|zira/i.test(v.name))
+           || vs.find(v => /^en[-_]US/i.test(v.lang))
+           || vs.find(v => /^en[-_]GB/i.test(v.lang))
+           || vs.find(v => /^en/i.test(v.lang)) || null;
+    zhVoice = vs.find(v => /^zh[-_]CN/i.test(v.lang)) || vs.find(v => /^zh/i.test(v.lang)) || null;
+    ready = true;
+  }
+  if (supported) {
+    pick();
+    // Chrome/Edge 的语音列表是异步就绪的，必须监听 voiceschanged
+    try { speechSynthesis.addEventListener("voiceschanged", pick); } catch (e) {}
+    setTimeout(pick, 400);
+  }
+
+  function stop() { if (supported) { try { speechSynthesis.cancel(); } catch (e) {} } }
+
+  // parts: [{text, lang}] —— 按顺序入队朗读
+  function speak(parts) {
+    if (!supported) return false;
+    stop();
+    if (!ready) pick();
+    for (const p of parts) {
+      if (!p || !p.text) continue;
+      const u = new SpeechSynthesisUtterance(p.text);
+      u.lang = p.lang || "en-US";
+      const v = (u.lang.indexOf("zh") === 0) ? zhVoice : enVoice;
+      if (v) {
+        u.voice = v;
+      } else {
+        // 没有匹配音色时清掉 lang：否则部分浏览器会因「找不到该语言的语音」
+        // 而静默失败（点了没声音）。降级用默认音色，宁可口音歪也要出声。
+        u.lang = "";
+      }
+      u.rate = Math.max(0.5, Math.min(2, Number(store.settings.rate) || 1));
+      u.pitch = 1;
+      u.onstart = () => markSpeaking(true);
+      u.onend = () => markSpeaking(false);
+      u.onerror = () => markSpeaking(false);
+      try { speechSynthesis.speak(u); } catch (e) { return false; }
+    }
+    return true;
+  }
+  return {
+    supported, speak, stop, pick,
+    get en() { return enVoice; },
+    get zh() { return zhVoice; },
+  };
+})();
+
+let speakingTimer = null;
+function markSpeaking(on) {
+  const b = $("btnSpeak");
+  if (!b) return;
+  clearTimeout(speakingTimer);
+  if (on) { b.classList.add("on"); return; }
+  // 语音队列结束时刻不完全可靠，稍延一点再摘高亮，避免闪烁
+  speakingTimer = setTimeout(() => b.classList.remove("on"), 260);
+}
+
+// 读当前卡。backOnly=true 时只读背面新增部分（词条 / 中文），不重复正面原句。
+function speakCard(backOnly) {
+  if (!cur.card) return;
+  if (!TTS.supported) { toast("当前浏览器不支持语音朗读"); return; }
+  if (store.settings.speak === "off") { toast("语音朗读已在设置里关闭"); return; }
+  const c = cur.card;
+  const parts = [];
+  if (!backOnly) parts.push({ text: c.front, lang: "en-US" });
+  if (cur.revealed) {
+    parts.push({ text: c.word, lang: "en-US" });
+    if (Number(store.settings.readCn)) parts.push({ text: c.trans, lang: "zh-CN" });
+  }
+  if (!parts.length) parts.push({ text: c.front, lang: "en-US" });
+  TTS.speak(parts);
+}
+
+/* ==================================================================
+   牌组列表
+   ================================================================== */
+function epCode(d) {
+  return "S" + String(d.season).padStart(2, "0") + "E" + String(d.episode).padStart(2, "0");
+}
+function liveDeckIds() {
+  return Object.keys(DECKS).filter(id => !store.removed.includes(id));
+}
+function renderDecks() {
+  const ids = liveDeckIds();
+  let tNew = 0, tLearn = 0, tRev = 0, tDone = 0, tDue = 0, tAll = 0;
+  ids.forEach(id => {
+    const st = deckStats(id);
+    tNew += st.nNew; tLearn += st.nLearn; tRev += st.nRev;
+    tDone += st.nDone; tDue += st.nDue; tAll += st.total;
+  });
+  $("globalStats").innerHTML = `
+    <div class="stat due"><div class="n">${tDue}</div><div class="l">待复习</div></div>
+    <div class="stat new"><div class="n">${tNew}</div><div class="l">新卡</div></div>
+    <div class="stat learn"><div class="n">${tLearn}</div><div class="l">学习中</div></div>
+    <div class="stat done"><div class="n">${tDone}</div><div class="l">已掌握</div></div>`;
+
+  $("deckList").innerHTML = ids.map(id => {
+    const d = DECKS[id], st = deckStats(id);
+    const pD = st.nDone / st.total * 100, pL = st.nLearn / st.total * 100, pN = st.nNew / st.total * 100;
+    const code = epCode(d);
+    const badge = st.nDue > 0 ? `<div class="badge">${st.nDue} 待刷</div>` : "";
+    return `
+    <div class="deck" data-deck="${esc(id)}">
+      ${badge}
+      <div class="dtitle">${esc(d.showCn)} ${code} · ${esc(d.epTitleCn)}</div>
+      <div class="dsub">${esc(d.show)} ${code} — <b>${esc(d.epTitle)}</b></div>
+      <div class="bar">
+        <i class="b-done" style="width:${pD}%"></i>
+        <i class="b-learn" style="width:${pL}%"></i>
+        <i class="b-new" style="width:${pN}%"></i>
+      </div>
+      <div class="dmeta">
+        <span>已掌握 ${st.nDone} / ${st.total}</span>
+        <span>待复习 ${st.nDue}</span>
+      </div>
+    </div>`;
+  }).join("");
+
+  if (!ids.length) {
+    $("deckList").innerHTML = '<p class="empty">所有牌组都被删掉了。<br>到「设置 → 管理牌组」里可以恢复。</p>';
+  }
+
+  document.querySelectorAll(".deck").forEach(el => {
+    el.addEventListener("click", () => startDeck(el.dataset.deck));
+  });
+}
+
+/* ==================================================================
+   牌组管理：软删除 + 可恢复（学习进度一律保留，删错能救回来）
+   ================================================================== */
+function renderDeckManage() {
+  const all = Object.keys(DECKS);
+  const live = all.filter(id => !store.removed.includes(id));
+  const dead = all.filter(id => store.removed.includes(id));
+  let html = "";
+
+  if (!all.length) html = '<p class="empty">还没有任何牌组</p>';
+  for (const id of live) {
+    const d = DECKS[id], st = deckStats(id);
+    html += `<div class="mrow">
+      <div class="minfo">
+        <div class="mname">${esc(d.showCn)} ${epCode(d)}</div>
+        <div class="msub">${st.total} 张 · 已掌握 <b>${st.nDone}</b></div>
+      </div>
+      <button class="btn tiny danger" data-deldeck="${esc(id)}">删除</button>
+    </div>`;
+  }
+  if (dead.length) {
+    html += '<div class="mgroup">已删除（可恢复，进度仍在）</div>';
+    for (const id of dead) {
+      const d = DECKS[id], st = deckStats(id);
+      html += `<div class="mrow removed">
+        <div class="minfo">
+          <div class="mname">${esc(d.showCn)} ${epCode(d)}</div>
+          <div class="msub">${st.total} 张 · 学习进度已保留</div>
+        </div>
+        <button class="btn tiny" data-restoredeck="${esc(id)}">恢复</button>
+      </div>`;
+    }
+  }
+  $("deckManage").innerHTML = html;
+
+  $("deckManage").querySelectorAll("[data-deldeck]").forEach(b => {
+    b.addEventListener("click", () => {
+      const id = b.dataset.deldeck, d = DECKS[id];
+      askConfirm(
+        "删除牌组",
+        `确定删除「${d.showCn} ${epCode(d)}」？\n\n删除后它不再出现在列表里，学习进度会保留，随时能在下面恢复。`,
+        "删除",
+        () => {
+          store.removed.push(id);
+          saveStore();
+          renderDeckManage(); renderDecks();
+          toast("已删除，可在下方恢复");
+        }
+      );
+    });
+  });
+  $("deckManage").querySelectorAll("[data-restoredeck]").forEach(b => {
+    b.addEventListener("click", () => {
+      const id = b.dataset.restoredeck;
+      store.removed = store.removed.filter(x => x !== id);
+      saveStore();
+      renderDeckManage(); renderDecks();
+      toast("已恢复");
+    });
+  });
+}
+
+/* 自建确认弹窗 —— 不用 window.confirm（无头环境与移动端都更稳） */
+let confirmCb = null;
+function askConfirm(title, msg, okText, cb) {
+  $("confirmTitle").textContent = title;
+  $("confirmMsg").textContent = msg;
+  $("confirmYes").textContent = okText || "确定";
+  confirmCb = cb;
+  $("confirm").classList.remove("hidden");
+}
+function closeConfirm() {
+  $("confirm").classList.add("hidden");
+  confirmCb = null;
+}
+
+/* ==================================================================
+   刷卡流程
+   ================================================================== */
+function startDeck(deckId) {
+  if (store.removed.includes(deckId)) return;   // 已删除的牌组不允许进入
+  cur.deckId = deckId;
+  cur.sessionStart = Date.now();
+  cur.done = 0; cur.again = 0;
+  const d = DECKS[deckId];
+  const code = "S" + String(d.season).padStart(2, "0") + "E" + String(d.episode).padStart(2, "0");
+  $("studyTitle").textContent = `${d.showCn} ${code}`;
+  show("study");
+  nextCard(true);
+}
+
+function nextCard(freshSession) {
+  cur.queue = buildQueue(cur.deckId);
+  const card = pickNext(cur.queue);
+  if (!card) {
+    // 队列耗尽：必须清空当前卡状态，否则 grade() 仍可被触发而重复计分
+    cur.card = null;
+    cur.revealed = false;
+    finish();
+    return;
+  }
+  cur.card = card;
+  cur.revealed = false;
+  renderCard();
+  updateHud();
+}
+
+function renderCard() {
+  const c = cur.card;
+  $("qtext").innerHTML = highlight(c.front, c.word);
+  $("answerArea").classList.add("hidden");
+  $("grades").classList.add("hidden");
+  $("btnShow").classList.remove("hidden");
+  $("cardHint").classList.remove("hidden");
+  $("card").classList.remove("answer");
+  $("card").style.animation = "none";
+  void $("card").offsetWidth;
+  $("card").style.animation = "";
+
+  // 换卡先掐掉上一张的朗读，避免串音
+  TTS.stop();
+  const sb = $("btnSpeak");
+  const spkOff = !TTS.supported || store.settings.speak === "off";
+  sb.classList.toggle("off", spkOff);
+  sb.classList.remove("on");
+  sb.title = !TTS.supported ? "当前浏览器不支持语音朗读"
+           : store.settings.speak === "off" ? "语音朗读已关闭（设置里可开）"
+           : "朗读（快捷键 R）";
+  // 自动朗读：只读正面英文原句
+  if (store.settings.speak === "auto" && TTS.supported) {
+    setTimeout(() => { if (cur.card === c && !cur.revealed) speakCard(false); }, 180);
+  }
+}
+function reveal() {
+  if (cur.revealed) return;
+  cur.revealed = true;
+  const c = cur.card;
+  $("atext").textContent = c.trans;
+  $("defbox").innerHTML = `
+    <div class="defword">${esc(c.word)}</div>
+    <div class="defcn">${esc(c.cn)}</div>
+    <div class="defipa">${esc(c.ipa)}</div>`;
+  $("answerArea").classList.remove("hidden");
+  $("answerArea").querySelectorAll(".reveal").forEach(el => {
+    el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+  });
+  $("grades").classList.remove("hidden");
+  $("btnShow").classList.add("hidden");
+  $("cardHint").classList.add("hidden");
+  $("card").classList.add("answer");
+  // 四档预估间隔
+  const now = Date.now(), s = getState(c.id);
+  [0, 1, 2, 3].forEach(g => { $("iv" + g).textContent = fmtIvl(previewIvl(s, g, now)); });
+  // 自动朗读：翻面后补读背面（词条 / 可选中文），不重复正面原句
+  if (store.settings.speak === "auto" && TTS.supported) {
+    setTimeout(() => { if (cur.card === c && cur.revealed) speakCard(true); }, 160);
+  }
+}
+
+function grade(g) {
+  // 双重守卫：必须已翻面、有当前卡，且确实停留在刷卡视图
+  // （否则完成页/其他视图下的残留调用会重复计分）
+  if (!cur.revealed || !cur.card) return;
+  if (!$("view-study").classList.contains("active")) return;
+  const id = cur.card.id, now = Date.now();
+  const s = Object.assign(freshState(), getState(id));
+  const wasNew = isNew(id);
+  applyGrade(s, g, now);
+  store.cards[id] = s;
+  if (wasNew) bumpNewCounter();
+  cur.done++; if (g === 0) cur.again++;
+  saveStore();
+  nextCard();
+}
+
+function updateHud() {
+  const deck = DECKS[cur.deckId], now = Date.now();
+  let nNew = 0, nLearn = 0, nRev = 0, nDone = 0;
+  for (const c of deck.cards) {
+    const s = store.cards[c.id];
+    if (!s) { nNew++; continue; }
+    if (s.phase === "learn") nLearn++;
+    else if (s.phase === "review") { if (s.due <= now) nRev++; else nDone++; }
+  }
+  const remaining = cur.queue.length;
+  $("hudCounts").innerHTML =
+    `<span class="c-new">新 ${nNew}</span><span class="c-learn">学习中 ${nLearn}</span>` +
+    `<span class="c-rev">待复习 ${nRev}</span><span class="c-done">已掌握 ${nDone}</span>`;
+  $("hudTotal").textContent = `本轮剩 ${remaining}`;
+  const total = deck.cards.length;
+  $("pbarFill").style.width = (nDone / total * 100).toFixed(1) + "%";
+}
+
+function finish() {
+  const deck = DECKS[cur.deckId], now = Date.now();
+  TTS.stop();
+  // 收起刷卡页控件，避免残留可交互元素被后续触发
+  $("grades").classList.add("hidden");
+  $("btnShow").classList.add("hidden");
+  // 预测下一次到期
+  let soonest = Infinity;
+  for (const c of deck.cards) {
+    const s = store.cards[c.id];
+    if (s && s.due > now) soonest = Math.min(soonest, s.due);
+  }
+  const st = deckStats(cur.deckId);
+  const ideal = st.total - st.nNew;
+  const acc = ideal > 0 ? Math.round((1 - cur.again / Math.max(1, ideal)) * 100) : 100;
+
+  if (cur.done === 0 && st.nDue === 0 && st.nNew > 0) {
+    $("doneEmoji").textContent = "🌱";
+    $("doneTitle").textContent = "今日新卡额度用完了";
+    $("doneMsg").textContent = "你设了每天 " + store.settings.newPerDay + " 张新卡。想继续可以到设置里调高，或者明天再来。";
+  } else if (cur.done === 0) {
+    $("doneEmoji").textContent = "✅";
+    $("doneTitle").textContent = "今天没有要刷的卡";
+    $("doneMsg").textContent = "这一集的卡都还没到期。明天再来，或者到设置里提高每日新卡上限。";
+  } else {
+    $("doneEmoji").textContent = acc >= 80 ? "🎉" : "💪";
+    $("doneTitle").textContent = "本轮刷完了";
+    $("doneMsg").textContent = `这一轮过了 ${cur.done} 张，其中「重来」${cur.again} 次。`;
+  }
+  $("doneNext").innerHTML = soonest < Infinity
+    ? `已掌握 <b>${st.nDone}</b> / ${st.total} 张<br>下一批卡将在 <b>${fmtWhen(soonest - now)}</b> 后到期`
+    : `已掌握 <b>${st.nDone}</b> / ${st.total} 张`;
+  show("done");
+}
+function fmtWhen(ms) {
+  if (ms < 60000) return Math.max(1, Math.round(ms / 1000)) + " 秒";
+  if (ms < 3600000) return Math.round(ms / 60000) + " 分钟";
+  if (ms < 86400000) return (ms / 3600000).toFixed(1) + " 小时";
+  const d = ms / 86400000;
+  return d < 30 ? Math.round(d) + " 天" : (d / 30).toFixed(1) + " 个月";
+}
+
+/* ==================================================================
+   设置
+   ================================================================== */
+function openSheet() {
+  TTS.pick();   // 语音列表是异步就绪的，打开面板时再探一次
+  $("setNew").value = String(store.settings.newPerDay);
+  $("setTheme").value = store.settings.theme;
+  $("setSpeak").value = store.settings.speak;
+  $("setRate").value = String(store.settings.rate);
+  $("setReadCn").value = String(Number(store.settings.readCn) ? 1 : 0);
+  if (!TTS.supported) {
+    ["setSpeak", "setRate", "setReadCn"].forEach(id => { const el = $(id); el.disabled = true; });
+  }
+  const n = Object.keys(store.cards).length;
+  $("dataInfo").textContent = n ? `已记录 ${n} 张卡的学习进度` : "还没有学习记录";
+  const speaker = $("speakInfo"), warn = $("speakWarn");
+  if (speaker) {
+    speaker.textContent = !TTS.supported ? "此浏览器不支持语音朗读"
+      : TTS.en ? TTS.en.name
+      : "未检测到英文语音（会用默认音色硬读）";
+  }
+  if (warn) warn.style.display = (TTS.supported && !TTS.en) ? "" : "none";
+  renderDeckManage();
+  $("sheet").classList.remove("hidden");
+}
+function applyTheme() {
+  const t = store.settings.theme;
+  let real = t;
+  if (t === "auto") {
+    real = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  }
+  document.documentElement.setAttribute("data-theme", real);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", real === "light" ? "#f4f6fa" : "#0e1015");
+}
+
+/* ==================================================================
+   事件绑定
+   ================================================================== */
+$("btnShow").addEventListener("click", e => { e.stopPropagation(); reveal(); });
+$("btnSpeak").addEventListener("click", e => { e.stopPropagation(); speakCard(false); });
+$("card").addEventListener("click", () => { if (!cur.revealed) reveal(); });
+document.querySelectorAll(".grade").forEach(b => {
+  b.addEventListener("click", e => { e.stopPropagation(); grade(parseInt(b.dataset.g, 10)); });
+});
+$("btnBack").addEventListener("click", () => { TTS.stop(); renderDecks(); show("decks"); });
+$("btnDoneBack").addEventListener("click", () => { TTS.stop(); renderDecks(); show("decks"); });
+$("btnContinue").addEventListener("click", () => { nextCard(true); show("study"); });
+$("btnSettings").addEventListener("click", openSheet);
+$("btnCloseSheet").addEventListener("click", () => $("sheet").classList.add("hidden"));
+$("sheet").addEventListener("click", e => { if (e.target === $("sheet")) $("sheet").classList.add("hidden"); });
+$("btnTheme").addEventListener("click", () => {
+  const order = ["auto", "dark", "light"];
+  const i = order.indexOf(store.settings.theme);
+  store.settings.theme = order[(i + 1) % 3];
+  applyTheme(); saveStore();
+  toast("主题：" + { auto: "跟随系统", dark: "深色", light: "浅色" }[store.settings.theme]);
+});
+$("setNew").addEventListener("change", e => {
+  store.settings.newPerDay = parseInt(e.target.value, 10); saveStore(); toast("已保存");
+});
+$("setTheme").addEventListener("change", e => {
+  store.settings.theme = e.target.value; applyTheme(); saveStore(); toast("已保存");
+});
+$("setSpeak").addEventListener("change", e => {
+  store.settings.speak = e.target.value; saveStore();
+  if (store.settings.speak === "off") TTS.stop();
+  toast("朗读：" + { auto: "自动朗读", manual: "只手动点", off: "已关闭" }[store.settings.speak]);
+});
+$("setRate").addEventListener("change", e => {
+  store.settings.rate = parseFloat(e.target.value); saveStore();
+  toast("语速 " + store.settings.rate + "×");
+});
+$("setReadCn").addEventListener("change", e => {
+  store.settings.readCn = parseInt(e.target.value, 10) ? 1 : 0; saveStore(); toast("已保存");
+});
+$("btnTestSpeak").addEventListener("click", () => {
+  if (!TTS.supported) { toast("此浏览器不支持语音朗读"); return; }
+  TTS.stop();
+  TTS.speak([{ text: "So, you're living your life free and easy.", lang: "en-US" }]);
+});
+$("btnReset").addEventListener("click", () => {
+  askConfirm("清空学习进度",
+    "清空所有牌组的复习记录？\n\n卡片本身不会消失，但「已掌握 / 到期时间」会全部归零，这一步不可撤销。",
+    "清空", () => {
+      store.cards = {}; store.days = {}; saveStore();
+      renderDeckManage(); renderDecks(); openSheet();
+      toast("进度已清空");
+    });
+});
+// 确认弹窗按钮
+$("confirmNo").addEventListener("click", closeConfirm);
+$("confirmYes").addEventListener("click", () => { const cb = confirmCb; closeConfirm(); if (cb) cb(); });
+$("confirm").addEventListener("click", e => { if (e.target === $("confirm")) closeConfirm(); });
+$("btnExport").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "series-vocab-progress-" + todayKey(Date.now()) + ".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("已导出");
+});
+$("btnEdit").addEventListener("click", () => {
+  if (!cur.card) return;
+  const c = cur.card;
+  toast("本卡：" + c.word + " — " + c.cn);
+});
+// 键盘：空格/回车显示答案，1-4 评级，Esc 返回
+document.addEventListener("keydown", e => {
+  if (!$("confirm").classList.contains("hidden")) {
+    // 删除类操作只允许 Esc 取消；不接受回车直达确定，避免误触
+    if (e.key === "Escape") { e.preventDefault(); closeConfirm(); }
+    return;
+  }
+  if (!$("view-study").classList.contains("active")) return;
+  if (!$("sheet").classList.contains("hidden")) return;
+  if (e.code === "Space" || e.code === "Enter") { e.preventDefault(); if (!cur.revealed) reveal(); return; }
+  if (e.key === "Escape") { TTS.stop(); renderDecks(); show("decks"); return; }
+  if (e.key === "r" || e.key === "R") { e.preventDefault(); speakCard(false); return; }
+  if (cur.revealed && ["1", "2", "3", "4"].includes(e.key)) {
+    e.preventDefault(); grade(parseInt(e.key, 10) - 1);
+  }
+});
+window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
+  if (store.settings.theme === "auto") applyTheme();
+});
+
+/* ==================================================================
+   启动
+   ================================================================== */
+applyTheme();
+renderDecks();
+</script>
+</body>
+</html>
