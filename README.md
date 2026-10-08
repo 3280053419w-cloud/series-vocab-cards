@@ -77,8 +77,9 @@
 | 剧集 | 词条数 | 来源 |
 |---|---|---|
 | 风骚律师 S04E05《包袱》 | 50 | Springfield Springfield |
+| 风骚律师 S04E08《库沙塔》 | 50 | Springfield Springfield |
 
-新剧集持续追加。
+新剧集持续追加，已发布的链接不会变。
 
 ---
 
