@@ -60,6 +60,10 @@ const validationEnd = html.indexOf('function downloadProgress()', validationStar
 sandbox.DECKS = decks;
 sandbox.store = { settings: { newPerDay: 20, theme: 'auto', speak: 'auto', rate: 1, readCn: 0 } };
 sandbox.LocalMedia = sandbox.window.LocalMedia;
+sandbox.TEACHING = notes;
+vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../shared/deck-format.js'),'utf8'), sandbox);
+const customStart = html.indexOf('/* Custom decks are part');
+vm.runInNewContext(html.slice(customStart, helperStart), sandbox);
 vm.runInNewContext(html.slice(validationStart, validationEnd) + '\nglobalThis.validate = validateProgress;', sandbox);
 const original = {
   cards: { [cards[0].id]: { phase: 'review', ivl: 7, ease: 2.5, due: 1780000000000, reps: 5, lapses: 0 } },
