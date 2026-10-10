@@ -1,0 +1,17 @@
+name = "series-vocab-generator"
+main = "worker.mjs"
+compatibility_date = "2026-10-10"
+
+[vars]
+ALLOWED_ORIGINS = "https://3280053419w-cloud.github.io"
+# Fill in the API service and exact model available in your account.
+AI_BASE_URL = "https://api.openai.com/v1"
+AI_MODEL = ""
+AI_MAX_TOKENS = "8192"
+# Set AI_API_KEY and APP_TOKEN with `wrangler secret put`; never put secrets here.
+
+# Optional Cloudflare rate limiting binding:
+# [[ratelimits]]
+# name = "RATE_LIMITER"
+# namespace_id = "1001"
+# simple = { limit = 3, period = 60 }

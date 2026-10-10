@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<title>剧集记忆卡 · Series Vocab</title>
+<title>剧集精读与精听 · Series Vocab</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%237c8cff'/%3E%3Crect x='20' y='28' width='60' height='36' rx='7' fill='%23fff'/%3E%3Crect x='30' y='56' width='40' height='7' rx='3.5' fill='%23fff' opacity='.55'/%3E%3Ccircle cx='34' cy='44' r='5' fill='%237c8cff'/%3E%3C/svg%3E">
 <style>
 :root{
@@ -203,6 +203,16 @@ body{
   background:var(--surface3);color:var(--text);padding:11px 20px;border-radius:24px;
   font-size:13.5px;box-shadow:var(--shadow);opacity:0;transition:.25s;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(-6px)}
+/* Learning workspace: extend the existing visual language without dependencies. */
+button,input,select,textarea{font:inherit}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,[role="button"]:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.iconbtn.wide,#lessonBack{width:auto;padding:0 11px;font-size:12px;min-height:40px}.lesson-scroll{flex:1;overflow-y:auto;min-height:0;padding:6px 16px 24px}.lesson-intro{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0 15px}.eyebrow{font-size:12px;color:var(--accent);letter-spacing:.04em}.muted{color:var(--text2);font-size:13px;line-height:1.7}.lesson-intro .muted{font-size:11px}.mode-tabs{display:flex;gap:6px;background:var(--surface2);padding:5px;border-radius:13px;margin-bottom:14px}.mode-tabs button{flex:1;background:transparent;border:0;border-radius:9px;padding:11px 5px;color:var(--text2);font-size:13px;cursor:pointer;min-height:44px}.mode-tabs button.active{background:var(--surface);color:var(--accent);font-weight:700;box-shadow:0 2px 8px #0001}.lesson-tools{display:flex;gap:7px;margin-bottom:14px}.lesson-tools input{flex:1;min-width:0;width:100px}.lesson-tools select{max-width:125px}input[type="search"],input[type="text"],input:not([type]),input[type="number"],textarea,select{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:9px;padding:10px;min-height:42px}textarea{display:block;width:100%;resize:vertical;line-height:1.7;margin:8px 0 10px}textarea::placeholder,input::placeholder{color:var(--text2)}.small-btn{background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;cursor:pointer;font-size:12px;min-height:40px;flex-shrink:0}.small-btn:hover{border-color:var(--accent);color:var(--accent)}.small-btn[aria-pressed="true"],.lesson-completion button[aria-pressed="true"]{color:var(--good);border-color:var(--good);background:var(--surface2)}button:disabled{opacity:.4;cursor:not-allowed}.sentence-list{max-height:260px;overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin:0 0 16px;padding:5px}.sentence-list button{display:flex;align-items:center;gap:10px;width:100%;padding:12px 10px;text-align:left;background:transparent;border:0;border-radius:8px;color:var(--text2);font-size:13px;cursor:pointer}.sentence-list button[aria-current="true"]{color:var(--accent);background:var(--accent-dim)}.sentence-list .list-no{color:var(--text2);width:23px;flex-shrink:0;font-size:11px}.sentence-list .list-word{flex:1;overflow-wrap:anywhere}.sentence-list .list-status{font-size:10px;white-space:nowrap}.sentence-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text2);margin:6px 0 10px}.audio-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.audio-toolbar .btn{padding:11px 14px;font-size:14px;flex:1;min-width:120px}.rate-label,.loop-label{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2)}.rate-label select{padding:7px 5px;min-height:40px}.loop-label input{width:16px;height:16px;accent-color:var(--accent)}.source-note{font-size:11px;color:var(--text2);line-height:1.6;margin:8px 0 14px;min-height:18px}.reading-card{border:1px solid var(--border);background:var(--surface);border-radius:18px;padding:23px 22px;overflow-wrap:anywhere}.lesson-english{font-size:23px;line-height:1.65;font-weight:500;white-space:pre-line}.lesson-english mark{background:var(--accent-dim);color:var(--accent);border-radius:4px;padding:1px 2px}.subtitle-actions{display:flex;gap:8px;margin-top:16px}.lesson-chinese{font-size:15px;line-height:1.8;color:var(--text2);margin:14px 0}.meaning-box{margin-top:22px;border-top:1px solid var(--border);padding-top:21px}.meaning-box h2{font-size:20px;line-height:1.4;margin:8px 0;color:var(--accent)}.meaning-box p{font-size:14px;line-height:1.8;margin:6px 0}.meaning-box .ipa{font-family:Consolas,monospace;color:var(--text2);font-size:12px}.usage-box{margin-top:20px}.usage-box h3{font-size:14px;margin:0 0 8px}.usage-box p{line-height:1.8;margin:8px 0;font-size:14px}.usage-box .example{border-left:3px solid var(--accent);padding:8px 12px;background:var(--surface2);border-radius:0 8px 8px 0}.reading-card details,.local-audio{border-top:1px solid var(--border);padding:15px 0;margin-top:16px}.reading-card summary,.local-audio summary{cursor:pointer;font-size:13px;font-weight:600;line-height:1.8}.reading-card details p{font-size:13px;line-height:1.9;white-space:pre-line}.reading-card label{display:block;font-size:13px;line-height:1.7;margin-top:12px}.practice-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.practice-row input{flex:1;min-width:100px;width:130px}.microcopy{color:var(--text2);font-size:11px;line-height:1.8;margin:8px 0}.feedback{font-size:13px;line-height:1.9;white-space:pre-line}.feedback.correct{color:var(--good)}.feedback .missing{color:var(--again);text-decoration:underline}.feedback .extra{color:var(--hard)}.feedback .match{color:var(--good)}.feedback .diff-row{background:var(--surface2);padding:10px;border-radius:8px;margin:6px 0}.feedback .diff-label{font-size:11px;color:var(--text2)}.sentence-mask{padding:18px 0;color:var(--text2);font-size:15px;line-height:1.8}.listen-prompt{padding:14px 16px;background:var(--accent-dim);border-radius:12px;margin-bottom:14px;font-size:13px}.listen-prompt p{font-size:12px;line-height:1.8;margin:5px 0 0;color:var(--text2)}#listeningNotes{margin-top:20px;padding-top:2px;border-top:1px solid var(--border)}#lessonIssue{width:100%;margin-top:7px}.lesson-completion{display:flex;gap:8px;margin-top:14px}.lesson-completion .btn{font-size:13px;padding:13px 8px}.lesson-nav{display:flex;align-items:center;gap:12px;flex:0 0 auto;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--border);background:var(--bg)}.lesson-nav .btn{padding:12px;font-size:14px}.lesson-nav span{font-size:12px;color:var(--text2);min-width:45px;text-align:center}.local-audio{background:var(--surface);border:1px solid var(--border);padding:15px;border-radius:12px;margin-top:18px}.file-pickers{display:flex;gap:10px;flex-wrap:wrap}.file-label{display:block;flex:1;min-width:180px;font-size:12px;line-height:1.8;color:var(--text2)}.file-label input{display:block;max-width:100%;font-size:11px;margin-top:7px}#lessonMedia{display:block;width:100%;max-height:240px;background:#08090c;border-radius:9px;margin:10px 0}.range-row{display:flex;align-items:flex-end;gap:7px;margin:12px 0;flex-wrap:wrap}.range-row label{flex:1;min-width:85px;font-size:11px;color:var(--text2)}.range-row input{display:block;width:100%;margin-top:5px}.hero-intro{padding:8px 0 16px}.hero-intro h2{font-size:21px;line-height:1.5;margin:5px 0 7px}.hero-intro p{font-size:13px;color:var(--text2);line-height:1.8;margin:0}.home-actions{display:flex;gap:8px;margin:12px 0 18px}.home-actions .btn{font-size:13px;padding:12px}.deck .dmeta{gap:8px;flex-wrap:wrap;line-height:1.6}.sheetbox{max-height:90dvh;overflow-y:auto}.sheetbox .srow{gap:12px}.help-dialog{border:1px solid var(--border);border-radius:18px;background:var(--surface);color:var(--text);width:calc(100% - 32px);max-width:540px;max-height:85dvh;padding:24px;line-height:1.8}.help-dialog::backdrop{background:#0009}.help-dialog h2{font-size:19px;margin:0 0 14px}.help-dialog h3{font-size:14px;margin:18px 0 5px}.help-dialog p,.help-dialog li{font-size:13px;color:var(--text2)}.help-dialog ol{padding-left:22px}.help-dialog .btn{display:block;width:100%;margin-top:16px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:420px){.lesson-scroll{padding:4px 12px 18px}.reading-card{padding:19px 16px}.lesson-english{font-size:21px}.lesson-intro{align-items:flex-start;flex-direction:column;gap:5px}.lesson-tools{gap:5px}.lesson-tools input{font-size:12px;padding:9px 7px}.lesson-tools select{font-size:11px;padding:8px 4px;max-width:100px}.lesson-tools .small-btn{padding:8px}.audio-toolbar{gap:6px}.rate-label{font-size:11px}.range-row .small-btn{width:100%}.mode-tabs button{font-size:12px}.lesson-completion .btn{font-size:12px}.deck .badge{position:static;display:inline-block;margin-bottom:8px}.hud{flex-wrap:wrap;gap:4px}.cardwrap{align-items:flex-start}.qtext{font-size:21px}.toast{white-space:normal;max-width:90vw;text-align:center;width:max-content}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.add-module{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;margin:4px 0 20px;overflow-wrap:anywhere}.add-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.add-heading h2{font-size:17px;line-height:1.5;margin:5px 0}.add-module label{display:block;font-size:12px;color:var(--text2);line-height:1.8;min-width:0}.add-module input,.add-module select{display:block;width:100%;margin-top:5px;min-width:0}.add-title-row,.add-number-row,.add-submit-row{display:flex;gap:10px;margin:12px 0}.add-title-row>label:first-child{width:85px;flex:none}.add-title-row .grow{flex:1}.add-number-row>label{flex:1}.add-submit-row .btn{font-size:14px;padding:12px}.add-details{border-top:1px solid var(--border);padding:13px 0 1px;margin-top:10px}.add-details summary{cursor:pointer;font-size:12px;color:var(--text2);line-height:1.8}.add-details>label{margin:10px 0}.add-module input[type="url"],.add-module input[type="password"]{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:9px;padding:10px;min-height:42px}.add-module input[type="file"]{font-size:11px}.added-result{border-top:1px solid var(--border);margin-top:15px;padding-top:12px}.added-result>p{font-size:13px;line-height:1.8}.added-actions{display:flex;gap:8px;flex-wrap:wrap}.added-actions .btn{font-size:13px;padding:10px 14px;flex:1}.added-actions .small-btn{flex:1;white-space:nowrap}#addStatus.error{color:var(--again)}#addStatus.success{color:var(--good)}#addDeckForm[aria-busy="true"] #addGenerate{opacity:.65}@media(max-width:420px){.add-module{padding:14px}.add-heading{align-items:flex-start;gap:6px}.add-heading h2{font-size:16px}.add-heading .small-btn{font-size:11px;padding:8px}.add-title-row,.add-number-row{gap:7px}.add-number-row input{font-size:12px;padding:9px 6px}.add-number-row label{font-size:11px}.added-actions{gap:6px}}
+.add-details:not([open]) > :not(summary){display:none}
+.add-module [hidden]{display:none!important}
+
 </style>
 </head>
 <body>
@@ -211,16 +221,33 @@ body{
   <!-- ==================== 牌组列表 ==================== -->
   <section id="view-decks" class="view active">
     <div class="topbar">
-      <h1>剧集记忆卡</h1>
-      <button class="iconbtn" id="btnTheme" title="切换主题">◐</button>
-      <button class="iconbtn" id="btnSettings" title="设置">⚙</button>
+      <h1>剧集精读与精听</h1>
+      <button class="iconbtn wide" id="btnTheme" title="切换主题" aria-label="切换深浅主题">主题</button>
+      <button class="iconbtn wide" id="btnSettings" title="设置" aria-label="设置与备份">设置</button>
     </div>
     <div class="deckscroll">
-      <div class="stats" id="globalStats"></div>
+      <div class="hero-intro"><div class="eyebrow">SERIES VOCAB · 逐句学习</div><h2>把听过的台词，变成会用的英语。</h2><p>先读懂表达和语法，再隐藏字幕听一遍。每天学 3—5 句。</p></div>
+      <div class="home-actions"><button class="btn primary" id="homeContinue">继续逐句学习</button><button class="btn" id="homeHelp">第一次用？看这里</button></div>
+            <section class="add-module" aria-labelledby="addDeckHeading">
+        <div class="add-heading"><div><div class="eyebrow">扩充自己的片单</div><h2 id="addDeckHeading">添加一集，学会 50 个表达</h2></div><button class="small-btn" id="deckPackageImport">导入词汇包</button></div>
+        <p class="microcopy">输入片名和集数，自动查找字幕并生成中文用法、词汇与语法讲解。</p>
+        <form id="addDeckForm">
+          <div class="add-title-row"><label>类型<select id="addKind"><option value="series">剧集</option><option value="movie">电影</option></select></label><label class="grow">剧名／电影名<input id="addShow" type="text" maxlength="120" placeholder="例如 Better Call Saul" required></label></div>
+          <div class="add-number-row"><label id="addSeasonLabel">第几季<input id="addSeason" type="number" min="1" max="999" value="1" required></label><label id="addEpisodeLabel">第几集<input id="addEpisode" type="number" min="1" max="999" value="1" required></label><label>年份（选填）<input id="addYear" type="number" min="1888" max="2100" placeholder="区分同名作品"></label></div>
+          <div class="add-submit-row"><button class="btn primary" id="addGenerate" type="submit">生成并添加 50 句</button><button class="small-btn hidden" id="addCancel" type="button">取消</button></div>
+          <p id="addStatus" class="microcopy" role="status" aria-live="polite">首次使用先展开「连接生成服务」，配置一次后即可添加。</p>
+          <details class="add-details" id="generationSettings"><summary>连接生成服务</summary><p class="microcopy">填写已部署的生成服务地址和访问口令。OpenAI / DeepSeek 等 API 密钥由服务端保管；这里不填写 API 密钥。</p><label>生成服务地址<input id="generatorUrl" type="url" placeholder="https://你的服务.workers.dev" autocomplete="url"></label><label>访问口令<input id="generatorToken" type="password" autocomplete="off" placeholder="服务端设置的访问口令"></label><p class="microcopy">地址保存在此设备，口令只保留在当前浏览器标签页会话；不会包含在学习备份中。</p><button class="small-btn" id="testGenerator" type="button">连接并检查</button></details>
+          <details class="add-details" id="generationSource"><summary>找不到字幕时</summary><p class="microcopy">选用同一集／电影的完整英文 SRT、VTT 或 TXT（UTF-8）。点击生成时会把字幕发给你配置的生成服务和 AI 服务，结果只保存精选 50 句。</p><label>英文字幕<input id="generationSubtitle" type="file" accept=".srt,.vtt,.txt,text/plain"></label><p class="microcopy" id="generationSubtitleInfo">不选文件时自动查找公开字幕。建议使用英文片名；电影按整部提取 50 句，无需季集数。</p><button class="small-btn" id="clearGenerationSubtitle" type="button">移除字幕</button></details>
+        </form>
+        <div id="addedDeckResult" class="added-result hidden"><p id="addedDeckSummary"></p><div class="added-actions"><button class="btn primary" id="studyAddedDeck">开始精读</button><button class="small-btn" id="exportAddedDeck">导出词汇包</button><button class="small-btn" id="exportAddedAnki">导出 Anki</button></div><p class="microcopy">新牌组保存在当前浏览器。换设备时导入词汇包，或用「设置 → 备份」连同进度一起迁移。</p></div>
+        <input id="deckPackageFile" type="file" accept=".json,application/json" hidden>
+      </section>
+
+<div class="stats" id="globalStats"></div>
       <div id="deckList"></div>
       <p style="font-size:12px;color:var(--text3);line-height:1.7;margin:18px 2px 0">
-        正面看英文原句 → 点「显示答案」→ 四档评级。不认识的按 <b style="color:var(--again)">重来</b>，
-        它当轮会立刻回来，直到你认熟为止。进度存在本机浏览器里，关掉再开接着刷。
+        点一集开始精读或精听；「记忆复习」继续使用原来的卡片。
+        进度保存在当前浏览器，换设备前请在「设置」里导出备份。
       </p>
     </div>
   </section>
@@ -230,7 +257,7 @@ body{
     <div class="topbar">
       <button class="iconbtn" id="btnBack" title="返回">←</button>
       <h1 id="studyTitle">—</h1>
-      <button class="iconbtn" id="btnEdit" title="编辑当前卡">✎</button>
+      <button class="iconbtn wide" id="btnEdit" title="查看当前句的用法">看用法</button>
     </div>
     <div class="studyhead">
       <div class="pbar"><i id="pbarFill" style="width:0%"></i></div>
@@ -241,7 +268,7 @@ body{
     </div>
     <div class="cardwrap">
       <div class="card" id="card">
-        <button class="speakbtn" id="btnSpeak" title="朗读（快捷键 R）">🔊</button>
+        <button class="speakbtn" id="btnSpeak" title="系统朗读（快捷键 R）" aria-label="系统朗读当前卡">听</button>
         <div class="qtext" id="qtext"></div>
         <div id="answerArea" class="hidden">
           <div class="atext reveal" id="atext"></div>
@@ -275,6 +302,70 @@ body{
     </div>
   </section>
 
+  <section id="view-lesson" class="view" aria-label="逐句学习">
+    <div class="topbar">
+      <button class="iconbtn" id="lessonBack" aria-label="返回剧集">返回</button>
+      <h1 id="lessonTitle">逐句学习</h1>
+      <button class="iconbtn wide" id="lessonHelp">使用方法</button>
+    </div>
+    <div class="lesson-scroll">
+      <div class="lesson-intro"><span class="eyebrow">一句一句，听懂用会</span><div id="lessonProgress" class="muted"></div></div>
+      <div class="mode-tabs" aria-label="学习方式">
+        <button id="modeRead" class="active" aria-pressed="true">精读 · 看懂用法</button>
+        <button id="modeListen" aria-pressed="false">精听 · 听懂原句</button>
+        <button id="modeReview">记忆复习</button>
+      </div>
+      <div class="lesson-tools">
+        <input id="lessonSearch" type="search" aria-label="搜索本集单词、短语或中文" placeholder="搜索单词、短语或中文">
+        <select id="lessonFilter" aria-label="筛选句子"><option value="all">全部句子</option><option value="star">我的收藏</option><option value="difficult">听辨困难</option><option value="unread">还没读懂</option></select>
+        <button id="lessonDirectory" class="small-btn" aria-expanded="false" aria-controls="lessonList">目录</button>
+      </div>
+      <div id="lessonList" class="sentence-list hidden" aria-label="句子目录"></div>
+      <p id="lessonEmpty" class="empty hidden">没有符合条件的句子。换个关键词或选择「全部句子」。</p>
+      <div id="lessonContent">
+        <div class="sentence-meta"><span id="lessonPosition"></span><button id="lessonStar" class="small-btn" aria-pressed="false">收藏</button></div>
+        <div class="listen-prompt hidden" id="listenPrompt"><b>先听一遍，暂时不看文字。</b><p>没听清就重听或放慢；再显示英文核对，最后隐藏文字再听一次。</p></div>
+        <div class="audio-toolbar">
+          <button id="lessonPlay" class="btn primary">播放原句</button>
+          <button id="lessonStop" class="small-btn">停止</button>
+          <label class="rate-label">语速 <select id="lessonRate" aria-label="本次播放语速"><option value="0.7">0.7×</option><option value="0.85">0.85×</option><option value="1" selected>1.0×</option></select></label>
+          <label class="loop-label"><input id="lessonLoop" type="checkbox"> 循环</label>
+        </div>
+        <p id="lessonAudioSource" class="source-note" role="status">系统合成朗读 · 非剧集原声</p>
+        <article class="reading-card">
+          <div id="sentenceMask" class="sentence-mask hidden">英文已隐藏，试着听出句子里的关键表达。</div>
+          <div id="lessonEnglish" class="lesson-english" lang="en"></div>
+          <div class="subtitle-actions"><button id="toggleEnglish" class="small-btn hidden" aria-expanded="false" aria-controls="lessonEnglish">显示英文</button><button id="toggleChinese" class="small-btn" aria-expanded="false" aria-controls="lessonChinese">显示中文</button></div>
+          <p id="lessonChinese" class="lesson-chinese hidden"></p>
+          <div id="readingNotes">
+            <div class="meaning-box"><div class="eyebrow">这句里的核心表达</div><h2 id="lessonWord" lang="en"></h2><p id="lessonMeaning"></p><p id="lessonIpa" class="ipa"></p><button id="lessonWordPlay" class="small-btn">系统朗读短语</button></div>
+            <div class="usage-box"><h3>怎么用</h3><p id="lessonPattern" lang="en"></p><p id="lessonNote" class="muted"></p><p id="lessonExample" class="example" lang="en"></p><p id="lessonExampleCn" class="muted"></p><button id="lessonExamplePlay" class="small-btn">系统朗读生活例句</button></div>
+            <details id="wordDetails"><summary>句中单词 · 顺便弄懂关键词</summary><div id="lessonWords"></div></details>
+            <details id="grammarDetails"><summary>语法拆解 · 这句为什么这样说</summary><p id="lessonGrammar"></p></details>
+            <details id="practiceDetails"><summary>试着用一次 · 填空与造句</summary><p id="lessonCloze" lang="en"></p><label class="sr-only" for="clozeInput">填入缺少的表达</label><div class="practice-row"><input id="clozeInput" autocomplete="off" placeholder="填入缺少的表达"><button id="clozeCheck" class="small-btn">核对</button><button id="clozeAnswer" class="small-btn">看答案</button></div><p id="clozeFeedback" class="feedback" aria-live="polite"></p><label for="lessonOwnSentence">换成你的经历，写一句（自动保存）</label><textarea id="lessonOwnSentence" rows="2" placeholder="例如：I need to catch up on…"></textarea><p class="microcopy">自由造句用于自练；这里不会自动判定语法对错。</p></details>
+          </div>
+          <div id="listeningNotes" class="hidden">
+            <label for="lessonDictation">可选：写下听到的内容，再核对</label><textarea id="lessonDictation" rows="3" placeholder="先听，再写。不必纠结大小写和标点。" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea><button id="dictationCheck" class="small-btn">核对听写</button><div id="dictationFeedback" class="feedback" aria-live="polite"></div>
+            <label for="lessonIssue">这句卡在哪里？</label><select id="lessonIssue"><option value="">暂不标记</option><option value="sound">声音没辨认出来</option><option value="connected">单词认识，连起来没听出</option><option value="meaning">听清了，不理解意思</option></select>
+            <p class="microcopy">标记后可从「听辨困难」筛选回来练。</p>
+          </div>
+        </article>
+        <div class="lesson-completion"><button id="lessonReadDone" class="btn" aria-pressed="false">这句读懂了</button><button id="lessonHeardDone" class="btn" aria-pressed="false">无字幕听懂了</button></div>
+        <p id="lessonStatus" class="microcopy" aria-live="polite">按自己的实际表现标记，读懂与听懂分别记录。</p>
+        <details id="localAudioDetails" class="local-audio"><summary>用自己的剧集原声练习（可选）</summary>
+          <p class="muted">选择本机音频或视频，再选同一版本的英文 SRT / VTT 字幕。文件只在本机使用，不会上传。没有文件也可以先用系统朗读。</p>
+          <div class="file-pickers"><label class="file-label">1. 选择音频 / 视频<input id="lessonMediaFile" type="file" accept="audio/*,video/*,.mp3,.mp4,.m4a,.wav,.webm,.ogg"></label><label class="file-label">2. 选择英文字幕<input id="lessonSubtitleFile" type="file" accept=".srt,.vtt,text/vtt"></label></div>
+          <p id="mediaInfo" class="microcopy" role="status">尚未选择原声文件。</p><video id="lessonMedia" controls playsinline preload="metadata" class="hidden"></video>
+          <p id="subtitleInfo" class="microcopy" role="status">字幕用来定位当前台词。无法唯一匹配时，请手动设置下面的起止点。</p>
+          <div class="range-row"><label>开始（秒）<input id="mediaStart" type="number" min="0" step="0.1" placeholder="0.0"></label><label>结束（秒）<input id="mediaEnd" type="number" min="0" step="0.1" placeholder="5.0"></label><button id="saveMediaRange" class="small-btn">保存本句定位</button></div>
+          <div class="practice-row"><button id="captureMediaStart" class="small-btn">用当前位置作起点</button><button id="captureMediaEnd" class="small-btn">用当前位置作终点</button><button id="clearLocalAudio" class="small-btn">移除本机文件</button></div>
+          <p class="microcopy">切换剧集会移除已选文件。重新打开网页需要重新选择原声文件；同一文件的手动定位会保留。</p>
+        </details>
+      </div>
+    </div>
+    <div class="lesson-nav"><button id="lessonPrevious" class="btn">上一句</button><span id="lessonNavCount"></span><button id="lessonNext" class="btn primary">下一句</button></div>
+  </section>
+
 </div>
 
 <!-- ==================== 设置面板 ==================== -->
@@ -282,7 +373,7 @@ body{
   <div class="sheetbox">
     <h3>设置</h3>
     <div class="srow">
-      <div><div class="lab">每日新卡上限</div><div class="sub">一次最多放进来多少张没见过的卡</div></div>
+      <div><div class="lab">每日新卡上限</div><div class="sub">所有牌组合计，每天最多学习多少张新卡（仅记忆复习）</div></div>
       <select class="sel" id="setNew">
         <option value="10">10 张</option>
         <option value="20">20 张</option>
@@ -292,7 +383,7 @@ body{
       </select>
     </div>
     <div class="srow">
-      <div><div class="lab">语音朗读</div><div class="sub">用系统内置语音朗读英文原句（不联网）</div></div>
+      <div><div class="lab">语音朗读</div><div class="sub">朗读卡片原句；系统合成语音，并非演员原声</div></div>
       <select class="sel" id="setSpeak">
         <option value="auto">自动朗读</option>
         <option value="manual">只手动点朗读</option>
@@ -346,11 +437,11 @@ body{
     </div>
     <div class="srow">
       <div><div class="lab">学习数据</div><div class="sub" id="dataInfo">—</div></div>
-      <button class="btn danger" style="flex:0 0 auto;padding:9px 14px;font-size:13px" id="btnReset">清空进度</button>
+      <button class="btn danger" style="flex:0 0 auto;padding:9px 14px;font-size:13px" id="btnReset">清空全部</button>
     </div>
     <div class="srow">
-      <div><div class="lab">导出进度</div><div class="sub">把学习记录存成文件，换设备可导入</div></div>
-      <button class="btn" style="flex:0 0 auto;padding:9px 14px;font-size:13px" id="btnExport">导出</button>
+      <div><div class="lab">导出进度</div><div class="sub">备份复习、精读、精听、收藏和笔记，换设备可恢复</div></div>
+      <div style="display:flex;gap:7px"><button class="btn tiny" id="btnExport">导出</button><button class="btn tiny" id="btnImport">导入</button></div><input type="file" id="progressImport" accept="application/json,.json" hidden>
     </div>
     <button class="btn primary" style="width:100%;margin-top:18px" id="btnCloseSheet">完成</button>
   </div>
@@ -376,7 +467,7 @@ body{
 /* ==================================================================
    数据：每集一个 deck。加新集只需往 DECKS 里再加一项，键名随意。
    ================================================================== */
-const DECKS = {"better-call-saul-s04e05":{"show":"Better Call Saul","showCn":"风骚律师","season":4,"episode":5,"epTitle":"Baggage","epTitleCn":"包袱","date":"2026-10-06","source":"Springfield Springfield","cards":[{"id":"bcs-s04e05-01","front":"So, you're living your life free and easy, and then one day, at a time of their choosing bam! They bring the hammer down to Chinatown.","word":"bring the hammer down on","cn":"对某人严惩；从重打击","ipa":"/brɪŋ ðə ˈhæmər daʊn ɑːn/","trans":"你日子过得逍遥自在，然后某天，在他们挑好的时刻，砰！他们就朝唐人街下手了。"},{"id":"bcs-s04e05-02","front":"Drop them off at least five miles from here in separate Dumpsters.","word":"drop off","cn":"把东西放在某处；投递","ipa":"/drɑːp ɔːf/","trans":"把这些东西带到离这儿至少五英里的地方，分开扔进不同的垃圾箱。"},{"id":"bcs-s04e05-03","front":"You will keep your nose clean.","word":"keep your nose clean","cn":"老实守法；安分守己","ipa":"/kiːp jɔːr noʊz kliːn/","trans":"你要老老实实的，别惹事。"},{"id":"bcs-s04e05-04","front":"You will show up on time.","word":"show up","cn":"出现；到场","ipa":"/ʃoʊ ʌp/","trans":"你要按时到。"},{"id":"bcs-s04e05-05","front":"We're not a client you hang up on.","word":"hang up on","cn":"挂断某人电话；冷落某人","ipa":"/hæŋ ʌp ɑːn/","trans":"我们不是你随便挂电话的客人。"},{"id":"bcs-s04e05-06","front":"You're not gonna play dumb, are you?","word":"play dumb","cn":"装傻；装聋作哑","ipa":"/pleɪ dʌm/","trans":"你别想装傻充愣，行吗？"},{"id":"bcs-s04e05-07","front":"Well, people are gobbling these up like Tic Tacs.","word":"gobble up","cn":"抢购；狼吞虎咽","ipa":"/ˈɡɑːbl ʌp/","trans":"嗯，人们像吃薄荷糖一样抢着买这些。"},{"id":"bcs-s04e05-08","front":"I'm going to throw up.","word":"throw up","cn":"呕吐","ipa":"/θroʊ ʌp/","trans":"我要吐了。"},{"id":"bcs-s04e05-09","front":"You're not gonna get away with it.","word":"get away with","cn":"逃过惩罚；蒙混过关","ipa":"/ɡet əˈweɪ wɪð/","trans":"你蒙混不过去的。"},{"id":"bcs-s04e05-10","front":"Pull the short end.","word":"pull the short end","cn":"抽到坏签；吃亏倒霉","ipa":"/pʊl ðə ʃɔːrt end/","trans":"你抽到短的那一头。"},{"id":"bcs-s04e05-11","front":"Live with it.","word":"live with it","cn":"忍着吧；接受现实","ipa":"/lɪv wɪð ɪt/","trans":"忍着吧。"},{"id":"bcs-s04e05-12","front":"I'll call you in about 20 minutes and talk you through the rest of it, okay?","word":"talk someone through","cn":"一步步指导某人","ipa":"/tɔːk ˈsʌmwʌn θruː/","trans":"我大概二十分钟后打给你，一步步带你走完剩下的流程，好吗？"},{"id":"bcs-s04e05-13","front":"I have tons of Mesa Verde to catch up on.","word":"catch up on","cn":"补上落下的工作；赶上进度","ipa":"/kætʃ ʌp ɑːn/","trans":"我有一大堆美萨维德的活儿要赶。"},{"id":"bcs-s04e05-14","front":"Do me a favor.","word":"do me a favor","cn":"帮我个忙","ipa":"/duː miː ə ˈfeɪvər/","trans":"帮我个忙。"},{"id":"bcs-s04e05-15","front":"Beat it, narc.","word":"beat it","cn":"走开；滚蛋","ipa":"/biːt ɪt/","trans":"滚吧，条子。"},{"id":"bcs-s04e05-16","front":"Now, hold on. We're almost there.","word":"hold on","cn":"稍等；等一下","ipa":"/hoʊld ɑːn/","trans":"现在稍等，我们快到了。"},{"id":"bcs-s04e05-17","front":"The judge is gonna issue a bench warrant, and then jail is a done deal.","word":"a done deal","cn":"木已成舟；板上钉钉","ipa":"/ə dʌn diːl/","trans":"法官会签发拘捕令，那坐牢就板上钉钉了。"},{"id":"bcs-s04e05-18","front":"So word to the wise, uh, if you want to talk to your friends on the inside, there is a simple solution.","word":"word to the wise","cn":"明事理的人说的话；忠告","ipa":"/wɜːrd tə ðə waɪz/","trans":"所以明眼人都知道，你要是想跟里面的人联系，有个简单的办法。"},{"id":"bcs-s04e05-19","front":"They know every lick and tittle.","word":"every lick and tittle","cn":"每一丁点；一丝一毫","ipa":"/ˈevri lɪk ənd ˈtɪtl/","trans":"他们什么都知道，一丁点都不漏。"},{"id":"bcs-s04e05-20","front":"That'll keep you clean as a whistle.","word":"clean as a whistle","cn":"清白无瑕；干干净净","ipa":"/kliːn əz ə ˈwɪsl/","trans":"那样就能让你清清白白。"},{"id":"bcs-s04e05-21","front":"Private conversations are few and far between.","word":"few and far between","cn":"寥寥无几；少之又少","ipa":"/fjuː ən fɑːr bɪˈtwiːn/","trans":"私下交谈的机会少之又少。"},{"id":"bcs-s04e05-22","front":"Well, Howard, I guess that's your cross to bear.","word":"a cross to bear","cn":"自己该受的苦；命中注定要背的担子","ipa":"/ə krɔːs tə ber/","trans":"好吧霍华德，我想那就是你该背的担子。"},{"id":"bcs-s04e05-23","front":"Um, what's what's eating you?","word":"what's eating you","cn":"你怎么了；什么事困扰着你","ipa":"/wʌts ˈiːtɪŋ juː/","trans":"嗯，你到底怎么了？"},{"id":"bcs-s04e05-24","front":"Wouldn't wish it on my worst enemy.","word":"wouldn't wish it on my worst enemy","cn":"我可不想让最恨的人也得这份罪","ipa":"/ˈwʊznt wɪʃ ɪt ɑːn maɪ ˈwɜːrst ˈenəmi/","trans":"我可不想让我最恨的人也得这种罪受。"},{"id":"bcs-s04e05-25","front":"It sounds like you were just in the wrong place at the wrong time.","word":"the wrong place at the wrong time","cn":"在错误的时间出现在错误的地点（倒霉透顶）","ipa":"/ðə rɔːŋ pleɪs ət ðə rɔːŋ taɪm/","trans":"听起来你就是赶上了最不该赶上的时间地点。"},{"id":"bcs-s04e05-26","front":"Let's leave it at that.","word":"leave it at that","cn":"到此为止；就说到这里","ipa":"/liːv ɪt æt ðæt/","trans":"就说到这儿吧。"},{"id":"bcs-s04e05-27","front":"I'm just getting the hang of the system, so","word":"get the hang of","cn":"摸清门道；掌握窍门","ipa":"/ɡet ðə hæŋ əv/","trans":"我刚刚摸清这个系统的门道。"},{"id":"bcs-s04e05-28","front":"I'll be there, but if it doesn't ring at 3:00 on the dot, I'm gone.","word":"on the dot","cn":"准点；分秒不差","ipa":"/ɑːn ðə dɑːt/","trans":"我会到，但要是三点整它没响，我就走人。"},{"id":"bcs-s04e05-29","front":"Use your words.","word":"use your words","cn":"有话直说；别含糊","ipa":"/juːz jɔːr wɜːrdz/","trans":"有话直说。"},{"id":"bcs-s04e05-30","front":"Um I lost track of time.","word":"lose track of time","cn":"忘了时间；没留意时间","ipa":"/luːz træk əv taɪm/","trans":"嗯，我压根没注意时间。"},{"id":"bcs-s04e05-31","front":"Don't wait up.","word":"don't wait up","cn":"别等我了（先睡吧）","ipa":"/doʊnt weɪt ʌp/","trans":"别等我了，你先睡。"},{"id":"bcs-s04e05-32","front":"Well, I guess, uh that's it. [CHUCKLES.] Quite a ride, huh?","word":"quite a ride","cn":"一路走来真不容易；人生起伏太大","ipa":"/kwaɪt ə raɪd/","trans":"好了，我猜就这样了。一路够呛的，是吧？"},{"id":"bcs-s04e05-33","front":"And they will clean your bones faster than a school of piranhas.","word":"a school of piranhas","cn":"一群食人鱼；形容一群贪婪狠毒的人","ipa":"/ə skuːl əv pɪˈrɑːnəz/","trans":"他们会把你的骨头啃得比一群食人鱼还干净。"},{"id":"bcs-s04e05-34","front":"Back in the day, I would have spotted those low-rent little skeeves from a mile away.","word":"low-rent skeeves","cn":"下三滥的小混混；次品","ipa":"/ˈloʊ rent skiːvz/","trans":"以前，我一眼就能看出那些下三滥的小混混。"},{"id":"bcs-s04e05-35","front":"And they would have known not to roll me.","word":"roll me","cn":"抢我；打劫我","ipa":"/roʊl miː/","trans":"他们本来应该知道不能抢我。"},{"id":"bcs-s04e05-36","front":"Did you get that ink in Los Lunas? Las Cruces. Off by one.","word":"off by one","cn":"差一个；错一位","ipa":"/ɔːf baɪ wʌn/","trans":"你拿到拉斯卢纳斯那个纹身了吗？——拉斯克鲁塞斯。——差一个。"},{"id":"bcs-s04e05-37","front":"Good look with the junior achievement project.","word":"a junior achievement project","cn":"业余水平的活儿；嫩雏作品","ipa":"/ə ˈdʒuːniər əˈdʒiːvmənt ˈprɑːdʒekt/","trans":"你这个初中生业余作品还挺像样。"},{"id":"bcs-s04e05-38","front":"No, I haven't had the honor, but I used to be a lawyer.","word":"the honor","cn":"荣幸（客套用语，此处带反讽）","ipa":"/ðiː ˈɑːnər/","trans":"没有，我还没那个荣幸——不过我以前是律师。"},{"id":"bcs-s04e05-39","front":"I got mugged.","word":"get mugged","cn":"被人打劫","ipa":"/ɡet mʌɡd/","trans":"我被人打劫了。"},{"id":"bcs-s04e05-40","front":"Meaning, uh, you know, field mice, and, you know, you got your nest-building squirrel.","word":"nest-building squirrel","cn":"囤东西的松鼠；囤积癖","ipa":"/nest ˈbɪldɪŋ ˈskwɜːrəl/","trans":"意思是，呃，田鼠，还有你这种什么都往家里囤的松鼠。"},{"id":"bcs-s04e05-41","front":"Three cheers for morality.","word":"three cheers for morality","cn":"为道德欢呼（反讽）","ipa":"/θriː tʃɪrz fər məˈræləti/","trans":"为道德干杯（反讽）。"},{"id":"bcs-s04e05-42","front":"Jesus, that's cold.","word":"that's cold","cn":"太冷血了；真够狠","ipa":"/ðæts koʊld/","trans":"天哪，太冷血了。"},{"id":"bcs-s04e05-43","front":"Keep the rubber side down!","word":"keep the rubber side down","cn":"（硬币）正面朝下放——别露富","ipa":"/kiːp ðə ˈrʌbər saɪd daʊn/","trans":"把带图案那面朝下！（别让人看出你有钱）"},{"id":"bcs-s04e05-44","front":"Not only will your case be DOA, but she will rip you a new one on the record.","word":"DOA","cn":"（法律缩写）递解庭上即死刑；一上手就没戏","ipa":"/ˌdiː oʊ ˈeɪ/","trans":"你的案子不光当场就是死路，她还会在法庭记录上把你狠批一顿。"},{"id":"bcs-s04e05-45","front":"I want six months probation, time served, no jail.","word":"time served","cn":"已服的刑期（折抵）","ipa":"/taɪm sɜːrvd/","trans":"我要六个月缓刑，刑期折抵，不要坐牢。"},{"id":"bcs-s04e05-46","front":"Strictly gainful employment.","word":"gainful employment","cn":"有报酬的工作（法律用语）","ipa":"/ˈɡeɪnfl ɪmˈplɔɪmənt/","trans":"（这算）正经有报酬的工作。"},{"id":"bcs-s04e05-47","front":"And if you buy it from me with cash, it's completely untraceable.","word":"untraceable","cn":"查不到来源的；无法追踪的","ipa":"/ʌnˈtreɪsəbl/","trans":"你要是用现金从我这儿买，它完全查不到源头。"},{"id":"bcs-s04e05-48","front":"Copy that.","word":"copy that","cn":"收到；明白了（军事/警务用语）","ipa":"/ˈkɑːpi ðæt/","trans":"收到。"},{"id":"bcs-s04e05-49","front":"You need to stay within the footprint of the building.","word":"footprint","cn":"占地面积；范围","ipa":"/ˈfʊtprɪnt/","trans":"你必须待在这栋楼的范围内。"},{"id":"bcs-s04e05-50","front":"Before I can begin excavation, I must support the existing structure to avoid a cave-in.","word":"cave-in","cn":"塌方；坍塌（工程用语）","ipa":"/ˈkeɪv ɪn/","trans":"开挖之前我必须先加固现有结构，以防塌方。"}]},"better-call-saul-s04e08":{"show":"Better Call Saul","showCn":"风骚律师","season":4,"episode":8,"epTitle":"Coushatta","epTitleCn":"库沙塔","date":"2026-10-08","source":"Springfield Springfield","cards":[{"id":"bcs-s04e08-01","front":"Kim, I want you to know, um, I don't take this for granted.","word":"take for granted","cn":"把…视为理所当然","ipa":"/teɪk fər ˈɡræntɪd/","trans":"金，我想让你知道，嗯，我不会把这当成理所当然。"},{"id":"bcs-s04e08-02","front":"If I forgot anything, I'll just, uh, figure it out on the way.","word":"figure out","cn":"想办法解决；琢磨出来","ipa":"/ˈfɪɡjər aʊt/","trans":"要是漏了什么，我路上再想办法。"},{"id":"bcs-s04e08-03","front":"You're back on Thursday? Thursday, yeah, unless we break down in Amarillo.","word":"break down","cn":"（车）抛锚；坏掉","ipa":"/breɪk daʊn/","trans":"你周四回来？周四，对——除非我们在阿马里洛车抛锚。"},{"id":"bcs-s04e08-04","front":"I like your passion, but, uh, just maybe tone down the anger.","word":"tone down","cn":"收敛；把（火气）压一压","ipa":"/toʊn daʊn/","trans":"我喜欢你的热情，不过——嗯，火气maybe收一收。"},{"id":"bcs-s04e08-05","front":"You stick around? Oh, uh, yeah.","word":"stick around","cn":"待着不走；留下来","ipa":"/stɪk əˈraʊnd/","trans":"你还待着？哦，嗯，对。"},{"id":"bcs-s04e08-06","front":"I'm gonna head over to the nail salon, finish setting up.","word":"head over","cn":"过去；前往","ipa":"/hed ˈoʊvər/","trans":"我要去趟美甲店，把东西收拾完。"},{"id":"bcs-s04e08-07","front":"Oh, no, I'm sorry. I don't want to slow us down.","word":"slow down","cn":"拖慢；减速","ipa":"/sloʊ daʊn/","trans":"哦不，抱歉。我不想拖慢大家。"},{"id":"bcs-s04e08-08","front":"And Paige will hate me for bringing this up.","word":"bring up","cn":"提起（话题）","ipa":"/brɪŋ ʌp/","trans":"佩姬会因为我提这件事恨我。"},{"id":"bcs-s04e08-09","front":"Now, I want to hit on all the milestones we're talking about.","word":"hit on","cn":"逐一说到；触及（要点）","ipa":"/hɪt ɑːn/","trans":"我想把咱们说的每一个节点都说到。"},{"id":"bcs-s04e08-10","front":"It took almost two months to get local approval for the current design, so starting over now?","word":"start over","cn":"从头再来；推倒重来","ipa":"/stɑːrt ˈoʊvər/","trans":"现有设计光是拿地方批文就花了将近两个月——现在推倒重来？"},{"id":"bcs-s04e08-11","front":"how could you, to go after someone so sweet and kind with all those lies?","word":"go after","cn":"攻击；针对（某人）","ipa":"/ɡoʊ ˈæftər/","trans":"你怎么能这样，用一堆谎话去对付一个这么善良的人？"},{"id":"bcs-s04e08-12","front":"I'm not here at the moment, but leave a message, I'll get back to you as soon as I can.","word":"get back to","cn":"回电；回复（某人）","ipa":"/ɡet bæk tuː/","trans":"我现在不在，留言吧，我会尽快回你电话。"},{"id":"bcs-s04e08-13","front":"they like to brush up on the Bible before, uh, they go to slep","word":"brush up on","cn":"温习；把…捡起来","ipa":"/brʌʃ ʌp ɑːn/","trans":"他们喜欢在睡前温习一下圣经。"},{"id":"bcs-s04e08-14","front":"And he carried out every last one of them oldsters.","word":"carry out","cn":"把（人）抱出去","ipa":"/ˈkæri aʊt/","trans":"他把那些老人一个不剩地抱了出来。"},{"id":"bcs-s04e08-15","front":"I'll lock up when I go.","word":"lock up","cn":"锁门；上锁","ipa":"/lɑːk ʌp/","trans":"我走的时候会锁门。"},{"id":"bcs-s04e08-16","front":"Can't work around it, can't dig it out.","word":"work around","cn":"绕过（障碍）","ipa":"/wɜːrk əˈraʊnd/","trans":"绕不过去，也挖不出来。"},{"id":"bcs-s04e08-17","front":"You call the arresting officer and find out what, if anything, he left out of his reports.","word":"leave out","cn":"省略；漏掉","ipa":"/liːv aʊt/","trans":"你打给抓人的警官，问问他报告里到底漏了什么。"},{"id":"bcs-s04e08-18","front":"The landlord will kick in for small repairs like that.","word":"kick in","cn":"出钱；分担费用","ipa":"/kɪk ɪn/","trans":"这种小修小补房东会出钱。"},{"id":"bcs-s04e08-19","front":"I think you got the wrong end of the stick here.","word":"get the wrong end of the stick","cn":"完全误解了；搞反了","ipa":"/ɡet ðə rɔːŋ end əv ðə stɪk/","trans":"我觉得你是搞反了。"},{"id":"bcs-s04e08-20","front":"Can you pull another rabbit out of the hat for us?","word":"pull a rabbit out of the hat","cn":"变出奇迹；再拿一手绝活","ipa":"/pʊl ə ˈræbɪt aʊt əv ðə hæt/","trans":"你还能再给我们变个戏法吗？"},{"id":"bcs-s04e08-21","front":"He's a pillar of our church.","word":"a pillar of the church","cn":"教会的顶梁柱；德高望重的人","ipa":"/ə ˈpɪlər əv ðə tʃɜːrtʃ/","trans":"他是我们教会的顶梁柱。"},{"id":"bcs-s04e08-22","front":"Because shock and awe isn't gonna cut it.","word":"shock and awe","cn":"震慑战术；雷霆手段","ipa":"/ʃɑːk ənd ɔː/","trans":"因为光靠吓唬人是不管用的。"},{"id":"bcs-s04e08-23","front":"It is smack dab in the middle of our elevator shaft.","word":"smack dab in the middle","cn":"正正好好在正中间","ipa":"/smæk dæb ɪn ðə ˈmɪdl/","trans":"它正好卡在电梯井正中间。"},{"id":"bcs-s04e08-24","front":"we have some breathing room.","word":"breathing room","cn":"喘息余地；回旋空间","ipa":"/ˈbriːðɪŋ ruːm/","trans":"我们就有喘息的空间了。"},{"id":"bcs-s04e08-25","front":"And also I agree we are totally done with all that, over and out, no more.","word":"over and out","cn":"（通话结束）完毕，收线","ipa":"/ˈoʊvər ənd aʊt/","trans":"而且我也同意——那事到此为止，完毕收线，不再提了。"},{"id":"bcs-s04e08-26","front":"Uh, just a word of warning uh, I had a pile of cheese chili fries back at Stuckey's with onions on top.","word":"word of warning","cn":"提醒一句；丑话说在前头","ipa":"/wɜːrd əv ˈwɔːrnɪŋ/","trans":"呃，先提醒你一句——我刚在斯塔基吃了一大盘芝士辣酱薯条，上面还铺了洋葱。"},{"id":"bcs-s04e08-27","front":"Yeah, not too shabby. I've been taking improv classes.","word":"not too shabby","cn":"还不赖；挺像样","ipa":"/nɑːt tuː ˈʃæbi/","trans":"对，还不赖。我一直在上即兴表演课。"},{"id":"bcs-s04e08-28","front":"I gave him the \"come to Jesus.\"","word":"come to Jesus","cn":"严肃敲打一番；把话挑明","ipa":"/kʌm tə ˈdʒiːzəs/","trans":"我跟他好好谈了一次（把他敲醒了）。"},{"id":"bcs-s04e08-29","front":"I'm the guy who's telling you this one's had too much, and I'm here to get him out of your hair.","word":"get out of someone's hair","cn":"不再烦某人；把人打发走","ipa":"/ɡet aʊt əv ˈsʌmwʌnz her/","trans":"我是来告诉你这位喝多了——我来把他弄走，省得碍你事。"},{"id":"bcs-s04e08-30","front":"This one this idiot goes home, sleeps it off.","word":"sleep it off","cn":"睡一觉醒酒","ipa":"/sliːp ɪt ɔːf/","trans":"这位——这蠢货回家，睡一觉醒酒。"},{"id":"bcs-s04e08-31","front":"Way behind schedule. But the work is solid.","word":"way behind schedule","cn":"严重落后于计划","ipa":"/weɪ bɪˈhaɪnd ˈskedʒuːl/","trans":"进度差得远。但活儿是扎实的。"},{"id":"bcs-s04e08-32","front":"And it's in your price range.","word":"in your price range","cn":"在你预算范围内","ipa":"/ɪn jɔːr praɪs reɪndʒ/","trans":"而且在你预算范围内。"},{"id":"bcs-s04e08-33","front":"Use your imagination. Think creatively.","word":"use your imagination","cn":"发挥想象力","ipa":"/juːz jɔːr ɪˌmædʒɪˈneɪʃn/","trans":"发挥想象力，往创意上想。"},{"id":"bcs-s04e08-34","front":"Five-o was all over. Well, not real five-o like, the rentals.","word":"five-o","cn":"（俚）警察","ipa":"/ˈfaɪvoʊ/","trans":"警察到处都是。呃，不是真警察，是雇来的那种。"},{"id":"bcs-s04e08-35","front":"Are you talking about a bunch of yahoos packing my court?","word":"yahoos","cn":"（俚）乡巴佬；一帮粗人","ipa":"/ˈjæhuːz/","trans":"你是说一群乡巴佬要把我的法庭挤满？"},{"id":"bcs-s04e08-36","front":"if I receive one more letter from some swamp-dwelling do-gooder","word":"swamp-dwelling do-gooder","cn":"沼泽地来的「大善人」（讽刺）","ipa":"/swɑːmp ˈdwelɪŋ duː ˈɡʊdər/","trans":"要是我再收到一封那种沼泽地来的「大善人」写的信。"},{"id":"bcs-s04e08-37","front":"Our only witness is a scumbag disbarred lawyer!","word":"scumbag","cn":"人渣；下三滥","ipa":"/ˈskʌmbæɡ/","trans":"我们唯一的证人是个人渣，还是个被吊销执照的律师！"},{"id":"bcs-s04e08-38","front":"Okay. Yeah, I gotchu.","word":"I gotchu","cn":"（口语）懂你；包我身上","ipa":"/aɪ ˈɡɑtʃuː/","trans":"好。嗯，我懂你意思。"},{"id":"bcs-s04e08-39","front":"Oh, no. I'm just gonna scrounge here. I think we have some old Chinese.","word":"scrounge","cn":"翻找（剩的）；凑合着蹭","ipa":"/skraʊndʒ/","trans":"哦不用。我就在这儿翻点剩的——我记得还有点放凉的中餐。"},{"id":"bcs-s04e08-40","front":"Yes, well, I got crawdads in my pants.","word":"crawdads","cn":"小龙虾（美南叫法）","ipa":"/ˈkrɔːdædz/","trans":"是啊，我裤裆里全是小龙虾。"},{"id":"bcs-s04e08-41","front":"Wow, it's just it's like I'm in the bayou.","word":"bayou","cn":"（美南）沼泽河湾","ipa":"/ˈbaɪuː/","trans":"哇，简直就像我真到了南方沼泽地。"},{"id":"bcs-s04e08-42","front":"It's wondermous.","word":"wondermous","cn":"（南方口音）好得没话说","ipa":"/ˈwʌndərməs/","trans":"好得没话说。"},{"id":"bcs-s04e08-43","front":"Ex parte communication, contempt of court.","word":"contempt of court","cn":"藐视法庭","ipa":"/kənˈtempt əv kɔːrt/","trans":"单方沟通、藐视法庭。"},{"id":"bcs-s04e08-44","front":"This is a motion for continuance.","word":"motion for continuance","cn":"（法律）延期审理申请","ipa":"/ˈmoʊʃn fər kənˈtɪnjuəns/","trans":"这是一份延期审理申请。"},{"id":"bcs-s04e08-45","front":"We need time to subpoena all of them.","word":"subpoena","cn":"传票；传唤","ipa":"/səˈpiːnə/","trans":"我们需要时间来传唤所有这些商家。"},{"id":"bcs-s04e08-46","front":"Kim, you're throwing three $400-an-hour associates at a pro bono case?","word":"pro bono","cn":"（法律）免费的；公益的","ipa":"/proʊ ˈboʊnoʊ/","trans":"金，你在一个免费案子上砸了三个时薪 400 的律师？"},{"id":"bcs-s04e08-47","front":"Time served, three to six months probation, we plead to simple battery.","word":"time served","cn":"（法律）已服刑期折抵","ipa":"/taɪm sɜːrvd/","trans":"已服刑期折抵、三到六个月缓刑，我们认简单殴击罪。"},{"id":"bcs-s04e08-48","front":"She knows the defendant's history as well as I do.","word":"defendant","cn":"被告","ipa":"/dɪˈfendənt/","trans":"她和我知道得一样清楚被告的底细。"},{"id":"bcs-s04e08-49","front":"I've seen several letters from fellow members of your congregation.","word":"congregation","cn":"会众；教堂信众","ipa":"/ˌkɑːŋɡrɪˈɡeɪʃn/","trans":"我见过好几封来自你会众成员的信。"},{"id":"bcs-s04e08-50","front":"Just I'm gonna step into the vestibule.","word":"vestibule","cn":"门厅；前厅","ipa":"/ˈvestɪbjuːl/","trans":"我进前厅跟你说。"}]}};
+const DECKS = {"better-call-saul-s04e05":{"show":"Better Call Saul","showCn":"风骚律师","season":4,"episode":5,"epTitle":"Quite a Ride","epTitleCn":"一路走来","date":"2026-10-06","source":"Springfield Springfield","cards":[{"id":"bcs-s04e05-01","front":"So, you're living your life free and easy, and then one day, at a time of their choosing bam! They bring the hammer down to Chinatown.","word":"bring the hammer down on","cn":"严厉惩处、打击（常用结构为bring the hammer down on）","ipa":"/brɪŋ ðə ˈhæmər daʊn ɑːn/","trans":"你日子过得逍遥自在，然后某天，在他们选好的时刻，砰！他们就狠狠收拾你了。"},{"id":"bcs-s04e05-02","front":"Drop them off at least five miles from here in separate Dumpsters.","word":"drop off","cn":"把东西放在某处；投递","ipa":"/drɑːp ɔːf/","trans":"把这些东西带到离这儿至少五英里的地方，分开扔进不同的垃圾箱。"},{"id":"bcs-s04e05-03","front":"You will keep your nose clean.","word":"keep your nose clean","cn":"老实守法；安分守己","ipa":"/kiːp jɔːr noʊz kliːn/","trans":"你要老老实实的，别惹事。"},{"id":"bcs-s04e05-04","front":"You will show up on time.","word":"show up","cn":"出现；到场","ipa":"/ʃoʊ ʌp/","trans":"你要按时到。"},{"id":"bcs-s04e05-05","front":"We're not a client you hang up on.","word":"hang up on","cn":"挂断某人电话；冷落某人","ipa":"/hæŋ ʌp ɑːn/","trans":"我们不是你随便挂电话的客人。"},{"id":"bcs-s04e05-06","front":"You're not gonna play dumb, are you?","word":"play dumb","cn":"装傻；装聋作哑","ipa":"/pleɪ dʌm/","trans":"你别想装傻充愣，行吗？"},{"id":"bcs-s04e05-07","front":"Well, people are gobbling these up like Tic Tacs.","word":"gobble up","cn":"抢购；狼吞虎咽","ipa":"/ˈɡɑːbl ʌp/","trans":"嗯，人们像吃薄荷糖一样抢着买这些。"},{"id":"bcs-s04e05-08","front":"I'm going to throw up.","word":"throw up","cn":"呕吐","ipa":"/θroʊ ʌp/","trans":"我要吐了。"},{"id":"bcs-s04e05-09","front":"You're not gonna get away with it.","word":"get away with","cn":"逃过惩罚；蒙混过关","ipa":"/ɡet əˈweɪ wɪð/","trans":"你蒙混不过去的。"},{"id":"bcs-s04e05-10","front":"Pull the short end.","word":"pull the short end","cn":"拉短的那一头（字面动作指令）","ipa":"/pʊl ðə ʃɔːrt end/","trans":"拉短的那一头。"},{"id":"bcs-s04e05-11","front":"Live with it.","word":"live with it","cn":"忍着吧；接受现实","ipa":"/lɪv wɪð ɪt/","trans":"忍着吧。"},{"id":"bcs-s04e05-12","front":"I'll call you in about 20 minutes and talk you through the rest of it, okay?","word":"talk someone through","cn":"一步步指导某人","ipa":"/tɔːk ˈsʌmwʌn θruː/","trans":"我大概二十分钟后打给你，一步步带你走完剩下的流程，好吗？"},{"id":"bcs-s04e05-13","front":"I have tons of Mesa Verde to catch up on.","word":"catch up on","cn":"补上落下的工作；赶上进度","ipa":"/kætʃ ʌp ɑːn/","trans":"我有一大堆美萨维德的活儿要赶。"},{"id":"bcs-s04e05-14","front":"Do me a favor.","word":"do me a favor","cn":"帮我个忙","ipa":"/duː miː ə ˈfeɪvər/","trans":"帮我个忙。"},{"id":"bcs-s04e05-15","front":"Beat it, narc.","word":"beat it","cn":"走开；滚蛋","ipa":"/biːt ɪt/","trans":"滚开，缉毒警／告密的。"},{"id":"bcs-s04e05-16","front":"Now, hold on. We're almost there.","word":"hold on","cn":"稍等；等一下","ipa":"/hoʊld ɑːn/","trans":"现在稍等，我们快到了。"},{"id":"bcs-s04e05-17","front":"The judge is gonna issue a bench warrant, and then jail is a done deal.","word":"a done deal","cn":"木已成舟；板上钉钉","ipa":"/ə dʌn diːl/","trans":"法官会签发拘捕令，那坐牢就板上钉钉了。"},{"id":"bcs-s04e05-18","front":"So word to the wise, uh, if you want to talk to your friends on the inside, there is a simple solution.","word":"word to the wise","cn":"提醒你一句；给你个忠告","ipa":"/wɜːrd tə ðə waɪz/","trans":"所以提醒你一句，如果你想跟里面的朋友联系，有个简单的办法。"},{"id":"bcs-s04e05-19","front":"They know every lick and tittle.","word":"every lick and tittle","cn":"每一丁点；一丝一毫","ipa":"/ˈevri lɪk ənd ˈtɪtl/","trans":"他们什么都知道，一丁点都不漏。"},{"id":"bcs-s04e05-20","front":"That'll keep you clean as a whistle.","word":"clean as a whistle","cn":"清白无瑕；干干净净","ipa":"/kliːn əz ə ˈwɪsl/","trans":"那样就能让你清清白白。"},{"id":"bcs-s04e05-21","front":"Private conversations are few and far between.","word":"few and far between","cn":"寥寥无几；少之又少","ipa":"/fjuː ən fɑːr bɪˈtwiːn/","trans":"私下交谈的机会少之又少。"},{"id":"bcs-s04e05-22","front":"Well, Howard, I guess that's your cross to bear.","word":"a cross to bear","cn":"自己该受的苦；命中注定要背的担子","ipa":"/ə krɔːs tə ber/","trans":"好吧霍华德，我想那就是你该背的担子。"},{"id":"bcs-s04e05-23","front":"Um, what's what's eating you?","word":"what's eating you","cn":"你怎么了；什么事困扰着你","ipa":"/wʌts ˈiːtɪŋ juː/","trans":"嗯，你到底怎么了？"},{"id":"bcs-s04e05-24","front":"Wouldn't wish it on my worst enemy.","word":"wouldn't wish it on my worst enemy","cn":"我可不想让最恨的人也得这份罪","ipa":"/ˈwʊdnt wɪʃ ɪt ɑːn maɪ ˈwɜːrst ˈenəmi/","trans":"我可不想让我最恨的人也得这种罪受。"},{"id":"bcs-s04e05-25","front":"It sounds like you were just in the wrong place at the wrong time.","word":"the wrong place at the wrong time","cn":"在错误的时间出现在错误的地点（倒霉透顶）","ipa":"/ðə rɔːŋ pleɪs ət ðə rɔːŋ taɪm/","trans":"听起来你就是赶上了最不该赶上的时间地点。"},{"id":"bcs-s04e05-26","front":"Let's leave it at that.","word":"leave it at that","cn":"到此为止；就说到这里","ipa":"/liːv ɪt æt ðæt/","trans":"就说到这儿吧。"},{"id":"bcs-s04e05-27","front":"I'm just getting the hang of the system, so","word":"get the hang of","cn":"摸清门道；掌握窍门","ipa":"/ɡet ðə hæŋ əv/","trans":"我刚刚摸清这个系统的门道。"},{"id":"bcs-s04e05-28","front":"I'll be there, but if it doesn't ring at 3:00 on the dot, I'm gone.","word":"on the dot","cn":"准点；分秒不差","ipa":"/ɑːn ðə dɑːt/","trans":"我会到，但要是三点整它没响，我就走人。"},{"id":"bcs-s04e05-29","front":"Use your words.","word":"use your words","cn":"用语言说出你的想法或需求","ipa":"/juːz jɔːr wɜːrdz/","trans":"有话直说。"},{"id":"bcs-s04e05-30","front":"Um I lost track of time.","word":"lose track of time","cn":"忘了时间；没留意时间","ipa":"/luːz træk əv taɪm/","trans":"嗯，我压根没注意时间。"},{"id":"bcs-s04e05-31","front":"Don't wait up.","word":"don't wait up","cn":"别等我了（先睡吧）","ipa":"/doʊnt weɪt ʌp/","trans":"别等我了，你先睡。"},{"id":"bcs-s04e05-32","front":"Well, I guess, uh that's it. [CHUCKLES.] Quite a ride, huh?","word":"quite a ride","cn":"真是一段不平凡的经历（语气需看上下文）","ipa":"/kwaɪt ə raɪd/","trans":"好了，我想，就这样了。（轻笑）真是一段不平凡的经历，是吧？"},{"id":"bcs-s04e05-33","front":"And they will clean your bones faster than a school of piranhas.","word":"a school of piranhas","cn":"一群食人鱼；形容一群贪婪狠毒的人","ipa":"/ə skuːl əv pɪˈrɑːnəz/","trans":"他们会把你的骨头啃得比一群食人鱼还干净。"},{"id":"bcs-s04e05-34","front":"Back in the day, I would have spotted those low-rent little skeeves from a mile away.","word":"low-rent skeeves","cn":"下三滥的小混混；次品","ipa":"/ˈloʊ rent skiːvz/","trans":"以前，我一眼就能看出那些下三滥的小混混。"},{"id":"bcs-s04e05-35","front":"And they would have known not to roll me.","word":"roll me","cn":"抢我；打劫我","ipa":"/roʊl miː/","trans":"他们本来应该知道不能抢我。"},{"id":"bcs-s04e05-36","front":"Did you get that ink in Los Lunas? Las Cruces. Off by one.","word":"off by one","cn":"差了一个；偏差一点（具体所指需上下文）","ipa":"/ɔːf baɪ wʌn/","trans":"你那纹身是在洛斯卢纳斯弄的？——拉斯克鲁塞斯。——差了一点。"},{"id":"bcs-s04e05-37","front":"Good luck with the junior achievement project.","word":"Junior Achievement project","cn":"青少年创业项目（此处带调侃意味）","ipa":"/ˈdʒuːniər əˈtʃiːvmənt ˈprɑːdʒekt/","trans":"祝你那个“学生创业项目”顺利。"},{"id":"bcs-s04e05-38","front":"No, I haven't had the honor, but I used to be a lawyer.","word":"the honor","cn":"荣幸（客套用语，此处带反讽）","ipa":"/ðiː ˈɑːnər/","trans":"没有，我还没那个荣幸——不过我以前是律师。"},{"id":"bcs-s04e05-39","front":"I got mugged.","word":"get mugged","cn":"被人打劫","ipa":"/ɡet mʌɡd/","trans":"我被人打劫了。"},{"id":"bcs-s04e05-40","front":"Meaning, uh, you know, field mice, and, you know, you got your nest-building squirrel.","word":"nest-building squirrel","cn":"筑巢的松鼠（字面组合，此处用作比喻）","ipa":"/nest ˈbɪldɪŋ ˈskwɜːrəl/","trans":"意思是，呃，比如田鼠，还有那种会筑巢的松鼠。"},{"id":"bcs-s04e05-41","front":"Three cheers for morality.","word":"three cheers for morality","cn":"为道德欢呼（反讽）","ipa":"/θriː tʃɪrz fər məˈræləti/","trans":"为道德干杯（反讽）。"},{"id":"bcs-s04e05-42","front":"Jesus, that's cold.","word":"that's cold","cn":"太冷血了；真够狠","ipa":"/ðæts koʊld/","trans":"天哪，太冷血了。"},{"id":"bcs-s04e05-43","front":"Keep the rubber side down!","word":"keep the rubber side down","cn":"骑车／开车注意安全；一路平安","ipa":"/kiːp ðə ˈrʌbər saɪd daʊn/","trans":"让轮胎好好着地，一路平安！"},{"id":"bcs-s04e05-44","front":"Not only will your case be DOA, but she will rip you a new one on the record.","word":"DOA","cn":"dead on arrival的缩写；此处比喻一开始就没戏","ipa":"/ˌdiː oʊ ˈeɪ/","trans":"你的案子不光当场就是死路，她还会在法庭记录上把你狠批一顿。"},{"id":"bcs-s04e05-45","front":"I want six months probation, time served, no jail.","word":"time served","cn":"按已羁押时间判处刑期；不再增加监禁","ipa":"/taɪm sɜːrvd/","trans":"我要求六个月社区监督期，监禁按已羁押的时间算，不再坐牢。"},{"id":"bcs-s04e05-46","front":"Strictly gainful employment.","word":"gainful employment","cn":"有报酬、能维持生计的工作","ipa":"/ˈɡeɪnfl ɪmˈplɔɪmənt/","trans":"仅限有收入的工作。"},{"id":"bcs-s04e05-47","front":"And if you buy it from me with cash, it's completely untraceable.","word":"untraceable","cn":"查不到来源的；无法追踪的","ipa":"/ʌnˈtreɪsəbl/","trans":"你要是用现金从我这儿买，它完全查不到源头。"},{"id":"bcs-s04e05-48","front":"Copy that.","word":"copy that","cn":"收到；明白了（军事/警务用语）","ipa":"/ˈkɑːpi ðæt/","trans":"收到。"},{"id":"bcs-s04e05-49","front":"You need to stay within the footprint of the building.","word":"footprint","cn":"占地面积；范围","ipa":"/ˈfʊtprɪnt/","trans":"你必须待在这栋楼的范围内。"},{"id":"bcs-s04e05-50","front":"Before I can begin excavation, I must support the existing structure to avoid a cave-in.","word":"cave-in","cn":"塌方；坍塌（工程用语）","ipa":"/ˈkeɪv ɪn/","trans":"开挖之前我必须先加固现有结构，以防塌方。"}]},"better-call-saul-s04e08":{"show":"Better Call Saul","showCn":"风骚律师","season":4,"episode":8,"epTitle":"Coushatta","epTitleCn":"库沙塔","date":"2026-10-08","source":"Springfield Springfield","cards":[{"id":"bcs-s04e08-01","front":"Kim, I want you to know, um, I don't take this for granted.","word":"take for granted","cn":"把…视为理所当然","ipa":"/teɪk fər ˈɡræntɪd/","trans":"金，我想让你知道，嗯，我不会把这当成理所当然。"},{"id":"bcs-s04e08-02","front":"If I forgot anything, I'll just, uh, figure it out on the way.","word":"figure out","cn":"想办法解决；琢磨出来","ipa":"/ˈfɪɡjər aʊt/","trans":"要是漏了什么，我路上再想办法。"},{"id":"bcs-s04e08-03","front":"You're back on Thursday? Thursday, yeah, unless we break down in Amarillo.","word":"break down","cn":"（车）抛锚；坏掉","ipa":"/breɪk daʊn/","trans":"你周四回来？周四，对——除非我们在阿马里洛车抛锚。"},{"id":"bcs-s04e08-04","front":"I like your passion, but, uh, just maybe tone down the anger.","word":"tone down","cn":"收敛；把（火气）压一压","ipa":"/toʊn daʊn/","trans":"我喜欢你的热情，不过，也许可以把火气收一收。"},{"id":"bcs-s04e08-05","front":"You stick around? Oh, uh, yeah.","word":"stick around","cn":"待着不走；留下来","ipa":"/stɪk əˈraʊnd/","trans":"你还待着？哦，嗯，对。"},{"id":"bcs-s04e08-06","front":"I'm gonna head over to the nail salon, finish setting up.","word":"head over","cn":"过去；前往","ipa":"/hed ˈoʊvər/","trans":"我要去趟美甲店，把东西收拾完。"},{"id":"bcs-s04e08-07","front":"Oh, no, I'm sorry. I don't want to slow us down.","word":"slow down","cn":"拖慢；减速","ipa":"/sloʊ daʊn/","trans":"哦不，抱歉。我不想拖慢大家。"},{"id":"bcs-s04e08-08","front":"And Paige will hate me for bringing this up.","word":"bring up","cn":"提起（话题）","ipa":"/brɪŋ ʌp/","trans":"佩姬会因为我提这件事恨我。"},{"id":"bcs-s04e08-09","front":"Now, I want to hit on all the milestones we're talking about.","word":"hit on","cn":"逐一说到；触及（要点）","ipa":"/hɪt ɑːn/","trans":"我想把咱们说的每一个节点都说到。"},{"id":"bcs-s04e08-10","front":"It took almost two months to get local approval for the current design, so starting over now?","word":"start over","cn":"从头再来；推倒重来","ipa":"/stɑːrt ˈoʊvər/","trans":"现有设计光是拿地方批文就花了将近两个月——现在推倒重来？"},{"id":"bcs-s04e08-11","front":"how could you, to go after someone so sweet and kind with all those lies?","word":"go after","cn":"攻击；针对（某人）","ipa":"/ɡoʊ ˈæftər/","trans":"你怎么能这样，用一堆谎话去对付一个这么善良的人？"},{"id":"bcs-s04e08-12","front":"I'm not here at the moment, but leave a message, I'll get back to you as soon as I can.","word":"get back to","cn":"回电；回复（某人）","ipa":"/ɡet bæk tuː/","trans":"我现在不在，留言吧，我会尽快回你电话。"},{"id":"bcs-s04e08-13","front":"They like to brush up on the Bible before, uh, they go to sleep.","word":"brush up on","cn":"温习；把…捡起来","ipa":"/brʌʃ ʌp ɑːn/","trans":"他们喜欢在睡前温习一下圣经。"},{"id":"bcs-s04e08-14","front":"And he carried out every last one of them oldsters.","word":"carry out","cn":"把人／物抱出去、抬出去（此处为字面义）","ipa":"/ˈkæri aʊt/","trans":"他把那些老人一个不剩地抱了出来。"},{"id":"bcs-s04e08-15","front":"I'll lock up when I go.","word":"lock up","cn":"锁门；上锁","ipa":"/lɑːk ʌp/","trans":"我走的时候会锁门。"},{"id":"bcs-s04e08-16","front":"Can't work around it, can't dig it out.","word":"work around","cn":"绕过（障碍）","ipa":"/wɜːrk əˈraʊnd/","trans":"绕不过去，也挖不出来。"},{"id":"bcs-s04e08-17","front":"You call the arresting officer and find out what, if anything, he left out of his reports.","word":"leave out","cn":"省略；漏掉","ipa":"/liːv aʊt/","trans":"你打给抓人的警官，问问他报告里到底漏了什么。"},{"id":"bcs-s04e08-18","front":"The landlord will kick in for small repairs like that.","word":"kick in","cn":"出钱；分担费用","ipa":"/kɪk ɪn/","trans":"这种小修小补房东会出钱。"},{"id":"bcs-s04e08-19","front":"I think you got the wrong end of the stick here.","word":"get the wrong end of the stick","cn":"完全误解了；搞反了","ipa":"/ɡet ðə rɔːŋ end əv ðə stɪk/","trans":"我觉得你是搞反了。"},{"id":"bcs-s04e08-20","front":"Can you pull another rabbit out of the hat for us?","word":"pull a rabbit out of the hat","cn":"变出奇迹；再拿一手绝活","ipa":"/pʊl ə ˈræbɪt aʊt əv ðə hæt/","trans":"你还能再给我们变个戏法吗？"},{"id":"bcs-s04e08-21","front":"He's a pillar of our church.","word":"a pillar of the church","cn":"教会的顶梁柱；德高望重的人","ipa":"/ə ˈpɪlər əv ðə tʃɜːrtʃ/","trans":"他是我们教会的顶梁柱。"},{"id":"bcs-s04e08-22","front":"Because shock and awe isn't gonna cut it.","word":"shock and awe","cn":"震慑战术；雷霆手段","ipa":"/ʃɑːk ənd ɔː/","trans":"因为光靠吓唬人是不管用的。"},{"id":"bcs-s04e08-23","front":"It is smack dab in the middle of our elevator shaft.","word":"smack dab in the middle","cn":"正正好好在正中间","ipa":"/smæk dæb ɪn ðə ˈmɪdl/","trans":"它正好卡在电梯井正中间。"},{"id":"bcs-s04e08-24","front":"we have some breathing room.","word":"breathing room","cn":"喘息余地；回旋空间","ipa":"/ˈbriːðɪŋ ruːm/","trans":"我们就有喘息的空间了。"},{"id":"bcs-s04e08-25","front":"And also I agree we are totally done with all that, over and out, no more.","word":"over and out","cn":"（通话结束）完毕，收线","ipa":"/ˈoʊvər ənd aʊt/","trans":"而且我也同意——那事到此为止，完毕收线，不再提了。"},{"id":"bcs-s04e08-26","front":"Uh, just a word of warning uh, I had a pile of cheese chili fries back at Stuckey's with onions on top.","word":"word of warning","cn":"提醒一句；丑话说在前头","ipa":"/wɜːrd əv ˈwɔːrnɪŋ/","trans":"呃，先提醒你一句——我刚在斯塔基吃了一大盘芝士辣酱薯条，上面还铺了洋葱。"},{"id":"bcs-s04e08-27","front":"Yeah, not too shabby. I've been taking improv classes.","word":"not too shabby","cn":"还不赖；挺像样","ipa":"/nɑːt tuː ˈʃæbi/","trans":"对，还不赖。我一直在上即兴表演课。"},{"id":"bcs-s04e08-28","front":"I gave him the \"come to Jesus.\"","word":"come to Jesus","cn":"严肃敲打一番；把话挑明","ipa":"/kʌm tə ˈdʒiːzəs/","trans":"我跟他好好谈了一次（把他敲醒了）。"},{"id":"bcs-s04e08-29","front":"I'm the guy who's telling you this one's had too much, and I'm here to get him out of your hair.","word":"get out of someone's hair","cn":"不再烦某人；把人打发走","ipa":"/ɡet aʊt əv ˈsʌmwʌnz her/","trans":"我是来告诉你这位喝多了——我来把他弄走，省得碍你事。"},{"id":"bcs-s04e08-30","front":"This one this idiot goes home, sleeps it off.","word":"sleep it off","cn":"睡一觉醒酒","ipa":"/sliːp ɪt ɔːf/","trans":"这位——这蠢货回家，睡一觉醒酒。"},{"id":"bcs-s04e08-31","front":"Way behind schedule. But the work is solid.","word":"way behind schedule","cn":"严重落后于计划","ipa":"/weɪ bɪˈhaɪnd ˈskedʒuːl/","trans":"进度差得远。但活儿是扎实的。"},{"id":"bcs-s04e08-32","front":"And it's in your price range.","word":"in your price range","cn":"在你预算范围内","ipa":"/ɪn jɔːr praɪs reɪndʒ/","trans":"而且在你预算范围内。"},{"id":"bcs-s04e08-33","front":"Use your imagination. Think creatively.","word":"use your imagination","cn":"发挥想象力","ipa":"/juːz jɔːr ɪˌmædʒɪˈneɪʃn/","trans":"发挥想象力，往创意上想。"},{"id":"bcs-s04e08-34","front":"Five-o was all over. Well, not real five-o like, the rentals.","word":"five-o","cn":"（俚）警察","ipa":"/ˈfaɪvoʊ/","trans":"警察到处都是。呃，不是真警察，是雇来的那种。"},{"id":"bcs-s04e08-35","front":"Are you talking about a bunch of yahoos packing my court?","word":"yahoos","cn":"粗鲁、愚蠢或没教养的人（贬称）","ipa":"/ˈjɑːhuːz/","trans":"你是说一帮粗鲁的家伙要把我的法庭挤满？"},{"id":"bcs-s04e08-36","front":"if I receive one more letter from some swamp-dwelling do-gooder","word":"swamp-dwelling do-gooder","cn":"沼泽地来的「大善人」（讽刺）","ipa":"/swɑːmp ˈdwelɪŋ duː ˈɡʊdər/","trans":"要是我再收到一封那种沼泽地来的「大善人」写的信。"},{"id":"bcs-s04e08-37","front":"Our only witness is a scumbag disbarred lawyer!","word":"scumbag","cn":"人渣；下三滥","ipa":"/ˈskʌmbæɡ/","trans":"我们唯一的证人是个人渣，还是个被吊销执照的律师！"},{"id":"bcs-s04e08-38","front":"Okay. Yeah, I gotchu.","word":"I gotchu","cn":"（口语）懂你；包我身上","ipa":"/aɪ ˈɡɑtʃuː/","trans":"好。嗯，我懂你意思。"},{"id":"bcs-s04e08-39","front":"Oh, no. I'm just gonna scrounge here. I think we have some old Chinese.","word":"scrounge","cn":"翻找（剩的）；凑合着蹭","ipa":"/skraʊndʒ/","trans":"哦，不用了。我就在这儿找点现成的吃。我想我们还有些剩中餐。"},{"id":"bcs-s04e08-40","front":"Yes, well, I got crawdads in my pants.","word":"crawdads","cn":"小龙虾（美式地域用词；整句并非常见习语）","ipa":"/ˈkrɔːdædz/","trans":"是啊，我裤裆里全是小龙虾。"},{"id":"bcs-s04e08-41","front":"Wow, it's just it's like I'm in the bayou.","word":"bayou","cn":"（美南）沼泽河湾","ipa":"/ˈbaɪuː/","trans":"哇，简直就像我真到了南方沼泽地。"},{"id":"bcs-s04e08-42","front":"It's wondermous.","word":"wondermous","cn":"好极了（角色的非标准说法，常用词为wonderful）","ipa":"/ˈwʌndərməs/","trans":"好得没话说。"},{"id":"bcs-s04e08-43","front":"Ex parte communication, contempt of court.","word":"contempt of court","cn":"藐视法庭","ipa":"/kənˈtempt əv kɔːrt/","trans":"单方沟通、藐视法庭。"},{"id":"bcs-s04e08-44","front":"This is a motion for continuance.","word":"motion for continuance","cn":"（法律）延期审理申请","ipa":"/ˈmoʊʃn fər kənˈtɪnjuəns/","trans":"这是一份延期审理申请。"},{"id":"bcs-s04e08-45","front":"We need time to subpoena all of them.","word":"subpoena","cn":"用法院传票传唤；要求提供材料","ipa":"/səˈpiːnə/","trans":"我们需要时间，用传票把他们都传来。"},{"id":"bcs-s04e08-46","front":"Kim, you're throwing three $400-an-hour associates at a pro bono case?","word":"pro bono","cn":"（法律）免费的；公益的","ipa":"/proʊ ˈboʊnoʊ/","trans":"金，你给一个无偿法律援助案子投入了三个时薪四百美元的律师？"},{"id":"bcs-s04e08-47","front":"Time served, three to six months probation, we plead to simple battery.","word":"time served","cn":"按已羁押时间判处刑期；不再增加监禁","ipa":"/taɪm sɜːrvd/","trans":"监禁按已羁押时间算，社区监督三到六个月，我们就轻微殴打这一罪名认罪。"},{"id":"bcs-s04e08-48","front":"She knows the defendant's history as well as I do.","word":"defendant","cn":"被告","ipa":"/dɪˈfendənt/","trans":"她对被告的过往情况和我一样清楚。"},{"id":"bcs-s04e08-49","front":"I've seen several letters from fellow members of your congregation.","word":"congregation","cn":"会众；教堂信众","ipa":"/ˌkɑːŋɡrɪˈɡeɪʃn/","trans":"我见过好几封来自你会众成员的信。"},{"id":"bcs-s04e08-50","front":"Just I'm gonna step into the vestibule.","word":"vestibule","cn":"门厅；前厅","ipa":"/ˈvestɪbjuːl/","trans":"我去一下前厅。"}]}};
 
 /* ==================================================================
    存储层
@@ -652,6 +743,7 @@ function speakCard(backOnly) {
    牌组列表
    ================================================================== */
 function epCode(d) {
+  if (d.kind === "movie") return "电影" + (d.year ? " · " + d.year : "");
   return "S" + String(d.season).padStart(2, "0") + "E" + String(d.episode).padStart(2, "0");
 }
 function liveDeckIds() {
@@ -669,7 +761,7 @@ function renderDecks() {
     <div class="stat due"><div class="n">${tDue}</div><div class="l">待复习</div></div>
     <div class="stat new"><div class="n">${tNew}</div><div class="l">新卡</div></div>
     <div class="stat learn"><div class="n">${tLearn}</div><div class="l">学习中</div></div>
-    <div class="stat done"><div class="n">${tDone}</div><div class="l">已掌握</div></div>`;
+    <div class="stat done"><div class="n">${tDone}</div><div class="l">未到期</div></div>`;
 
   $("deckList").innerHTML = ids.map(id => {
     const d = DECKS[id], st = deckStats(id);
@@ -677,7 +769,7 @@ function renderDecks() {
     const code = epCode(d);
     const badge = st.nDue > 0 ? `<div class="badge">${st.nDue} 待刷</div>` : "";
     return `
-    <div class="deck" data-deck="${esc(id)}">
+    <div class="deck" data-deck="${esc(id)}" role="button" tabindex="0" aria-label="学习 ${esc(d.showCn)} ${code}">
       ${badge}
       <div class="dtitle">${esc(d.showCn)} ${code} · ${esc(d.epTitleCn)}</div>
       <div class="dsub">${esc(d.show)} ${code} — <b>${esc(d.epTitle)}</b></div>
@@ -687,8 +779,8 @@ function renderDecks() {
         <i class="b-new" style="width:${pN}%"></i>
       </div>
       <div class="dmeta">
-        <span>已掌握 ${st.nDone} / ${st.total}</span>
-        <span>待复习 ${st.nDue}</span>
+        <span>未到期 ${st.nDone} / ${st.total}</span>
+        <span>读懂 ${workbookStats(id).read} · 听懂 ${workbookStats(id).heard}</span><span>待复习 ${st.nDue}</span>
       </div>
     </div>`;
   }).join("");
@@ -698,7 +790,8 @@ function renderDecks() {
   }
 
   document.querySelectorAll(".deck").forEach(el => {
-    el.addEventListener("click", () => startDeck(el.dataset.deck));
+    el.addEventListener("click", () => startLesson(el.dataset.deck));
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); startLesson(el.dataset.deck); } });
   });
 }
 
@@ -717,7 +810,7 @@ function renderDeckManage() {
     html += `<div class="mrow">
       <div class="minfo">
         <div class="mname">${esc(d.showCn)} ${epCode(d)}</div>
-        <div class="msub">${st.total} 张 · 已掌握 <b>${st.nDone}</b></div>
+        <div class="msub">${st.total} 张 · 未到期 <b>${st.nDone}</b></div>
       </div>
       <button class="btn tiny danger" data-deldeck="${esc(id)}">删除</button>
     </div>`;
@@ -731,11 +824,12 @@ function renderDeckManage() {
           <div class="mname">${esc(d.showCn)} ${epCode(d)}</div>
           <div class="msub">${st.total} 张 · 学习进度已保留</div>
         </div>
-        <button class="btn tiny" data-restoredeck="${esc(id)}">恢复</button>
+        <button class="btn tiny" data-restoredeck="${esc(id)}">恢复</button>${store.customDecks?.[id] ? `<button class="btn tiny danger" data-purgedeck="${esc(id)}">彻底删除</button>` : ""}
       </div>`;
     }
   }
   $("deckManage").innerHTML = html;
+  $("deckManage").querySelectorAll("[data-purgedeck]").forEach(b=>b.onclick=()=>purgeCustomDeck(b.dataset.purgedeck));
 
   $("deckManage").querySelectorAll("[data-deldeck]").forEach(b => {
     b.addEventListener("click", () => {
@@ -889,7 +983,7 @@ function updateHud() {
   const remaining = cur.queue.length;
   $("hudCounts").innerHTML =
     `<span class="c-new">新 ${nNew}</span><span class="c-learn">学习中 ${nLearn}</span>` +
-    `<span class="c-rev">待复习 ${nRev}</span><span class="c-done">已掌握 ${nDone}</span>`;
+    `<span class="c-rev">待复习 ${nRev}</span><span class="c-done">未到期 ${nDone}</span>`;
   $("hudTotal").textContent = `本轮剩 ${remaining}`;
   const total = deck.cards.length;
   $("pbarFill").style.width = (nDone / total * 100).toFixed(1) + "%";
@@ -925,8 +1019,8 @@ function finish() {
     $("doneMsg").textContent = `这一轮过了 ${cur.done} 张，其中「重来」${cur.again} 次。`;
   }
   $("doneNext").innerHTML = soonest < Infinity
-    ? `已掌握 <b>${st.nDone}</b> / ${st.total} 张<br>下一批卡将在 <b>${fmtWhen(soonest - now)}</b> 后到期`
-    : `已掌握 <b>${st.nDone}</b> / ${st.total} 张`;
+    ? `未到期 <b>${st.nDone}</b> / ${st.total} 张<br>下一批卡将在 <b>${fmtWhen(soonest - now)}</b> 后到期`
+    : `未到期 <b>${st.nDone}</b> / ${st.total} 张`;
   show("done");
 }
 function fmtWhen(ms) {
@@ -984,7 +1078,7 @@ document.querySelectorAll(".grade").forEach(b => {
 });
 $("btnBack").addEventListener("click", () => { TTS.stop(); renderDecks(); show("decks"); });
 $("btnDoneBack").addEventListener("click", () => { TTS.stop(); renderDecks(); show("decks"); });
-$("btnContinue").addEventListener("click", () => { nextCard(true); show("study"); });
+$("btnContinue").addEventListener("click", () => startDeck(cur.deckId));
 $("btnSettings").addEventListener("click", openSheet);
 $("btnCloseSheet").addEventListener("click", () => $("sheet").classList.add("hidden"));
 $("sheet").addEventListener("click", e => { if (e.target === $("sheet")) $("sheet").classList.add("hidden"); });
@@ -1020,9 +1114,9 @@ $("btnTestSpeak").addEventListener("click", () => {
 });
 $("btnReset").addEventListener("click", () => {
   askConfirm("清空学习进度",
-    "清空所有牌组的复习记录？\n\n卡片本身不会消失，但「已掌握 / 到期时间」会全部归零，这一步不可撤销。",
+    "清空复习、精读、精听、收藏、笔记与原声定位？\n\n卡片本身不会消失。建议先导出备份；这一步不可撤销。",
     "清空", () => {
-      store.cards = {}; store.days = {}; saveStore();
+      store.cards = {}; store.days = {}; store.workbook = { cards: {}, last: null, ranges: {} }; saveStore();
       renderDeckManage(); renderDecks(); openSheet();
       toast("进度已清空");
     });
@@ -1031,19 +1125,10 @@ $("btnReset").addEventListener("click", () => {
 $("confirmNo").addEventListener("click", closeConfirm);
 $("confirmYes").addEventListener("click", () => { const cb = confirmCb; closeConfirm(); if (cb) cb(); });
 $("confirm").addEventListener("click", e => { if (e.target === $("confirm")) closeConfirm(); });
-$("btnExport").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "series-vocab-progress-" + todayKey(Date.now()) + ".json";
-  a.click();
-  URL.revokeObjectURL(a.href);
-  toast("已导出");
-});
+$("btnExport").addEventListener("click", () => downloadProgress());
 $("btnEdit").addEventListener("click", () => {
   if (!cur.card) return;
-  const c = cur.card;
-  toast("本卡：" + c.word + " — " + c.cn);
+  startLesson(cur.deckId, DECKS[cur.deckId].cards.findIndex(c => c.id === cur.card.id));
 });
 // 键盘：空格/回车显示答案，1-4 评级，Esc 返回
 document.addEventListener("keydown", e => {
@@ -1069,7 +1154,637 @@ window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", ()
    启动
    ================================================================== */
 applyTheme();
+</script>
+
+<script>
+const TEACHING = {"bcs-s04e05-01":{"meaning":"这里指严厉打击、惩处；结尾是角色的夸张押韵说法。","pattern":"bring the hammer down on + 人／行为","example":"The school brought the hammer down on cheating.","exampleCn":"学校严厉打击作弊。","grammar":"at a time of their choosing = 在他们自己选定的时刻；of their choosing修饰time。","note":"常规搭配是on；台词里的to Chinatown不能按“对唐人街下手”理解。","focus":"bring the hammer down","correction":{"trans":"你日子过得逍遥自在，然后某天，在他们选好的时刻，砰！他们就狠狠收拾你了。","cn":"严厉惩处、打击（常用结构为bring the hammer down on）"},"words":[{"word":"free and easy","meaning":"无忧无虑的"},{"word":"choosing","meaning":"选择（choose的-ing形式）"},{"word":"hammer","meaning":"锤子，此处引申为打击"}]},"bcs-s04e05-02":{"meaning":"把这些东西送到指定地方放下。","pattern":"drop + 人／物 + off；drop off + 人／物","example":"Could you drop me off at the station?","exampleCn":"你能让我在车站下车吗？","grammar":"them是代词，必须放在drop和off之间；at least表示“至少”。","note":"drop off既可送人下车，也可递送物品；这里结合垃圾箱理解为带去丢放。","focus":"Drop them off","words":[{"word":"at least","meaning":"至少"},{"word":"separate","meaning":"分开的、不同的"},{"word":"Dumpsters","meaning":"大型垃圾箱"}]},"bcs-s04e05-03":{"meaning":"安分守己，不惹麻烦或违法。","pattern":"keep + one's nose + clean","example":"Keep your nose clean while you're away.","exampleCn":"出门在外别惹事。","grammar":"You will + 动词原形在这里带命令意味，不只是预测未来。","note":"非正式习语；不是让对方把鼻子洗干净。","focus":"keep your nose clean","words":[{"word":"clean","meaning":"此处指清白、没惹麻烦"}]},"bcs-s04e05-04":{"meaning":"按时出现、到场。","pattern":"show up + 地点／时间","example":"She showed up ten minutes early.","exampleCn":"她提前十分钟到了。","grammar":"will后接原形show；on time表示按约定时间、不迟到。","note":"show up偏口语；正式表达可用arrive。on time和in time“来得及”不同。","focus":"show up","words":[{"word":"on time","meaning":"准时"}]},"bcs-s04e05-05":{"meaning":"挂断某人的电话，通常指对方还没说完。","pattern":"hang up on + 人","example":"Please don't hang up on me.","exampleCn":"请别挂我电话。","grammar":"a client后接省略that／whom的定语从句you hang up on；on保留在句尾。","note":"hang up单独说是挂电话；加on somebody强调把那个人的电话挂掉。","focus":"hang up on","words":[{"word":"client","meaning":"客户、委托人"}]},"bcs-s04e05-06":{"meaning":"明明知道，却假装不知道或不懂。","pattern":"play dumb；play + 表示状态的形容词","example":"Don't play dumb. You saw what happened.","exampleCn":"别装傻，你看到发生什么了。","grammar":"gonna是going to的口语形式；前半句否定，所以反意疑问用are you。","note":"带指责语气。dumb在这里是“装作不懂”，日常不宜拿它评价人的能力。","focus":"play dumb","words":[{"word":"gonna","meaning":"going to的口语形式"},{"word":"dumb","meaning":"此处指假装不懂的"}]},"bcs-s04e05-07":{"meaning":"这里夸张地说，人们在快速抢购这些东西。","pattern":"gobble + 食物／商品 + up","example":"The kids gobbled up the sandwiches.","exampleCn":"孩子们狼吞虎咽地吃掉了三明治。","grammar":"are gobbling是现在进行时；代词these放在gobbling与up之间；like引出比较。","note":"本义是快速吃掉；抢购是比喻义。Tic Tacs是一种薄荷糖品牌。","focus":"gobbling these up","words":[{"word":"gobbling","meaning":"快速吃掉，此处比喻抢购"},{"word":"like","meaning":"像……一样"},{"word":"Tic Tacs","meaning":"一种薄荷糖品牌"}]},"bcs-s04e05-08":{"meaning":"感觉自己马上要呕吐了。","pattern":"throw up；feel like throwing up","example":"I felt sick and nearly threw up.","exampleCn":"我觉得恶心，差点吐了。","grammar":"be going to + 原形在这里表示眼下迹象显示某事即将发生。","note":"日常口语；较正式的词是vomit。throw的过去式是threw。","focus":"throw up","words":[]},"bcs-s04e05-09":{"meaning":"做了坏事却没有受到惩罚。","pattern":"get away with + 名词／动名词","example":"You can't get away with lying to everyone.","exampleCn":"你不能骗了所有人还不受追究。","grammar":"gonna = going to；with是介词，后面可接it，也可接doing。","note":"不是“从某处逃走”；后者是get away from。","focus":"get away with it","words":[{"word":"gonna","meaning":"going to的口语形式"},{"word":"it","meaning":"代指前面说过的行为"}]},"bcs-s04e05-10":{"meaning":"字面意思是拉短的那一头。","pattern":"pull + 物体／某一端","example":"Pull the short end of the rope gently.","exampleCn":"轻轻拉绳子短的那一头。","grammar":"祈使句省略you，直接用动词原形Pull开头；the指双方知道的那一端。","note":"这句不能直接当作“吃亏”的固定习语。表示倒霉抽签常用draw the short straw。","focus":"Pull the short end","correction":{"cn":"拉短的那一头（字面动作指令）","trans":"拉短的那一头。"},"words":[{"word":"pull","meaning":"拉"},{"word":"end","meaning":"物体的一端"}]},"bcs-s04e05-11":{"meaning":"接受不理想但暂时改变不了的情况。","pattern":"live with + 问题／情况","example":"The room is small, but I can live with it.","exampleCn":"房间小，不过我可以接受。","grammar":"祈使句用原形Live；it指前文提到的情况。","note":"直接说Live with it可能显得不耐烦；I can live with it常表示“我能接受”。","focus":"Live with it","words":[]},"bcs-s04e05-12":{"meaning":"通过讲解，一步步指导某人完成事情。","pattern":"talk + 人 + through + 过程／任务","example":"Can you talk me through the setup?","exampleCn":"你能一步步教我设置吗？","grammar":"I'll后面的call和talk共用主语I和will；in about 20 minutes表示大约二十分钟后。","note":"重点是边解释边引导；不是简单地“和某人聊聊”。","focus":"talk you through","words":[{"word":"about","meaning":"大约"},{"word":"through","meaning":"贯穿整个步骤"},{"word":"rest","meaning":"剩余部分"}]},"bcs-s04e05-13":{"meaning":"补做之前落下的工作，让进度赶上来。","pattern":"catch up on + 工作／阅读／睡眠","example":"I need to catch up on my reading.","exampleCn":"我需要补上落下的阅读。","grammar":"tons of = 大量；to catch up on修饰前面的工作内容，on的宾语已出现在前面。","note":"Mesa Verde是专名；句中代指相关工作。catch up with someone则是赶上某人或叙旧。","focus":"catch up on","words":[{"word":"tons of","meaning":"大量"},{"word":"Mesa Verde","meaning":"专有名称，句中代指相关工作"}]},"bcs-s04e05-14":{"meaning":"请对方帮自己一个忙。","pattern":"do + 人 + a favor；Could you do me a favor?","example":"Could you do me a favor and close the window?","exampleCn":"你能帮我关一下窗吗？","grammar":"do me a favor是双宾语结构：me是受益的人，a favor是所做的事。","note":"直接命令式视语气可显得生硬；Could you…更礼貌。英式拼写为favour。","focus":"Do me a favor","words":[{"word":"favor","meaning":"帮助、帮忙的事"}]},"bcs-s04e05-15":{"meaning":"粗鲁地叫人走开、滚开。","pattern":"Beat it!","example":"He shouted, \"Beat it!\" at the intruder.","exampleCn":"他冲闯入者喊：“滚开！”","grammar":"Beat it是固定命令式；句尾narc是对被叫的人所作的称呼。","note":"粗鲁表达；narc可指缉毒警察或告密者，不能无条件译为所有警察。","focus":"Beat it","correction":{"trans":"滚开，缉毒警／告密的。"},"words":[{"word":"narc","meaning":"缉毒警或告密者（贬称）"}]},"bcs-s04e05-16":{"meaning":"等一等、先别急。","pattern":"Hold on；hold on a moment","example":"Hold on a second. I'm almost ready.","exampleCn":"等一下，我快准备好了。","grammar":"We're almost there = 我们快到了／快完成了；there的具体含义取决于前文。","note":"hold on也可指坚持或抓牢；这里是要求暂等，需结合语境判断。","focus":"hold on","words":[{"word":"almost","meaning":"几乎、快要"},{"word":"there","meaning":"此处指目的地或完成状态"}]},"bcs-s04e05-17":{"meaning":"某个结果已经几乎确定，难以改变。","pattern":"be a done deal","example":"The sale isn't a done deal yet.","exampleCn":"这笔交易还没有定下来。","grammar":"is后接名词短语a done deal作表语；gonna issue表示将签发。","note":"这里是说话者断定会坐牢；不能据此把真实案件结果视为已确定。","focus":"a done deal","words":[{"word":"judge","meaning":"法官"},{"word":"issue","meaning":"正式签发"},{"word":"bench warrant","meaning":"法官签发的逮捕令"}]},"bcs-s04e05-18":{"meaning":"“提醒你一句／给你个忠告”，用于引出建议。","pattern":"(A) word to the wise: + 提醒","example":"A word to the wise: book your tickets early.","exampleCn":"提醒你一句，早点订票。","grammar":"if引出条件，there is引出解决办法；on the inside在此指身在监狱里的人。","note":"常用来引出有经验的提醒；不是“聪明人说的话”。","focus":"word to the wise","correction":{"cn":"提醒你一句；给你个忠告","trans":"所以提醒你一句，如果你想跟里面的朋友联系，有个简单的办法。"},"words":[{"word":"wise","meaning":"明智、有见识的"},{"word":"on the inside","meaning":"此处指在监狱里"},{"word":"solution","meaning":"解决办法"}]},"bcs-s04e05-19":{"meaning":"每一个细枝末节，一点都没漏。","pattern":"every + 单数名词；常用every little detail","example":"She noticed every little detail in the photo.","exampleCn":"她留意到了照片里的每个小细节。","grammar":"every统领lick and tittle这个并列组合，整体作know的宾语。","note":"原句措辞不常见，听懂即可；主动表达可优先用every little detail，例句采用该常用说法。","focus":"every lick and tittle","words":[{"word":"lick","meaning":"此处指极少的一点"},{"word":"tittle","meaning":"细微部分、极小细节"}]},"bcs-s04e05-20":{"meaning":"干干净净、毫无可疑之处；此处偏“清白”。","pattern":"be／keep + 人或物 + clean as a whistle","example":"The kitchen was clean as a whistle.","exampleCn":"厨房干净极了。","grammar":"keep you clean是“keep + 宾语 + 形容词”，说明让you保持什么状态。","note":"既能说实际很干净，也能说无不良记录；这里取哪层含义要看上下文。","focus":"clean as a whistle","words":[{"word":"whistle","meaning":"哨子"},{"word":"clean","meaning":"此处指清白、无可疑记录"}]},"bcs-s04e05-21":{"meaning":"数量很少，出现机会也很稀少。","pattern":"复数主语 + be few and far between","example":"Quiet afternoons are few and far between here.","exampleCn":"这里难得有安静的下午。","grammar":"conversations为复数，搭配are；few and far between整体作表语。","note":"常用于机会、事件等；不是简单地把far翻成“很远”。","focus":"few and far between","words":[{"word":"private","meaning":"私下的、非公开的"},{"word":"conversations","meaning":"交谈、对话"}]},"bcs-s04e05-22":{"meaning":"不得不承受的负担、苦恼或责任。","pattern":"a cross to bear；one's cross to bear","example":"His long commute is a cross to bear.","exampleCn":"漫长的通勤是他不得不承受的负担。","grammar":"I guess后省略that；that's = that is；to bear修饰cross，指要承受的负担。","note":"来自十字架意象，可带沉重、调侃或讽刺语气；不是普通的待办任务。","focus":"cross to bear","words":[{"word":"guess","meaning":"猜想、认为"},{"word":"cross","meaning":"十字架，此处比喻负担"},{"word":"bear","meaning":"承受、承担"}]},"bcs-s04e05-23":{"meaning":"什么事情让你烦心、不开心？","pattern":"What's eating + 人?","example":"What's eating you? You've been quiet all day.","exampleCn":"什么事让你烦心？你一整天都没怎么说话。","grammar":"what充当主语；is eating是进行时，you是受影响的人。","note":"非正式且比较直接；关心对方时，Is something bothering you?更温和。","focus":"eating you","words":[{"word":"eating","meaning":"此处比喻使人烦心"}]},"bcs-s04e05-24":{"meaning":"连最恨的人也不希望遭遇这种痛苦。","pattern":"wouldn't wish + 痛苦经历 + on + 人","example":"I wouldn't wish that pain on my worst enemy.","exampleCn":"我连最恨的人都不希望遭那种罪。","grammar":"原句省略主语I；wouldn't wish表示假设态度，it回指前述遭遇。","note":"用于强调经历很糟；不是说自己的敌人真的经历过。","focus":"Wouldn't wish it on my worst enemy","correction":{"ipa":"/ˈwʊdnt wɪʃ ɪt ɑːn maɪ ˈwɜːrst ˈenəmi/"},"words":[{"word":"wish","meaning":"希望某事发生"},{"word":"worst","meaning":"最坏的（bad的最高级）"},{"word":"enemy","meaning":"敌人"}]},"bcs-s04e05-25":{"meaning":"碰巧在不利的时间出现在不利地点，因此倒霉。","pattern":"be in the wrong place at the wrong time","example":"I was just in the wrong place at the wrong time.","exampleCn":"我只是碰巧在错误的时间出现在错误的地方。","grammar":"It sounds like + 完整句，表示“听起来好像”；were是过去时。","note":"常用于安慰或解释偶然受牵连；不等于承认做错事。","focus":"in the wrong place at the wrong time","words":[{"word":"sounds like","meaning":"听起来好像"},{"word":"just","meaning":"此处是“只是、不过是”"}]},"bcs-s04e05-26":{"meaning":"说到这里就好，不再追问或继续展开。","pattern":"leave it at that；Let's leave it at that.","example":"We disagreed, so we left it at that.","exampleCn":"我们意见不合，于是就没再说下去。","grammar":"Let's = let us，后接原形leave；it指当前话题或已经说出的内容。","note":"可用来结束讨论；语气不同会显得平和或不愿透露更多。","focus":"leave it at that","words":[{"word":"Let's","meaning":"let us的缩写，用于提议"}]},"bcs-s04e05-27":{"meaning":"逐渐学会怎么操作，开始掌握窍门。","pattern":"get the hang of + 名词／doing","example":"I'm getting the hang of using this camera.","exampleCn":"我开始摸清这台相机怎么用了。","grammar":"am getting强调正在逐渐掌握；句末so显示话还没说完。","note":"指掌握实际操作，不只是知道理论。of是介词，后接动词时用-ing。","focus":"getting the hang of","words":[{"word":"system","meaning":"系统、操作流程"},{"word":"just","meaning":"此处指才刚刚"}]},"bcs-s04e05-28":{"meaning":"恰好在某个整点，分秒不差。","pattern":"at + 时间 + on the dot","example":"The meeting starts at nine on the dot.","exampleCn":"会议九点整开始。","grammar":"if从句用一般现在时doesn't ring表示未来条件；I'm gone口语中表示“我就走”。","note":"on the dot强调精确；on time强调不迟到。ring的具体主语it需从前文确认。","focus":"on the dot","words":[{"word":"ring","meaning":"响铃"},{"word":"gone","meaning":"已经离开"}]},"bcs-s04e05-29":{"meaning":"用话把想法或需求说出来。","pattern":"use your words；tell me what you mean","example":"Use your words and tell me what happened.","exampleCn":"用语言告诉我发生了什么。","grammar":"祈使句省略you；your words指你说出来的话，而不是单独的词汇。","note":"常对孩子说；对成年人说可能带居高临下或调侃意味。","focus":"Use your words","correction":{"cn":"用语言说出你的想法或需求"},"words":[{"word":"words","meaning":"说出来的话、语言"}]},"bcs-s04e05-30":{"meaning":"没注意时间流逝，忘了时间。","pattern":"lose track of + 时间／进度／事情","example":"I lost track of time while reading.","exampleCn":"我看书看得忘了时间。","grammar":"lost是lose的过去式；of time说明没留意的对象。","note":"与lose time“耽误时间”不同；lose track of也可表示跟不上某事变化。","focus":"lost track of time","words":[{"word":"lost","meaning":"lose的过去式"},{"word":"track","meaning":"跟踪、掌握情况，此处用于固定搭配"}]},"bcs-s04e05-31":{"meaning":"不必熬夜等我回来，你先睡。","pattern":"Don't wait up (for + 人).","example":"I'll be home late, so don't wait up for me.","exampleCn":"我会很晚回家，你不用熬夜等我。","grammar":"Don't + 原形构成否定祈使句；for me可根据语境省略。","note":"这里wait up有“不睡觉等人”的含义；不是泛指不要等待。","focus":"Don't wait up","words":[]},"bcs-s04e05-32":{"meaning":"这一段经历真够丰富、曲折或刺激。","pattern":"quite a + 单数名词；It's been quite a ride.","example":"Running this café has been quite a ride.","exampleCn":"经营这家咖啡馆真是一段曲折的经历。","grammar":"Quite a ride是省略It's been的口语片段；huh邀请对方认同。","note":"ride在这里比喻经历；具体是感叹精彩还是艰难要听语气，不应一律译成“够呛”。","focus":"Quite a ride","correction":{"cn":"真是一段不平凡的经历（语气需看上下文）","trans":"好了，我想，就这样了。（轻笑）真是一段不平凡的经历，是吧？"},"words":[{"word":"ride","meaning":"旅程，此处比喻经历"},{"word":"quite","meaning":"在quite a…中加强感叹"},{"word":"huh","meaning":"用于寻求认同的语气词"}]},"bcs-s04e05-33":{"meaning":"一群食人鱼；此处用来形容对方下手狠、速度快。","pattern":"a school of + 鱼类复数","example":"We saw a school of piranhas at the aquarium.","exampleCn":"我们在水族馆看到了一群食人鱼。","grammar":"faster than引出比较对象；will + 原形表示说话者预测。","note":"school在这里是鱼群，不是学校；整段是形象比喻，并非必须整体背诵的习语。","focus":"a school of piranhas","words":[{"word":"bones","meaning":"骨头"},{"word":"school","meaning":"鱼群"},{"word":"piranhas","meaning":"食人鱼"}]},"bcs-s04e05-34":{"meaning":"对一群令人厌恶、低劣的小混混的辱骂。","pattern":"low-rent + 名词；skeeve（俚语名词）","example":"The film follows a low-rent con artist.","exampleCn":"这部电影讲的是一个不入流的骗子。","grammar":"would have spotted表示对过去情况的假设；from a mile away夸张地表示一眼就能看穿。","note":"low-rent这里是贬义的“不入流”，不是房租低；skeeves是带侮辱性的俚语。","focus":"low-rent little skeeves","words":[{"word":"spotted","meaning":"看见、认出"},{"word":"low-rent","meaning":"此处为不入流的、低劣的"},{"word":"skeeves","meaning":"令人厌恶的人（辱称）"}]},"bcs-s04e05-35":{"meaning":"这里roll是俚语动词，指抢劫某人、搜走其财物。","pattern":"roll + 人（俚语）；常用rob + 人","example":"Someone robbed him on his way home.","exampleCn":"他回家路上被抢了。","grammar":"would have known是对过去情况的假设；know not to do表示知道不该做。","note":"此义较少见，听懂即可；日常描述建议用rob，例句采用常用词。","focus":"roll me","words":[{"word":"known","meaning":"know的过去分词"},{"word":"roll","meaning":"此处是抢劫某人（俚语）"}]},"bcs-s04e05-36":{"meaning":"猜测或数值差了一个；这里是对前一句的简短纠正。","pattern":"be off by + 差额","example":"My count was off by one.","exampleCn":"我的计数差了一个。","grammar":"Off by one省略主语和be；get that ink中ink是纹身的口语说法。","note":"one具体指什么需前后文确认；不要把这句当成固定的地名梗。","focus":"Off by one","correction":{"cn":"差了一个；偏差一点（具体所指需上下文）","trans":"你那纹身是在洛斯卢纳斯弄的？——拉斯克鲁塞斯。——差了一点。"},"words":[{"word":"ink","meaning":"此处指纹身"},{"word":"off","meaning":"此处表示有偏差"}]},"bcs-s04e05-37":{"meaning":"把某项生意或计划调侃成学生创业项目。","pattern":"Good luck with + 名词／doing","example":"Good luck with your new business.","exampleCn":"祝你的新生意顺利。","grammar":"Good luck with…是祝愿句式，省略I wish you；project为中心名词。","note":"Junior Achievement是青少年商业教育组织名；这里有调侃意味，不是“初中生成果”的固定短语。","focus":"junior achievement project","correction":{"front":"Good luck with the junior achievement project.","word":"Junior Achievement project","ipa":"/ˈdʒuːniər əˈtʃiːvmənt ˈprɑːdʒekt/","cn":"青少年创业项目（此处带调侃意味）","trans":"祝你那个“学生创业项目”顺利。"},"words":[{"word":"luck","meaning":"运气"},{"word":"junior achievement","meaning":"此处涉及青少年商业教育组织名"},{"word":"project","meaning":"项目、计划"}]},"bcs-s04e05-38":{"meaning":"还没有得到那份荣幸；通常是客套或调侃。","pattern":"have the honor of + doing","example":"I had the honor of meeting her last year.","exampleCn":"我去年有幸见到了她。","grammar":"haven't had是现在完成时，表示到现在为止还没有；used to be表示过去是、现在已不是。","note":"the honor的具体内容由前文补足；不是在所有语境里都要直译“荣幸”。","focus":"had the honor","words":[{"word":"honor","meaning":"荣幸"},{"word":"used to","meaning":"过去曾经"},{"word":"lawyer","meaning":"律师"}]},"bcs-s04e05-39":{"meaning":"被当面抢劫，通常伴随威胁或暴力。","pattern":"get mugged；be mugged","example":"He got mugged near the station.","exampleCn":"他在车站附近被抢了。","grammar":"got + 过去分词mugged是口语中的被动结构，强调遭遇。","note":"mug作动词与“杯子”无关；也不同于偷走无人看管物品的steal。","focus":"got mugged","words":[{"word":"mugged","meaning":"遭抢劫（mug的过去分词）"}]},"bcs-s04e05-40":{"meaning":"字面是筑巢的松鼠；句中是用动物特征作形象描述。","pattern":"动词-ing + 名词，构成复合修饰语","example":"A nest-building squirrel appeared in the garden.","exampleCn":"花园里出现了一只正在筑巢的松鼠。","grammar":"nest-building修饰squirrel；Meaning在口语中补充解释前文，you know是插入语。","note":"这不是固定习语。究竟影射谁、哪种习惯，要结合前后对话判断。","focus":"nest-building squirrel","correction":{"cn":"筑巢的松鼠（字面组合，此处用作比喻）","trans":"意思是，呃，比如田鼠，还有那种会筑巢的松鼠。"},"words":[{"word":"Meaning","meaning":"这里用于补充解释“意思是”"},{"word":"field mice","meaning":"田鼠"},{"word":"squirrel","meaning":"松鼠"}]},"bcs-s04e05-41":{"meaning":"字面为“为道德欢呼三声”，这里可带反讽。","pattern":"Three cheers for + 人／事!","example":"Three cheers for the volunteers!","exampleCn":"为志愿者们欢呼！","grammar":"名词短语可独立用于欢呼，for引出被赞扬的对象；省略了完整动词句。","note":"表达本身可真诚也可反讽；原句的讽刺需要剧情和语气支持。","focus":"Three cheers for morality","words":[{"word":"cheers","meaning":"欢呼声"},{"word":"morality","meaning":"道德、道德准则"}]},"bcs-s04e05-42":{"meaning":"评价某个行为或话语很无情、冷酷。","pattern":"That's cold；That was cold.","example":"You laughed at his mistake? That's cold.","exampleCn":"你竟然笑他的失误？这也太无情了。","grammar":"that's = that is；cold是形容词表语，评价前文的行为。","note":"口语比喻义；不是说温度低。Jesus在这里是感叹，部分场合会被认为冒犯。","focus":"that's cold","words":[{"word":"Jesus","meaning":"这里用作感叹"},{"word":"cold","meaning":"此处指无情、冷酷的"}]},"bcs-s04e05-43":{"meaning":"让轮胎着地，别翻车；引申为一路平安。","pattern":"Keep the rubber side down!","example":"Enjoy the ride, and keep the rubber side down.","exampleCn":"骑行愉快，注意安全。","grammar":"keep + 宾语the rubber side + 副词down，表示让轮胎一侧朝下。","note":"骑车、驾驶相关的非正式祝愿；与硬币正反面、露富无关。","focus":"Keep the rubber side down","correction":{"cn":"骑车／开车注意安全；一路平安","trans":"让轮胎好好着地，一路平安！"},"words":[{"word":"rubber","meaning":"橡胶，此处指轮胎"},{"word":"side","meaning":"一面、一侧"},{"word":"down","meaning":"朝下"}]},"bcs-s04e05-44":{"meaning":"DOA本指送达时已死亡；这里比喻案子一开始就没戏。","pattern":"be DOA；dead on arrival","example":"Without funding, the plan was DOA.","exampleCn":"没有资金，这个计划一开始就没戏。","grammar":"Not only置于句首时，第一分句倒装为will your case be；后面but分句不倒装。","note":"DOA不是法律专用缩写。rip you a new one是粗俗的“狠狠训斥你”。","focus":"DOA","correction":{"cn":"dead on arrival的缩写；此处比喻一开始就没戏"},"words":[{"word":"case","meaning":"案件"},{"word":"rip","meaning":"撕扯，此处用于粗俗的训斥说法"},{"word":"on the record","meaning":"公开记录在案地"}]},"bcs-s04e05-45":{"meaning":"以已被羁押的时间作为所判监禁时间，不再增加监禁。","pattern":"sentence someone to time served","example":"The judge sentenced him to time served.","exampleCn":"法官判其刑期按已经羁押的时间计算。","grammar":"want后的six months probation、time served、no jail并列列出诉求；省略了连接词。","note":"美国司法用语；probation是社区监督性处罚，不能机械等同于中文法律制度中的缓刑。","focus":"time served","correction":{"cn":"按已羁押时间判处刑期；不再增加监禁","trans":"我要求六个月社区监督期，监禁按已羁押的时间算，不再坐牢。"},"words":[{"word":"probation","meaning":"美国司法中的社区监督性处罚"},{"word":"jail","meaning":"监狱、监禁"}]},"bcs-s04e05-46":{"meaning":"能取得收入、维持生活的工作。","pattern":"gainful employment；be gainfully employed","example":"She's looking for gainful employment.","exampleCn":"她正在找一份能维持生计的工作。","grammar":"原句是名词片段；gainful是形容词，修饰employment；strictly限制范围。","note":"偏正式用语；并不单凭这个短语就能判断工作是否“体面”或合法。","focus":"gainful employment","correction":{"cn":"有报酬、能维持生计的工作","trans":"仅限有收入的工作。"},"words":[{"word":"Strictly","meaning":"严格限于、仅仅"},{"word":"gainful","meaning":"能挣钱维生的"},{"word":"employment","meaning":"工作、就业"}]},"bcs-s04e05-47":{"meaning":"无法追踪来源、去向或身份的。","pattern":"be untraceable；untraceable + 名词","example":"The payment was almost untraceable.","exampleCn":"这笔付款几乎无法追踪。","grammar":"if从句用现在时buy；主句it's completely untraceable描述条件成立时的结果。","note":"un-表示否定，traceable表示可追踪；台词的“完全无法追踪”是角色说法，不是技术保证。","focus":"untraceable","words":[{"word":"cash","meaning":"现金"},{"word":"completely","meaning":"完全地"},{"word":"untraceable","meaning":"无法追踪的"}]},"bcs-s04e05-48":{"meaning":"我收到并理解你的信息了。","pattern":"Copy that；I copy.","example":"\"Meet at the front door.\" \"Copy that.\"","exampleCn":"“在前门碰面。”“收到。”","grammar":"Copy是动词，that指刚收到的消息；省略主语I。","note":"源于无线电通话，也用于轻松口语；不是“复制那个”。","focus":"Copy that","words":[{"word":"Copy","meaning":"此处指收到并理解信息"}]},"bcs-s04e05-49":{"meaning":"建筑在地面所占的范围、占地轮廓。","pattern":"the footprint of + 建筑／物体","example":"The new building has a smaller footprint.","exampleCn":"新楼的占地面积更小。","grammar":"need to + 原形stay；within + 名词表示在界限之内；of the building限定footprint。","note":"这里不是脚印；digital footprint是数字足迹，carbon footprint是碳足迹。","focus":"footprint","words":[{"word":"within","meaning":"在……范围之内"},{"word":"footprint","meaning":"建筑占地轮廓"},{"word":"building","meaning":"建筑物"}]},"bcs-s04e05-50":{"meaning":"地面、隧道或结构向内塌陷。","pattern":"a cave-in；cave in（动词）","example":"The tunnel was closed after a cave-in.","exampleCn":"隧道塌方后关闭了。","grammar":"Before引出时间从句；to avoid表示目的；avoid后接名词a cave-in。","note":"带连字符的cave-in是名词；动词cave in分写，也可比喻屈服。","focus":"cave-in","words":[{"word":"excavation","meaning":"挖掘、开挖"},{"word":"support","meaning":"支撑、加固"},{"word":"structure","meaning":"结构、建筑结构"}]},"bcs-s04e08-01":{"meaning":"意识到对方的付出，不把它视为理所当然。","pattern":"take + 人／物 + for granted","example":"I try not to take my family for granted.","exampleCn":"我尽量不把家人的付出当成理所当然。","grammar":"want you to know是“want + 人 + to do”；know后接I don't take this for granted这个完整句。","note":"也可指未经确认就认为某事成立；此处是表达珍惜或感谢。","focus":"take this for granted","words":[{"word":"granted","meaning":"此处用于for granted，表示视为当然"}]},"bcs-s04e08-02":{"meaning":"想清楚、弄明白，或找到解决办法。","pattern":"figure + 问题 + out；figure out how／why…","example":"We'll figure out how to get there.","exampleCn":"我们会想办法弄清楚怎么去那里。","grammar":"代词it放在figure和out之间；on the way表示在途中；if从句谈可能已经遗漏的东西。","note":"不是算数学题才用figure out；也可表示理解人或事情。","focus":"figure it out","words":[{"word":"forgot","meaning":"forget的过去式"},{"word":"anything","meaning":"任何事情或东西"},{"word":"on the way","meaning":"在路上"}]},"bcs-s04e08-03":{"meaning":"这里指车辆抛锚、出故障。","pattern":"a car／bus + breaks down","example":"Our car broke down on the way home.","exampleCn":"我们的车在回家的路上抛锚了。","grammar":"unless = if…not，表示除非；unless从句用一般现在时谈未来可能的意外。","note":"这里用we代指所乘的车辆。break down还可指情绪崩溃或把内容分解。","focus":"break down","words":[{"word":"unless","meaning":"除非"},{"word":"Thursday","meaning":"星期四"}]},"bcs-s04e08-04":{"meaning":"把怒气收一收，降低表达的强度。","pattern":"tone down + 名词；tone + 代词 + down","example":"Could you tone down the criticism a little?","exampleCn":"你能把批评说得缓和一点吗？","grammar":"I like…, but…先肯定再转折；maybe和just使后面的建议更委婉。","note":"可修饰语气、颜色、音乐等；此处不是降低音量这么简单。","focus":"tone down","correction":{"trans":"我喜欢你的热情，不过，也许可以把火气收一收。"},"words":[{"word":"passion","meaning":"热情"},{"word":"anger","meaning":"怒气"},{"word":"maybe","meaning":"也许，用于缓和建议"}]},"bcs-s04e08-05":{"meaning":"继续留在附近，暂时别走。","pattern":"stick around (for + 活动)","example":"Stick around for a cup of tea.","exampleCn":"留下来喝杯茶吧。","grammar":"You stick around?采用口语问句的陈述语序；升调表示提问，完整问法需结合时间语境。","note":"偏口语；标准的留人问法可用Are you sticking around?，不必照搬省略问句。","focus":"stick around","words":[{"word":"around","meaning":"在附近、暂留着"}]},"bcs-s04e08-06":{"meaning":"动身去某处，过去一趟。","pattern":"head over to + 地点","example":"I'm heading over to the café now.","exampleCn":"我现在要去咖啡馆。","grammar":"gonna = going to；finish后接动名词setting up，不能说finish to set up。","note":"head在这里是动词“前往”；head over比go多一点“动身过去”的感觉。","focus":"head over","words":[{"word":"nail salon","meaning":"美甲店"},{"word":"finish","meaning":"完成，后接-ing"},{"word":"setting up","meaning":"布置、准备妥当"}]},"bcs-s04e08-07":{"meaning":"让我们进度慢下来、拖慢大家。","pattern":"slow + 人／事 + down","example":"I don't want to slow the team down.","exampleCn":"我不想拖慢团队的进度。","grammar":"want to后接原形slow；代词us必须在slow和down之间。","note":"不及物的Slow down!是“慢一点”；这里是及物用法“使……变慢”。","focus":"slow us down","words":[{"word":"us","meaning":"我们（宾格形式）"}]},"bcs-s04e08-08":{"meaning":"在对话中提起某件事。","pattern":"bring up + 话题；bring + 代词 + up","example":"I'll bring it up at our next meeting.","exampleCn":"我会在下次会议上提起这件事。","grammar":"for是介词，后接bringing this up，说明hate me的原因。","note":"bring up也可指抚养孩子；提话题时不等同于bring“带来”。","focus":"bringing this up","words":[{"word":"hate","meaning":"讨厌、怨恨"},{"word":"bringing","meaning":"bring的-ing形式"}]},"bcs-s04e08-09":{"meaning":"这里是提到、涉及所有重要节点。","pattern":"hit on + 话题／想法","example":"The discussion hit on several useful ideas.","exampleCn":"讨论提到了几个有用的想法。","grammar":"want后接to hit；milestones后省略that的定语从句we're talking about保留句尾about。","note":"hit on someone常指搭讪；hit on an idea还可指突然想到。看宾语决定意思。","focus":"hit on","words":[{"word":"milestones","meaning":"重要阶段、里程碑"},{"word":"all","meaning":"全部、所有"}]},"bcs-s04e08-10":{"meaning":"放弃当前进度，重新开始。","pattern":"start over；start over from scratch","example":"I saved the wrong file and had to start over.","exampleCn":"我存错了文件，只好重新开始。","grammar":"It took + 时间 + to do表示做事耗时；starting over now?是表示质疑的口语片段。","note":"美式常用start over；start again也通用。不必每次都理解为完全从零。","focus":"starting over","words":[{"word":"approval","meaning":"批准、许可"},{"word":"current","meaning":"当前的"},{"word":"design","meaning":"设计方案"}]},"bcs-s04e08-11":{"meaning":"针对、追击或攻击某个人；这里是用谎言对付他人。","pattern":"go after + 人／目标","example":"The company is going after new customers.","exampleCn":"这家公司正努力争取新客户。","grammar":"someone so sweet and kind中形容词短语后置修饰someone；with引出所用手段。","note":"go after也可表示追求目标，不一定有攻击意味；原句有口语停顿，别照搬整句结构。","focus":"go after","words":[{"word":"sweet","meaning":"此处指友善、讨人喜欢的"},{"word":"kind","meaning":"善良的"},{"word":"lies","meaning":"谎言"}]},"bcs-s04e08-12":{"meaning":"稍后回复、回电或再联系某人。","pattern":"get back to + 人","example":"I'll get back to you tomorrow.","exampleCn":"我明天回复你。","grammar":"as soon as I can省略了重复的get back to you；时间从句用can而不是will can。","note":"常用于电话、邮件和工作沟通；get back to work则是回去继续工作。","focus":"get back to you","words":[{"word":"at the moment","meaning":"现在、此刻"},{"word":"leave a message","meaning":"留言"},{"word":"as soon as","meaning":"一……就，尽早"}]},"bcs-s04e08-13":{"meaning":"复习已学过的知识，让自己重新熟悉。","pattern":"brush up on + 知识／技能","example":"I need to brush up on my French.","exampleCn":"我需要温习一下法语。","grammar":"like to + 原形brush；before后接完整时间从句they go to sleep。","note":"不是从零学习；brush up on更强调恢复已有知识。原字幕slep应为sleep。","focus":"brush up on","correction":{"front":"They like to brush up on the Bible before, uh, they go to sleep."},"words":[{"word":"Bible","meaning":"《圣经》"},{"word":"before","meaning":"在……之前"},{"word":"sleep","meaning":"睡觉"}]},"bcs-s04e08-14":{"meaning":"这里指把每一位老人都抱着或抬着带出去。","pattern":"carry + 人／物 + out (of + 地点)","example":"They carried the injured man out of the room.","exampleCn":"他们把受伤男子抬出了房间。","grammar":"carried是carry的过去式；every last one强调“一个不剩”；them oldsters是非标准口语。","note":"这里取carry out的字面义；carry out a plan才是执行计划。标准表达用those oldsters。","focus":"carried out","correction":{"cn":"把人／物抱出去、抬出去（此处为字面义）"},"words":[{"word":"carried","meaning":"carry的过去式，搬、抱、抬"},{"word":"every last one","meaning":"每一个，一个不剩"},{"word":"oldsters","meaning":"老人（非正式）"}]},"bcs-s04e08-15":{"meaning":"离开前把门窗锁好。","pattern":"lock up；lock + 建筑／房间 + up","example":"Could you lock up before you leave?","exampleCn":"你离开前能锁好门吗？","grammar":"when I go是时间从句，用一般现在时表示将来；主句用I'll。","note":"lock someone up则是把人关起来；这里没有人的宾语，是锁好场所。","focus":"lock up","words":[{"word":"when","meaning":"当……时"},{"word":"lock","meaning":"锁上"}]},"bcs-s04e08-16":{"meaning":"在障碍周围施工、绕过它；此处说做不到。","pattern":"work around + 障碍／限制","example":"We found a way to work around the problem.","exampleCn":"我们找到了绕过这个问题的办法。","grammar":"两个Can't前都省略主语；dig it out里的代词it必须放在dig与out中间。","note":"可字面指绕过障碍，也可比喻变通处理限制；这里还提到挖掘，偏施工语境。","focus":"work around","words":[{"word":"dig","meaning":"挖掘"},{"word":"around","meaning":"绕到周围、绕开"}]},"bcs-s04e08-17":{"meaning":"漏掉、没有写进或包括某项内容。","pattern":"leave + 内容 + out of + 整体","example":"You left my name out of the email.","exampleCn":"你的邮件里漏了我的名字。","grammar":"what…he left out是find out的宾语从句；if anything插入其间，表示“如果确实遗漏了的话”。","note":"leave out可为无意遗漏，也可为有意省略；不能仅凭这个词判断动机。","focus":"left out","words":[{"word":"arresting officer","meaning":"执行逮捕的警官"},{"word":"if anything","meaning":"如果确实有的话"},{"word":"reports","meaning":"报告"}]},"bcs-s04e08-18":{"meaning":"出钱分担、凑钱支付。","pattern":"kick in (for + 费用)；kick in + 金额","example":"We each kicked in ten dollars for the gift.","exampleCn":"我们每人出十美元买礼物。","grammar":"will后接原形kick；for small repairs说明出钱的用途；like that修饰repairs。","note":"非正式美式用法；kick in也可指药物等开始起作用，两义要区分。","focus":"kick in","words":[{"word":"landlord","meaning":"房东"},{"word":"repairs","meaning":"维修、修补"},{"word":"small","meaning":"小规模的"}]},"bcs-s04e08-19":{"meaning":"误解了情况、搞错了意思。","pattern":"get the wrong end of the stick","example":"Sorry, I got the wrong end of the stick.","exampleCn":"抱歉，我误会了。","grammar":"I think后省略that；got是get的过去式，宾语是完整习语短语。","note":"非正式习语；可表示整个理解有误，不只是把两个东西顺序颠倒。","focus":"got the wrong end of the stick","words":[{"word":"wrong","meaning":"错误的"},{"word":"stick","meaning":"棍子，整句用作比喻"}]},"bcs-s04e08-20":{"meaning":"像变魔术一样想出意外的解决办法。","pattern":"pull a rabbit out of the hat","example":"We need to pull a rabbit out of the hat to finish on time.","exampleCn":"要按时完成，我们得想出一个出人意料的办法。","grammar":"Can + 主语 + 原形pull构成请求／询问；another说明之前已有类似成功。","note":"既可指真的魔术，也可比喻临时解围；这里重点是令人惊喜的办法。","focus":"pull another rabbit out of the hat","words":[{"word":"another","meaning":"另一个、再一个"},{"word":"rabbit","meaning":"兔子"},{"word":"hat","meaning":"帽子"}]},"bcs-s04e08-21":{"meaning":"教会中重要、可靠且积极支持集体的人。","pattern":"a pillar of + 团体／社会","example":"She's a pillar of the local community.","exampleCn":"她是当地社区的中坚人物。","grammar":"He's = he is；a pillar of our church是名词表语，of说明所支持的团体。","note":"pillar本义是柱子；比喻用法通常是赞扬，不专指教会职务。","focus":"a pillar of our church","words":[{"word":"pillar","meaning":"柱子，此处比喻中坚人物"},{"word":"church","meaning":"教会、教堂"}]},"bcs-s04e08-22":{"meaning":"以强烈冲击或威慑压倒对方；这里说这招不够。","pattern":"shock and awe；cut it = 达到要求","example":"A flashy presentation alone won't cut it.","exampleCn":"光靠花哨的演示还不够。","grammar":"shock and awe作为一个整体策略，用单数isn't；gonna = going to；cut it表示够用。","note":"源于军事用语，这里是比喻；比起主动用这个标签，掌握口语won't cut it更实用。","focus":"shock and awe","words":[{"word":"shock","meaning":"震慑、强烈冲击"},{"word":"awe","meaning":"敬畏"},{"word":"cut it","meaning":"够用、达到要求"}]},"bcs-s04e08-23":{"meaning":"就在正中央，位置正好卡在中间。","pattern":"smack dab in the middle of + 地点","example":"The table is smack dab in the middle of the room.","exampleCn":"桌子就在房间正中央。","grammar":"smack dab加强in the middle的程度；of our elevator shaft补充所处空间。","note":"非正式、强调位置；正式表达可用right in the middle或directly in the center。","focus":"smack dab in the middle","words":[{"word":"elevator shaft","meaning":"电梯井"},{"word":"middle","meaning":"中央"},{"word":"smack dab","meaning":"恰好、正好（强调位置）"}]},"bcs-s04e08-24":{"meaning":"暂时多出一些时间、空间或余地，可以缓一缓。","pattern":"have／give + 人 + breathing room","example":"Moving the deadline gave us some breathing room.","exampleCn":"延后截止日期让我们有了喘息余地。","grammar":"have后接不可数名词短语some breathing room；room在这里表示余地。","note":"不一定是实际的呼吸空间，也可指财务、时间或心理上的余裕。","focus":"breathing room","words":[{"word":"breathing","meaning":"呼吸的"},{"word":"room","meaning":"此处指余地、空间（不可数）"}]},"bcs-s04e08-25":{"meaning":"事情到此结束，不再继续谈。","pattern":"Over and out.（影视口语收尾）","example":"\"That's all for tonight. Over and out.\"","exampleCn":"“今晚就到这里，结束通话。”","grammar":"we are totally done with…表示彻底结束某事；no more是省略重复内容的强调片段。","note":"影视常把它连用；规范无线电里over是交给对方回复，out是通话结束，含义不同。","focus":"over and out","words":[{"word":"agree","meaning":"同意"},{"word":"totally","meaning":"彻底地"},{"word":"done with","meaning":"已经结束、不再处理"}]},"bcs-s04e08-26":{"meaning":"先提醒一下，后面可能有需要注意的事情。","pattern":"a word of warning: + 提醒","example":"A word of warning: the road gets icy at night.","exampleCn":"先提醒一下，这条路夜里会结冰。","grammar":"just a word of warning是省略句；with onions on top是补充食物配料的介词短语。","note":"warning强调潜在问题；word to the wise更像经验性忠告。word在这里不只指一个单词。","focus":"a word of warning","words":[{"word":"warning","meaning":"警告、提醒"},{"word":"a pile of","meaning":"一大堆"},{"word":"onions","meaning":"洋葱"}]},"bcs-s04e08-27":{"meaning":"相当不错、还挺像样。","pattern":"not too shabby","example":"Your first cake? Not too shabby!","exampleCn":"这是你第一次做蛋糕？很不错啊！","grammar":"I've been taking是现在完成进行时，强调近期持续参加课程。","note":"非正式、带轻描淡写的称赞；shabby本义是破旧的，这里不是在说衣着。","focus":"not too shabby","words":[{"word":"shabby","meaning":"本义破旧的"},{"word":"improv","meaning":"即兴表演（improvisation的简称）"},{"word":"classes","meaning":"课程"}]},"bcs-s04e08-28":{"meaning":"进行一次严肃谈话，让对方正视问题、改变做法。","pattern":"have a come-to-Jesus talk／meeting with + 人","example":"We had a come-to-Jesus talk about the missed deadlines.","exampleCn":"我们就屡次错过截止日期严肃谈了一次。","grammar":"gave him the \"come to Jesus\"把整段说法当成名词；是口语省略，标准搭配常补talk或meeting。","note":"非正式美式表达，带宗教来源；此处通常是比喻“把话说重”，不等于真的劝人信教。","focus":"come to Jesus","words":[{"word":"gave","meaning":"give的过去式"},{"word":"Jesus","meaning":"耶稣，此处为比喻说法的一部分"}]},"bcs-s04e08-29":{"meaning":"把某人带走，免得他继续烦你、妨碍你。","pattern":"get + 人 + out of + someone's hair","example":"I'll take the kids outside and get them out of your hair.","exampleCn":"我把孩子们带出去，让你清静一会儿。","grammar":"the guy后接who引导的定语从句；to get him…说明I'm here的目的。","note":"不是实际把人从头发里拿出来；I'll get out of your hair表示“我不打扰你了”。","focus":"get him out of your hair","words":[{"word":"guy","meaning":"男人、家伙（口语）"},{"word":"too much","meaning":"此处省略了喝酒的内容，指喝多了"},{"word":"hair","meaning":"头发，此处用于习语"}]},"bcs-s04e08-30":{"meaning":"通过睡觉缓解酒醉或不适。","pattern":"sleep + 不适／酒意 + off；sleep it off","example":"He went to bed to sleep off the headache.","exampleCn":"他上床睡觉，想缓解头痛。","grammar":"this one后接this idiot是口语自我补充；goes和sleeps用一般现在时描述安排。","note":"睡觉不等于酒精立即消失；学习时理解其口语含义即可，不把台词当健康建议。","focus":"sleeps it off","words":[{"word":"idiot","meaning":"蠢货（侮辱性）"},{"word":"sleeps","meaning":"睡觉（三单形式）"}]},"bcs-s04e08-31":{"meaning":"进度远远落后于计划。","pattern":"be + 程度副词 + behind schedule","example":"We're already two weeks behind schedule.","exampleCn":"我们已经比计划落后两周了。","grammar":"Way behind schedule省略主语和be；way在形容词／介词短语前表示“远远地”。","note":"behind schedule是落后，ahead of schedule是提前，on schedule是按计划。","focus":"Way behind schedule","words":[{"word":"way","meaning":"此处是远远地、大大地"},{"word":"schedule","meaning":"计划进度"},{"word":"solid","meaning":"此处指扎实、可靠的"}]},"bcs-s04e08-32":{"meaning":"价格在你能够或愿意支付的范围内。","pattern":"be in／within + one's price range","example":"This laptop is within my price range.","exampleCn":"这台笔记本电脑在我的预算内。","grammar":"it's = it is；in your price range是介词短语作表语。","note":"out of my price range表示超出预算；price range也可指商品的价格区间。","focus":"in your price range","words":[{"word":"price range","meaning":"价格或预算范围"}]},"bcs-s04e08-33":{"meaning":"发挥想象力，创造性地思考。","pattern":"use + one's imagination","example":"Use your imagination to find a new solution.","exampleCn":"发挥想象力，找一个新办法。","grammar":"Use和Think都是动词原形开头的祈使句；creatively是副词，修饰Think。","note":"对方觉得问题显而易见时，这句话也可能显得不耐烦；要看语气。","focus":"Use your imagination","words":[{"word":"imagination","meaning":"想象力"},{"word":"creatively","meaning":"有创造性地"}]},"bcs-s04e08-34":{"meaning":"俚语中指警察。","pattern":"five-o（俚语名词）","example":"He warned his friends that five-o was nearby.","exampleCn":"他提醒朋友们警察就在附近。","grammar":"all over在这里是到处都是；not real five-o是口语中的自我修正，rentals指临时雇来的人。","note":"偏美式俚语，可能带躲避警察的语境；普通交流优先用the police。","focus":"Five-o","words":[{"word":"all over","meaning":"到处都是"},{"word":"real","meaning":"真正的"},{"word":"rentals","meaning":"此处指雇来的人（非正式代称）"}]},"bcs-s04e08-35":{"meaning":"对粗鲁、愚蠢或没教养者的贬称。","pattern":"a bunch of + 复数名词","example":"A bunch of yahoos kept shouting outside.","exampleCn":"外面一群粗鲁的人一直在叫喊。","grammar":"packing my court是-ing短语修饰yahoos，意为把法庭挤满；a bunch of表示一群。","note":"侮辱性口语，不宜随意称呼陌生人；并非专门指农村人。","focus":"yahoos","correction":{"cn":"粗鲁、愚蠢或没教养的人（贬称）","ipa":"/ˈjɑːhuːz/","trans":"你是说一帮粗鲁的家伙要把我的法庭挤满？"},"words":[{"word":"a bunch of","meaning":"一群、一帮（非正式）"},{"word":"packing","meaning":"此处指挤满"},{"word":"court","meaning":"此处指法庭"}]},"bcs-s04e08-36":{"meaning":"带鄙夷地称别人为“住沼泽地的好事者”。","pattern":"名词-ing复合形容词 + 人；do-gooder","example":"He dismissed the volunteers as do-gooders.","exampleCn":"他不屑地把志愿者叫作多管闲事的好人。","grammar":"swamp-dwelling修饰do-gooder；if从句没有给出主句，所以原句不是完整条件句。","note":"do-gooder常含“自以为行善”的讽刺；整段是角色组合的辱称，不是固定习语。","focus":"swamp-dwelling do-gooder","words":[{"word":"receive","meaning":"收到"},{"word":"swamp","meaning":"沼泽"},{"word":"do-gooder","meaning":"自以为行善、爱管闲事的人（贬义）"}]},"bcs-s04e08-37":{"meaning":"对人的强烈侮辱，近似“人渣、卑鄙的人”。","pattern":"call + 人 + a scumbag","example":"She called the thief a scumbag.","exampleCn":"她骂那个小偷是人渣。","grammar":"only修饰witness；disbarred是过去分词作定语，指被取消执业资格的律师。","note":"粗鲁、强烈贬义，听懂即可；正常争论中不建议使用。","focus":"scumbag","words":[{"word":"witness","meaning":"证人"},{"word":"disbarred","meaning":"被取消律师执业资格的"},{"word":"lawyer","meaning":"律师"}]},"bcs-s04e08-38":{"meaning":"口语里的I got you：明白了，也可能是“我来帮你”。","pattern":"I got you；I've got you.","example":"\"Can you help with this?\" \"I got you.\"","exampleCn":"“你能帮忙弄这个吗？”“交给我。”","grammar":"gotchu是把got you的连读写出来，不是独立的标准动词。","note":"意思要看上下文；可能是理解、照应或抓住对方。正式写作不写gotchu。","focus":"I gotchu","words":[{"word":"gotchu","meaning":"got you的非标准连读拼写"}]},"bcs-s04e08-39":{"meaning":"就地找找、凑点现成食物吃。","pattern":"scrounge for + 物；scrounge up + 物","example":"I'll scrounge up something for lunch.","exampleCn":"我找点现成的东西凑合吃午饭。","grammar":"some old Chinese中省略了food；have表示家里现有的食物，并非“认识中国人”。","note":"scrounge有勉强搜罗或向人讨要的意味；old在这里指之前剩下的，不只是放凉。","focus":"scrounge","correction":{"trans":"哦，不用了。我就在这儿找点现成的吃。我想我们还有些剩中餐。"},"words":[{"word":"scrounge","meaning":"搜罗、勉强找点东西"},{"word":"old","meaning":"此处指先前剩下的"},{"word":"Chinese","meaning":"此处省略food，指中餐"}]},"bcs-s04e08-40":{"meaning":"crawdad指小龙虾；原句字面是“我裤子里有小龙虾”。","pattern":"crawdad／crawfish／crayfish","example":"We ordered a plate of crawdads.","exampleCn":"我们点了一盘小龙虾。","grammar":"crawdads为复数；I got在非正式美语里有时相当于I've got，表示有。","note":"美式地域词，尤其见于美国部分南部地区；整句不是常见习语，笑点要结合场景。","focus":"crawdads","correction":{"cn":"小龙虾（美式地域用词；整句并非常见习语）"},"words":[{"word":"crawdads","meaning":"小龙虾（美式地域词）"},{"word":"pants","meaning":"裤子（美式）"}]},"bcs-s04e08-41":{"meaning":"美国南部常见的缓流河道、沼泽水道。","pattern":"a bayou；in the bayou","example":"We took a boat through a bayou.","exampleCn":"我们乘船穿过一条沼泽水道。","grammar":"it's like + 完整句，表示“感觉像是”；I'm in the bayou是like后的比较内容。","note":"地域和文化词，听懂即可；不等于所有的swamp沼泽地。","focus":"bayou","words":[{"word":"bayou","meaning":"缓流的沼泽水道"},{"word":"like","meaning":"此处表示好像"}]},"bcs-s04e08-42":{"meaning":"角色用非标准说法表达“好极了”。","pattern":"日常标准表达：It's wonderful.","example":"It's wonderful to see you again.","exampleCn":"能再次见到你真好。","grammar":"It's = it is；后面是形容词表语。例句中的to see you说明令人开心的事情。","note":"wondermous不是建议主动掌握的标准常用词，也不应简单标成“南方口音”。例句采用wonderful。","focus":"wondermous","correction":{"cn":"好极了（角色的非标准说法，常用词为wonderful）"},"words":[{"word":"wondermous","meaning":"大致表示好极了（非标准）"}]},"bcs-s04e08-43":{"meaning":"违反法庭权威或秩序等的藐视法庭行为。","pattern":"be held in contempt of court","example":"He was held in contempt of court.","exampleCn":"他被认定构成藐视法庭。","grammar":"原句列举两个法律名词短语，没有完整主谓；of court说明contempt所针对的对象。","note":"法律用语；ex parte communication指与一方进行、其他相关方未参与的沟通。","focus":"contempt of court","words":[{"word":"Ex parte","meaning":"一方参与、其他相关方未参与的"},{"word":"communication","meaning":"沟通"},{"word":"contempt","meaning":"藐视"}]},"bcs-s04e08-44":{"meaning":"向法院提出延后审理或程序的请求。","pattern":"file／grant a motion for continuance","example":"The lawyer filed a motion for continuance.","exampleCn":"律师提交了延期审理申请。","grammar":"This is + 名词表语；motion是中心词，for continuance说明申请的事项。","note":"美国法律用语；motion是请求法院作出决定的动议，不是“运动”。","focus":"motion for continuance","words":[{"word":"motion","meaning":"向法院提出的动议或申请"},{"word":"continuance","meaning":"审理或程序的延期"}]},"bcs-s04e08-45":{"meaning":"通过法院传票要求某人作证或提供材料。","pattern":"subpoena + 人／记录","example":"The court subpoenaed the witness.","exampleCn":"法院用传票传唤了那位证人。","grammar":"need time to do表示需要时间做某事；to后接动词原形subpoena，不是名词。","note":"可作名词“传票”，也可作动词“以传票传唤”；不能把所有通知都叫subpoena。","focus":"subpoena","correction":{"cn":"用法院传票传唤；要求提供材料","trans":"我们需要时间，用传票把他们都传来。"},"words":[{"word":"subpoena","meaning":"用法院传票传唤"},{"word":"all of them","meaning":"他们所有人"}]},"bcs-s04e08-46":{"meaning":"律师无偿提供的法律服务，通常服务公共利益。","pattern":"pro bono work／case；work pro bono","example":"She does pro bono work at a legal clinic.","exampleCn":"她在法律援助机构提供无偿服务。","grammar":"you're throwing是进行时；$400-an-hour是整体修饰associates的复合定语；at说明投入到哪个案子。","note":"法律用语；associate这里是律师事务所律师，不能泛译为助手；throw at暗示投入大量资源。","focus":"pro bono","correction":{"trans":"金，你给一个无偿法律援助案子投入了三个时薪四百美元的律师？"},"words":[{"word":"associates","meaning":"此处指律师事务所律师"},{"word":"pro bono","meaning":"无偿提供的公益法律服务"},{"word":"case","meaning":"案件"}]},"bcs-s04e08-47":{"meaning":"以已经被羁押的时间作为刑期，不再增加监禁时间。","pattern":"time served；plead to + 指控","example":"His sentence was time served.","exampleCn":"他的刑期按已被羁押的时间计算。","grammar":"前面是并列列举的条件；we plead to后接指控名称simple battery，表示就该罪名认罪。","note":"probation是美国司法中的社区监督性处罚；battery指非法身体接触或殴打，不是电池。","focus":"Time served","correction":{"cn":"按已羁押时间判处刑期；不再增加监禁","trans":"监禁按已羁押时间算，社区监督三到六个月，我们就轻微殴打这一罪名认罪。"},"words":[{"word":"probation","meaning":"美国司法中的社区监督性处罚"},{"word":"plead","meaning":"作答辩，此处指认罪"},{"word":"simple battery","meaning":"一般身体侵害／轻微殴打指控（具体定义依当地法律）"}]},"bcs-s04e08-48":{"meaning":"在诉讼中被指控或被起诉的一方，即被告。","pattern":"the defendant；a criminal defendant","example":"The defendant denied the accusation.","exampleCn":"被告否认了指控。","grammar":"defendant's是所有格；as well as I do是同等比较，do代替know the history。","note":"区别于plaintiff原告、witness证人；history在这里是过往情况，不只指某段正式记录。","focus":"defendant","correction":{"trans":"她对被告的过往情况和我一样清楚。"},"words":[{"word":"defendant","meaning":"被告"},{"word":"history","meaning":"此处指过往情况"},{"word":"as well as","meaning":"和……一样充分地"}]},"bcs-s04e08-49":{"meaning":"在同一个教会聚会或参加宗教仪式的信众群体。","pattern":"members of a congregation","example":"The congregation welcomed the new family.","exampleCn":"教会的信众欢迎这个新家庭。","grammar":"I've seen是现在完成时；from fellow members说明信件来自同属一个群体的成员。","note":"congregation是集合名词；fellow在这里是“同属……的”，不是“家伙”。","focus":"congregation","words":[{"word":"several","meaning":"若干、几个"},{"word":"fellow","meaning":"同属一个群体的"},{"word":"congregation","meaning":"教会会众"}]},"bcs-s04e08-50":{"meaning":"建筑入口内的小门厅、前厅。","pattern":"step into + 地点；a vestibule","example":"Please wait in the vestibule.","exampleCn":"请在门厅等候。","grammar":"gonna = going to；step into表示走进；开头Just是口语停顿，不必硬加到书面句子里。","note":"偏建筑用词；与普通大厅hall或入口entrance相关，但不是所有大厅都叫vestibule。","focus":"vestibule","correction":{"trans":"我去一下前厅。"},"words":[{"word":"step into","meaning":"走进"},{"word":"vestibule","meaning":"入口内的门厅"}]}};
+/* Shared validation for browser imports and the online generator. */
+(function (root) {
+  'use strict';
+  const FORMAT = 'series-vocab-deck/v1';
+  const clean = (value, label, max = 2000) => {
+    if (typeof value !== 'string' || !value.trim() || value.length > max) throw new Error(label + '缺失或过长');
+    return value.trim();
+  };
+  const normalize = text => String(text).normalize('NFKC').toLowerCase().replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim();
+  const titleKey = text => normalize(text).replace(/[^\p{L}\p{N}]/gu, '');
+  function input(value) {
+    if (!value || typeof value !== 'object') throw new Error('请填写片名和集数');
+    const kind = value.kind === 'movie' ? 'movie' : 'series';
+    const show = clean(value.show, '剧名／电影名', 120);
+    const year = value.year === '' || value.year == null ? null : Number(value.year);
+    if (year !== null && (!Number.isInteger(year) || year < 1888 || year > 2100)) throw new Error('请输入有效年份');
+    let season = 0, episode = 0;
+    if (kind === 'series') {
+      season = Number(value.season); episode = Number(value.episode);
+      if (![season, episode].every(n => Number.isInteger(n) && n >= 1 && n <= 999)) throw new Error('季数和集数应为 1—999 的整数');
+    }
+    return { show, kind, year, season, episode };
+  }
+  function identity(d) { return [titleKey(d.show), d.kind || 'series', d.year || '', d.season, d.episode].join(':'); }
+  function idFor(d) {
+    let hash = 2166136261;
+    for (const ch of identity(d)) hash = Math.imul(hash ^ ch.codePointAt(0), 16777619) >>> 0;
+    return 'custom-' + hash.toString(16).padStart(8, '0');
+  }
+  function validate(payload) {
+    if (!payload || payload.format !== FORMAT || !payload.deck) throw new Error('请选择本页导出的剧集词汇 JSON 文件');
+    const raw = payload.deck, meta = input(raw);
+    if (!Array.isArray(raw.cards) || raw.cards.length !== 50) throw new Error('每集必须恰好有 50 条有效台词');
+    const deck = { ...meta, showCn: clean(raw.showCn, '中文片名', 120), epTitle: String(raw.epTitle || '').slice(0, 200), epTitleCn: String(raw.epTitleCn || '').slice(0, 200), date: String(raw.date || '').slice(0, 10), source: clean(raw.source, '来源', 200), sourceUrl: String(raw.sourceUrl || '').slice(0, 2000) };
+    if (deck.sourceUrl && !/^https:\/\/[^\s]+$/i.test(deck.sourceUrl)) throw new Error('来源链接必须使用 HTTPS');
+    const seen = new Set();
+    deck.cards = raw.cards.map((rawCard, index) => {
+      if (!rawCard || typeof rawCard !== 'object') throw new Error('第 ' + (index + 1) + ' 条不是有效卡片');
+      const c = {};
+      for (const key of ['front','word','cn','ipa','trans','meaning','pattern','example','exampleCn','grammar','note','focus']) c[key] = clean(rawCard[key], '第 ' + (index + 1) + ' 条 ' + key, key === 'front' ? 1500 : 2000);
+      const sentence = normalize(c.front);
+      if (seen.has(sentence)) throw new Error('台词重复，请重新生成');
+      seen.add(sentence);
+      if (!c.front.toLowerCase().includes(c.focus.toLowerCase())) throw new Error('第 ' + (index + 1) + ' 条填空目标不在原句中');
+      if (!Array.isArray(rawCard.words) || rawCard.words.length > 12) throw new Error('句中单词格式不正确');
+      c.words = rawCard.words.map(w => {
+        const word = clean(w?.word, '句中单词', 100), meaning = clean(w?.meaning, '单词释义', 500);
+        if (!sentence.includes(normalize(word))) throw new Error('单词不在对应台词中');
+        return {word, meaning};
+      });
+      c.id = idFor(deck) + '-' + String(index + 1).padStart(2, '0');
+      return c;
+    });
+    return { format: FORMAT, deck };
+  }
+  function csv(payload) {
+    const {deck} = validate(payload), quote = s => '"' + s.replace(/"/g, '""') + '"';
+    return ['#separator:Comma','#html:false','#notetype:Basic','#deck:追剧英语::' + deck.show.replace(/[\r\n]/g, ' '),'#columns:Front,Back', ...deck.cards.map(c => quote(c.front) + ',' + quote(c.trans + '（' + c.word + '：' + c.cn + ' ' + c.ipa + '）'))].join('\n');
+  }
+  const api = { FORMAT, normalize, titleKey, input, identity, idFor, validate, csv };
+  root.DeckFormat = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(globalThis);
+
+/* Custom decks are part of the progress backup, never mixed with service credentials. */
+const BUILTIN_DECK_IDS = new Set(Object.keys(DECKS));
+function validatedCustomDecks(raw) {
+  if (raw == null) return {};
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw) || Object.keys(raw).length > 30) throw new Error('自建牌组格式不正确，最多保存 30 集');
+  const result = {};
+  for (const value of Object.values(raw)) {
+    const payload = DeckFormat.validate(value), id = DeckFormat.idFor(payload.deck);
+    if (Object.hasOwn(result, id)) throw new Error('备份中有重复牌组');
+    result[id] = payload;
+  }
+  return result;
+}
+function syncCustomDecks() {
+  for (const id of Object.keys(DECKS)) if (!BUILTIN_DECK_IDS.has(id)) {
+    for (const c of DECKS[id].cards) delete TEACHING[c.id];
+    delete DECKS[id];
+  }
+  for (const [id, payload] of Object.entries(store.customDecks || {})) {
+    const d = payload.deck;
+    DECKS[id] = {...d, cards:d.cards.map(c => ({id:c.id,front:c.front,word:c.word,cn:c.cn,ipa:c.ipa,trans:c.trans}))};
+    for (const c of d.cards) TEACHING[c.id] = {meaning:c.meaning,pattern:c.pattern,example:c.example,exampleCn:c.exampleCn,grammar:c.grammar,note:c.note,focus:c.focus,words:c.words};
+  }
+}
+try { store.customDecks = validatedCustomDecks(store.customDecks); syncCustomDecks(); }
+catch (err) { console.warn('自建牌组未载入：', err.message); }
+function matchingDeck(meta) {
+  return Object.keys(DECKS).find(id => {
+    const d = DECKS[id];
+    return (d.kind || 'series') === meta.kind && d.season === meta.season && d.episode === meta.episode && (!meta.year || !d.year || d.year === meta.year) && [d.show,d.showCn].some(t => DeckFormat.titleKey(t) === DeckFormat.titleKey(meta.show));
+  });
+}
+function installGeneratedDeck(raw) {
+  const payload = DeckFormat.validate(raw), existing = matchingDeck(payload.deck);
+  if (existing) {
+    store.removed = store.removed.filter(id => id !== existing); saveStore(); renderDecks();
+    return {id:existing, payload, existing:true};
+  }
+  const id = DeckFormat.idFor(payload.deck);
+  if(Object.hasOwn(DECKS,id))throw new Error('牌组编号发生冲突，请先导出已有牌组再处理');
+  const next = {...(store.customDecks || {}),[id]:payload};
+  if (Object.keys(next).length > 30) throw new Error('已保存 30 集。请先导出备份，再清理不需要的自建牌组。');
+  // Write before mutation: storage failures must not report a successful import.
+  localStorage.setItem(LS_KEY, JSON.stringify({...store,customDecks:next}));
+  store.customDecks = next; syncCustomDecks(); renderDecks();
+  return {id, payload, existing:false};
+}
+
+/* Local subtitle tools. No network, storage, or fabricated time alignment. */
+(function (root) {
+  'use strict';
+
+  function plainText(value) {
+    return String(value == null ? '' : value)
+      .replace(/<[^>]*>/g, '')
+      .replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp);/gi, function (_, entity) {
+        var named = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+        if (entity.charAt(0) !== '#') return named[entity.toLowerCase()];
+        var code = entity.charAt(1).toLowerCase() === 'x'
+          ? parseInt(entity.slice(2), 16) : parseInt(entity.slice(1), 10);
+        return code > 0 && code <= 0x10ffff && !(code >= 0xd800 && code <= 0xdfff)
+          ? String.fromCodePoint(code) : '';
+      })
+      .replace(/[\uFEFF\u200B]/g, '')
+      .trim();
+  }
+
+  function normalize(value) {
+    return plainText(value).normalize('NFKC').toLowerCase()
+      .replace(/[\u2018\u2019\u02BC\uFF07`]/g, "'")
+      .replace(/\bcan't\b/g, 'can not')
+      .replace(/\bcannot\b/g, 'can not')
+      .replace(/\bwon't\b/g, 'will not')
+      .replace(/\bshan't\b/g, 'shall not')
+      .replace(/\b([a-z]+)n't\b/g, '$1 not')
+      .replace(/\bi'm\b/g, 'i am')
+      .replace(/\blet's\b/g, 'let us')
+      .replace(/\b([a-z]+)'re\b/g, '$1 are')
+      .replace(/\b([a-z]+)'ve\b/g, '$1 have')
+      .replace(/\b([a-z]+)'ll\b/g, '$1 will')
+      // 's and 'd are ambiguous (is/has, had/would); do not guess their expansion.
+      .replace(/'/g, '')
+      .replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function validateRange(start, end, duration) {
+    if (typeof start !== 'number' || typeof end !== 'number' ||
+        !Number.isFinite(start) || !Number.isFinite(end) || start < 0 || end <= start) return false;
+    if (duration !== undefined && duration !== null) {
+      if (typeof duration !== 'number' || !Number.isFinite(duration) || duration <= 0) return false;
+      if (end > duration) return false;
+    }
+    return true;
+  }
+
+  function timestamp(value) {
+    var match = /^(?:(\d{2,}):)?(\d{2}):(\d{2})[,.](\d{1,3})$/.exec(value);
+    if (!match) return NaN;
+    var hours = match[1] ? Number(match[1]) : 0;
+    var minutes = Number(match[2]);
+    var seconds = Number(match[3]);
+    if (minutes > 59 || seconds > 59) return NaN;
+    return hours * 3600 + minutes * 60 + seconds + Number(match[4].padEnd(3, '0')) / 1000;
+  }
+
+  function parseSrt(value) {
+    var blocks = String(value == null ? '' : value).replace(/^\uFEFF/, '')
+      .replace(/\r\n?/g, '\n').split(/\n[\t ]*\n+/);
+    var result = [];
+    blocks.forEach(function (block) {
+      var lines = block.trim().split('\n');
+      if (!lines.length || /^(NOTE(?:\s|$)|STYLE\s*$|REGION\s*$)/.test(lines[0])) return;
+      var timingIndex = lines.findIndex(function (line) { return line.indexOf('-->') !== -1; });
+      if (timingIndex < 0) return;
+      var timing = /^(\S+)\s+-->\s+(\S+)(?:[\t ]+.*)?$/.exec(lines[timingIndex].trim());
+      if (!timing) return;
+      var start = timestamp(timing[1]);
+      var end = timestamp(timing[2]);
+      var text = plainText(lines.slice(timingIndex + 1).join('\n'));
+      if (text && validateRange(start, end)) result.push({ start: start, end: end, text: text });
+    });
+    return result;
+  }
+
+  function findCue(cues, sentence) {
+    if (!Array.isArray(cues)) return null;
+    var target = normalize(sentence);
+    if (!target) return null;
+    var valid = cues.map(function (cue, index) {
+      return cue && validateRange(cue.start, cue.end) && normalize(cue.text)
+        ? { cue: cue, index: index, normalized: normalize(cue.text) } : null;
+    });
+    var windows = [];
+    for (var i = 0; i < valid.length; i += 1) {
+      if (!valid[i]) continue;
+      var parts = [];
+      var normalizedParts = [];
+      var windowEnd = valid[i].cue.end;
+      for (var length = 1; length <= 3 && i + length <= valid.length; length += 1) {
+        var current = valid[i + length - 1];
+        if (!current) break;
+        if (length > 1) {
+          var previous = valid[i + length - 2].cue;
+          // Adjacent cues with a long silence or out-of-order times are not one sentence.
+          if (current.cue.start < previous.start || current.cue.start > previous.end + 5) break;
+        }
+        parts.push(plainText(current.cue.text));
+        normalizedParts.push(current.normalized);
+        windowEnd = Math.max(windowEnd, current.cue.end);
+        windows.push({
+          first: i, last: i + length - 1,
+          start: valid[i].cue.start, end: windowEnd,
+          text: parts.join('\n'), normalized: normalizedParts.join(' ')
+        });
+      }
+    }
+    var exact = windows.filter(function (candidate) { return candidate.normalized === target; });
+    if (exact.length > 1) return null;
+
+    // Embedded lines need enough distinctive language. Short conversational replies
+    // require an exact cue or manual timing, even when a substring appears unique.
+    var targetWords = target.split(' ').length;
+    if (targetWords < 5 || target.length < 24) return exact.length === 1 ? answer(exact[0], 1) : null;
+    var embedded = windows.filter(function (candidate) {
+      var candidateWords = candidate.normalized.split(' ').length;
+      return (' ' + candidate.normalized + ' ').indexOf(' ' + target + ' ') !== -1 &&
+        targetWords / candidateWords >= 0.5 && candidateWords - targetWords <= 12;
+    });
+    // A longer window around the same occurrence is not a second match.
+    embedded = embedded.filter(function (candidate) {
+      return !embedded.some(function (other) {
+        return other !== candidate && other.first >= candidate.first && other.last <= candidate.last &&
+          (other.first > candidate.first || other.last < candidate.last);
+      });
+    });
+    if (embedded.length !== 1) return null;
+    return answer(embedded[0], exact.length === 1 ? 1 : 0.9);
+  }
+
+  function answer(candidate, confidence) {
+    return { start: candidate.start, end: candidate.end, text: candidate.text, confidence: confidence };
+  }
+
+  root.LocalMedia = { parseSrt: parseSrt, findCue: findCue, validateRange: validateRange, normalize: normalize };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* Intensive reading and listening. All files and progress stay in this browser. */
+const LESSON_GUIDE = `<h2>每天十分钟，一句一句学</h2><ol><li>选择一集，先学 3—5 句，不必一口气学完。</li><li>在「精读」看原句，试着理解后再点「显示中文」。看「怎么用」和生活例句；不懂结构时展开「语法拆解」。</li><li>展开「试着用一次」，填空核对，再用自己的经历造一句。理解后点「这句读懂了」。</li><li>切到「精听」，先不看字幕听。没听清就放慢或循环，再显示英文核对。恢复正常速度、隐藏文字重新听。</li><li>不看字幕也能理解时，点「无字幕听懂了」。仍有困难就选择原因，以后从「听辨困难」筛选回来练。</li><li>收藏想常用的表达；「记忆复习」保留原来的四档卡片复习。</li></ol><h3>想听剧集原声？</h3><p>展开「用自己的剧集原声练习」，选择本机音视频和同版本英文 SRT / VTT 字幕。匹配成功后「播放原句」会播放对应片段；未匹配时会明确使用系统合成朗读。也可手动填写起止秒数。</p><h3>进度与快捷键</h3><p>进度自动保存在当前浏览器。设置中可导出备份、导入恢复。精读／精听页：左右方向键换句，R 播放，Esc 返回；在输入框里正常打字。</p><p>这里的台词是每集精选句，并非完整连续剧本。系统朗读不是演员原声；自由造句不会自动评分。</p><button class="btn primary" id="closeLessonGuide">知道了，开始学习</button>`;
+const lesson = {deckId:null,index:0,mode:'read',search:'',filter:'all',english:true,chinese:false,playToken:0,subtitleToken:0,timer:null,cues:[],mediaKey:null,mediaURL:null,range:null,segmentPlaying:false};
+function ensureWorkbook() {
+  if (!store.workbook || typeof store.workbook !== 'object') store.workbook = {cards:{},last:null,ranges:{}};
+  store.workbook.cards = store.workbook.cards || {};
+  store.workbook.ranges = store.workbook.ranges || {};
+}
+ensureWorkbook();
+for (const [id, notes] of Object.entries(TEACHING)) {
+  const card = Object.values(DECKS).flatMap(d=>d.cards).find(c=>c.id===id);
+  if (card && notes.correction) Object.assign(card,notes.correction);
+}
+const lessonCard = () => DECKS[lesson.deckId]?.cards[lesson.index];
+const workbookState = id => store.workbook.cards[id] || {};
+function saveWorkbookField(key,value) {
+  const c=lessonCard(); if(!c)return;
+  store.workbook.cards[c.id] = {...workbookState(c.id),[key]:value}; saveStore();
+}
+function workbookStats(deckId) {
+  const cards=DECKS[deckId].cards;
+  return {read:cards.filter(c=>workbookState(c.id).read).length,heard:cards.filter(c=>workbookState(c.id).heard).length};
+}
+function openGuide() {
+  let dialog=$('lessonGuide');
+  if(!dialog){dialog=document.createElement('dialog');dialog.id='lessonGuide';dialog.className='help-dialog';dialog.innerHTML=LESSON_GUIDE;document.body.append(dialog);$('closeLessonGuide').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});}
+  if(!dialog.open)dialog.showModal();
+}
+function startLesson(deckId,index,mode='read') {
+  if(!DECKS[deckId] || store.removed.includes(deckId))return;
+  stopLessonAudio();TTS.stop();
+  if(lesson.deckId && lesson.deckId!==deckId)clearMedia();
+  const saved=store.workbook.last;
+  lesson.deckId=deckId;
+  lesson.index=Number.isInteger(index)?index:(saved?.deckId===deckId?saved.index:0);
+  lesson.index=Math.min(Math.max(0,lesson.index),DECKS[deckId].cards.length-1);
+  lesson.search='';lesson.filter='all';$('lessonSearch').value='';$('lessonFilter').value='all';
+  lesson.mode=mode;lesson.english=mode==='read';lesson.chinese=false;
+  $('lessonList').classList.add('hidden');$('lessonDirectory').setAttribute('aria-expanded','false');
+  show('lesson');renderLesson();
+}
+function filteredLessonCards() {
+  const query=lesson.search.toLocaleLowerCase().trim();
+  return DECKS[lesson.deckId].cards.map((c,index)=>({c,index})).filter(({c})=>{
+    const s=workbookState(c.id);
+    if(lesson.filter==='star'&&!s.star)return false;
+    if(lesson.filter==='difficult'&&!s.issue)return false;
+    if(lesson.filter==='unread'&&s.read)return false;
+    return !query || [c.front,c.word,c.cn,c.trans,TEACHING[c.id]?.meaning].join(' ').toLocaleLowerCase().includes(query);
+  });
+}
+function applyLessonFilter() {
+  stopLessonAudio();
+  const results=filteredLessonCards();
+  if(results.length&&!results.some(r=>r.index===lesson.index))lesson.index=results[0].index;
+  lesson.english=lesson.mode==='read';lesson.chinese=false;renderLesson();
+}
+function renderLessonList(results) {
+  $('lessonList').innerHTML=results.map(({c,index})=>{const s=workbookState(c.id);return `<button data-lesson-index="${index}" aria-current="${index===lesson.index}"><span class="list-no">${index+1}</span><span class="list-word" lang="en">${esc(c.word)}</span><span class="list-status">${s.star?'已收藏 ':''}${s.read?'读懂 ':''}${s.heard?'听懂':''}</span></button>`;}).join('');
+  $('lessonList').querySelectorAll('[data-lesson-index]').forEach(b=>b.onclick=()=>{stopLessonAudio();lesson.index=Number(b.dataset.lessonIndex);lesson.english=lesson.mode==='read';lesson.chinese=false;renderLesson();$('lessonList').classList.add('hidden');$('lessonDirectory').setAttribute('aria-expanded','false');});
+}
+function renderLesson() {
+  if(!lesson.deckId)return;
+  const results=filteredLessonCards(),has=results.length>0;
+  $('lessonEmpty').classList.toggle('hidden',has);$('lessonContent').classList.toggle('hidden',!has);
+  const d=DECKS[lesson.deckId],stats=workbookStats(lesson.deckId);
+  $('lessonTitle').textContent=`${d.showCn} ${epCode(d)}`;
+  $('lessonProgress').textContent=`读懂 ${stats.read}/${d.cards.length} · 听懂 ${stats.heard}/${d.cards.length}`;
+  $('modeRead').classList.toggle('active',lesson.mode==='read');$('modeListen').classList.toggle('active',lesson.mode==='listen');
+  $('modeRead').setAttribute('aria-pressed',lesson.mode==='read');$('modeListen').setAttribute('aria-pressed',lesson.mode==='listen');
+  renderLessonList(results);
+  const position=results.findIndex(r=>r.index===lesson.index);
+  $('lessonPrevious').disabled=!has||position<=0;$('lessonNext').disabled=!has||position>=results.length-1;
+  $('lessonNavCount').textContent=has?`${position+1} / ${results.length}`:'0 / 0';
+  if(!has){$('lessonPosition').textContent='';return;}
+  const c=lessonCard(),n=TEACHING[c.id],s=workbookState(c.id);
+  $('lessonPosition').textContent=`第 ${lesson.index+1} 句 · 本集 ${d.cards.length} 句`;
+  $('lessonEnglish').innerHTML=markLessonSentence(c.front,n.focus);
+  $('lessonChinese').textContent=c.trans;
+  $('lessonWord').textContent=c.word;$('lessonMeaning').textContent=n.meaning;$('lessonIpa').textContent=c.ipa;
+  $('lessonPattern').textContent=n.pattern;$('lessonNote').textContent=n.note;
+  $('lessonExample').textContent=n.example;$('lessonExampleCn').textContent=n.exampleCn;$('lessonGrammar').textContent=n.grammar;
+  $('lessonWords').innerHTML=(n.words||[]).map(w=>`<p><b lang="en">${esc(w.word)}</b>：${esc(w.meaning)}</p>`).join('')||'<p>这句先掌握上面的核心表达即可。</p>';
+  $('lessonStar').textContent=s.star?'已收藏':'收藏';$('lessonStar').setAttribute('aria-pressed',!!s.star);
+  $('lessonReadDone').textContent=s.read?'已读懂 · 可取消':'这句读懂了';$('lessonReadDone').setAttribute('aria-pressed',!!s.read);
+  $('lessonHeardDone').textContent=s.heard?'已听懂 · 可取消':'无字幕听懂了';$('lessonHeardDone').setAttribute('aria-pressed',!!s.heard);
+  $('lessonStatus').textContent=s.heard?`听懂记录：${s.heardSource==='original'?'剧集原声':'系统朗读'}，无字幕自评。`:'按自己的实际表现标记，读懂与听懂分别记录。';
+  $('lessonOwnSentence').value=s.note||'';$('lessonIssue').value=s.issue||'';$('lessonDictation').value=s.dictation||'';
+  $('lessonCloze').textContent=makeCloze(c.front,n.focus);$('clozeInput').value='';$('clozeFeedback').textContent='';$('clozeFeedback').className='feedback';$('dictationFeedback').textContent='';
+  $('wordDetails').open=false;$('grammarDetails').open=false;$('practiceDetails').open=false;
+  const listen=lesson.mode==='listen';$('listenPrompt').classList.toggle('hidden',!listen);$('readingNotes').classList.toggle('hidden',listen);$('listeningNotes').classList.toggle('hidden',!listen);$('toggleEnglish').classList.toggle('hidden',!listen);
+  renderSubtitles();resolveLessonRange();
+  store.workbook.last={deckId:lesson.deckId,index:lesson.index};saveStore();
+}
+function markLessonSentence(text,focus) {
+  const index=text.toLowerCase().indexOf(focus.toLowerCase());
+  if(index<0)return esc(text);
+  return esc(text.slice(0,index))+'<mark>'+esc(text.slice(index,index+focus.length))+'</mark>'+esc(text.slice(index+focus.length));
+}
+function makeCloze(text,focus) {const i=text.toLowerCase().indexOf(focus.toLowerCase());return i<0?text:text.slice(0,i)+'______'+text.slice(i+focus.length);}
+function renderSubtitles() {
+  const visible=lesson.mode==='read'||lesson.english;
+  $('lessonEnglish').classList.toggle('hidden',!visible);$('sentenceMask').classList.toggle('hidden',visible);
+  $('toggleEnglish').textContent=visible?'隐藏英文':'显示英文';$('toggleEnglish').setAttribute('aria-expanded',visible);
+  $('lessonChinese').classList.toggle('hidden',!lesson.chinese);$('toggleChinese').textContent=lesson.chinese?'隐藏中文':'显示中文';$('toggleChinese').setAttribute('aria-expanded',lesson.chinese);
+}
+function changeLessonMode(mode) {stopLessonAudio();lesson.mode=mode;lesson.english=mode==='read';lesson.chinese=false;renderLesson();}
+function moveLesson(delta) {
+  const cards=filteredLessonCards(),position=cards.findIndex(r=>r.index===lesson.index),next=cards[position+delta];
+  if(!next)return;stopLessonAudio();lesson.index=next.index;lesson.english=lesson.mode==='read';lesson.chinese=false;renderLesson();document.querySelector('.lesson-scroll').scrollTop=0;
+}
+function stopLessonAudio() {
+  lesson.playToken++;clearTimeout(lesson.timer);lesson.segmentPlaying=false;
+  if('speechSynthesis' in window)speechSynthesis.cancel();$('lessonMedia').pause();
+  $('lessonPlay').textContent='播放原句';
+}
+function updateAudioSource(extra='') {
+  const source=lesson.mediaKey&&lesson.range?'剧集原声 · 本机文件':'系统合成朗读 · 非剧集原声';
+  const range=lesson.range?` · ${lesson.range.start.toFixed(1)}—${lesson.range.end.toFixed(1)} 秒`:'';
+  $('lessonAudioSource').textContent=source+range+(extra?' · '+extra:'');
+}
+function speakLessonText(text,allowLoop=false) {
+  stopLessonAudio();const token=lesson.playToken;
+  if(!('speechSynthesis' in window)){toast('此浏览器不支持合成朗读，请加载本机原声。');return;}
+  TTS.pick();const voice=TTS.en;
+  if(!voice){toast('未检测到英文语音，请安装英文语音包，或加载本机原声。');return;}
+  const speak=()=>{
+    if(token!==lesson.playToken)return;
+    const u=new SpeechSynthesisUtterance(text);u.voice=voice;u.lang=voice.lang;u.rate=Number($('lessonRate').value);
+    u.onstart=()=>{if(token===lesson.playToken)$('lessonPlay').textContent='正在朗读…';};
+    u.onend=()=>{if(token!==lesson.playToken)return;$('lessonPlay').textContent='播放原句';if(allowLoop&&$('lessonLoop').checked)lesson.timer=setTimeout(speak,900);};
+    u.onerror=e=>{if(token!==lesson.playToken)return;$('lessonPlay').textContent='播放原句';if(e.error!=='canceled'&&e.error!=='interrupted')toast('语音播放失败，请重试或加载本机原声。');};
+    speechSynthesis.speak(u);
+  };speak();
+}
+function playLesson() {
+  const c=lessonCard();if(!c)return;
+  if(!lesson.mediaKey||!lesson.range){updateAudioSource();speakLessonText(c.front,true);return;}
+  stopLessonAudio();const media=$('lessonMedia'),token=lesson.playToken;
+  if(!LocalMedia.validateRange(lesson.range.start,lesson.range.end,media.duration)){toast('定位超出了这个文件的时长，请重新设置起止点。');return;}
+  media.currentTime=lesson.range.start;media.playbackRate=Number($('lessonRate').value);lesson.segmentPlaying=true;
+  media.play().then(()=>{if(token!==lesson.playToken)return;$('lessonPlay').textContent='正在播放原声…';}).catch(()=>{if(token===lesson.playToken){stopLessonAudio();toast('原声无法播放。请确认文件格式受浏览器支持。');}});
+}
+function finishAudioSegment() {
+  if(!lesson.segmentPlaying)return;
+  $('lessonMedia').pause();lesson.segmentPlaying=false;$('lessonPlay').textContent='播放原句';
+  if($('lessonLoop').checked){const token=lesson.playToken;lesson.timer=setTimeout(()=>{if(token===lesson.playToken)playLesson();},900);}
+}
+function resolveLessonRange() {
+  lesson.range=null;const c=lessonCard();if(!c)return;
+  if(lesson.mediaKey){
+    const saved=store.workbook.ranges[lesson.mediaKey]?.[c.id];
+    const cue=saved||LocalMedia.findCue(lesson.cues,c.front);
+    if(cue&&LocalMedia.validateRange(cue.start,cue.end,$('lessonMedia').duration))lesson.range={start:cue.start,end:cue.end};
+  }
+  $('mediaStart').value=lesson.range?lesson.range.start.toFixed(2):'';$('mediaEnd').value=lesson.range?lesson.range.end.toFixed(2):'';
+  $('subtitleInfo').textContent=lesson.range?'已定位本句，点击上方「播放原句」播放这一段。':lesson.cues.length?'当前句无法唯一匹配字幕，请手动定位。未定位时使用系统朗读。':'选择同版本英文字幕可自动定位；也可以手动设置起止秒数。';
+  updateAudioSource();
+}
+function clearMedia() {
+  stopLessonAudio();lesson.subtitleToken++;const media=$('lessonMedia');media.removeAttribute('src');media.load();media.classList.add('hidden');
+  if(lesson.mediaURL)URL.revokeObjectURL(lesson.mediaURL);
+  lesson.mediaURL=null;lesson.mediaKey=null;lesson.range=null;lesson.cues=[];
+  $('lessonMediaFile').value='';$('lessonSubtitleFile').value='';$('mediaInfo').textContent='尚未选择原声文件。';
+  if(lessonCard())resolveLessonRange();
+}
+function normalizeAnswer(text) {return String(text).toLowerCase().replace(/[’‘]/g,"'").replace(/[^\p{L}\p{N}\s]/gu,'').replace(/\s+/g,' ').trim();}
+function dictationDiff(expected,actual) {
+  const a=normalizeAnswer(expected).split(' ').filter(Boolean),b=normalizeAnswer(actual).split(' ').filter(Boolean);
+  const dp=Array.from({length:a.length+1},()=>Array(b.length+1).fill(0));
+  for(let i=a.length-1;i>=0;i--)for(let j=b.length-1;j>=0;j--)dp[i][j]=a[i]===b[j]?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);
+  let i=0,j=0,reference=[],typed=[];
+  while(i<a.length||j<b.length){if(i<a.length&&j<b.length&&a[i]===b[j]){reference.push(`<span class="match">${esc(a[i])}</span>`);typed.push(`<span class="match">${esc(b[j])}</span>`);i++;j++;}else if(i<a.length&&(j===b.length||dp[i+1][j]>=dp[i][j+1])){reference.push(`<span class="missing">${esc(a[i++])}</span>`);}else{typed.push(`<span class="extra">${esc(b[j++])}</span>`);}}
+  return {correct:normalizeAnswer(expected)===normalizeAnswer(actual),html:`<div class="diff-row"><span class="diff-label">原句（红色下划线是漏写或需改的词）</span><br>${reference.join(' ')}</div><div class="diff-row"><span class="diff-label">你的听写（橙色是多写或需改的词）</span><br>${typed.join(' ')}</div>`};
+}
+function validateProgress(input) {
+  if(!input||typeof input!=='object'||Array.isArray(input)||!input.cards||typeof input.cards!=='object'||Array.isArray(input.cards))throw new Error('这不是有效的学习进度文件');
+  const customDecks=validatedCustomDecks(input.customDecks);
+  const allDecks=Object.fromEntries([...Object.entries(DECKS).filter(([id])=>BUILTIN_DECK_IDS.has(id)),...Object.entries(customDecks).map(([id,p])=>[id,p.deck])]);
+  const ids=new Set(Object.values(allDecks).flatMap(d=>d.cards.map(c=>c.id)));
+  const result={cards:{},days:{},settings:{...store.settings},removed:[],customDecks,workbook:{cards:{},last:null,ranges:{}}};
+  for(const [id,s] of Object.entries(input.cards)){
+    if(!ids.has(id))continue;
+    if(!s||!['new','learn','review'].includes(s.phase)||!['ivl','ease','due','reps','lapses'].every(k=>Number.isFinite(s[k])&&s[k]>=0)||s.ease>10||s.ivl>365)throw new Error('复习记录格式不正确');
+    result.cards[id]={phase:s.phase,ivl:s.ivl,ease:s.ease,due:s.due,reps:s.reps,lapses:s.lapses};
+  }
+  if(input.days&&typeof input.days==='object')for(const [day,n] of Object.entries(input.days))if(/^\d{4}-\d{2}-\d{2}$/.test(day)&&Number.isInteger(n)&&n>=0)result.days[day]=n;
+  const cfg=input.settings||{};
+  if([10,20,30,50,999].includes(cfg.newPerDay))result.settings.newPerDay=cfg.newPerDay;
+  if(['auto','dark','light'].includes(cfg.theme))result.settings.theme=cfg.theme;
+  if(['auto','manual','off'].includes(cfg.speak))result.settings.speak=cfg.speak;
+  if([0.7,0.85,1,1.15,1.3].includes(cfg.rate))result.settings.rate=cfg.rate;
+  if([0,1].includes(cfg.readCn))result.settings.readCn=cfg.readCn;
+  if(Array.isArray(input.removed))result.removed=input.removed.filter(id=>Object.hasOwn(allDecks,id));
+  const w=input.workbook;
+  if(w&&typeof w==='object'){
+    if(w.cards&&typeof w.cards==='object')for(const [id,s]of Object.entries(w.cards))if(ids.has(id)&&s&&typeof s==='object'){
+      result.workbook.cards[id]={read:s.read===true,heard:s.heard===true,star:s.star===true,heardSource:s.heardSource==='original'?'original':'synthetic',note:String(s.note||'').slice(0,2000),dictation:String(s.dictation||'').slice(0,2000),issue:['sound','connected','meaning'].includes(s.issue)?s.issue:''};
+    }
+    if(w.last&&Object.hasOwn(allDecks,w.last.deckId)&&Number.isInteger(w.last.index)&&w.last.index>=0&&w.last.index<allDecks[w.last.deckId].cards.length)result.workbook.last={deckId:w.last.deckId,index:w.last.index};
+    if(w.ranges&&typeof w.ranges==='object')for(const [key,ranges]of Object.entries(w.ranges).slice(0,100)){
+      if(key==='__proto__'||key==='constructor'||!ranges||typeof ranges!=='object')continue;
+      result.workbook.ranges[key]={};for(const [id,r]of Object.entries(ranges))if(ids.has(id)&&r&&LocalMedia.validateRange(r.start,r.end))result.workbook.ranges[key][id]={start:r.start,end:r.end};
+    }
+  }return result;
+}
+function downloadProgress() {
+  const blob=new Blob([JSON.stringify(store,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='series-vocab-progress-'+todayKey(Date.now())+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$('lessonBack').onclick=()=>{stopLessonAudio();renderDecks();show('decks');};
+$('lessonHelp').onclick=openGuide;$('homeHelp').onclick=openGuide;
+$('homeContinue').onclick=()=>{const saved=store.workbook.last,id=saved&&!store.removed.includes(saved.deckId)?saved.deckId:liveDeckIds()[0];if(id)startLesson(id);else toast('请先在设置里恢复一个牌组。');};
+$('modeRead').onclick=()=>changeLessonMode('read');$('modeListen').onclick=()=>changeLessonMode('listen');
+$('modeReview').onclick=()=>{stopLessonAudio();startDeck(lesson.deckId);};
+$('lessonSearch').oninput=e=>{lesson.search=e.target.value;applyLessonFilter();};$('lessonFilter').onchange=e=>{lesson.filter=e.target.value;applyLessonFilter();};
+$('lessonDirectory').onclick=()=>{const open=$('lessonList').classList.toggle('hidden');$('lessonDirectory').setAttribute('aria-expanded',!open);};
+$('lessonPrevious').onclick=()=>moveLesson(-1);$('lessonNext').onclick=()=>moveLesson(1);
+$('lessonStar').onclick=()=>{saveWorkbookField('star',!workbookState(lessonCard().id).star);applyLessonFilter();};
+$('toggleEnglish').onclick=()=>{lesson.english=!lesson.english;renderSubtitles();};$('toggleChinese').onclick=()=>{lesson.chinese=!lesson.chinese;renderSubtitles();};
+$('lessonPlay').onclick=playLesson;$('lessonStop').onclick=stopLessonAudio;
+$('lessonWordPlay').onclick=()=>speakLessonText(lessonCard().word);$('lessonExamplePlay').onclick=()=>speakLessonText(TEACHING[lessonCard().id].example);
+$('lessonRate').onchange=()=>stopLessonAudio();$('lessonLoop').onchange=()=>{if(!$('lessonLoop').checked)clearTimeout(lesson.timer);};
+$('lessonReadDone').onclick=()=>{saveWorkbookField('read',!workbookState(lessonCard().id).read);applyLessonFilter();};
+$('lessonHeardDone').onclick=()=>{
+  const current=workbookState(lessonCard().id);
+  if(!current.heard&&(lesson.mode!=='listen'||lesson.english||lesson.chinese)){toast('请切到精听，隐藏英文和中文，再听一遍后标记。');return;}
+  saveWorkbookField('heard',!current.heard);saveWorkbookField('heardSource',lesson.mediaKey&&lesson.range?'original':'synthetic');saveWorkbookField('issue','');applyLessonFilter();
+};
+$('lessonIssue').onchange=e=>{saveWorkbookField('issue',e.target.value);if(e.target.value)saveWorkbookField('heard',false);applyLessonFilter();};
+$('lessonOwnSentence').maxLength=2000;$('lessonDictation').maxLength=2000;$('clozeInput').maxLength=250;
+$('lessonOwnSentence').oninput=e=>saveWorkbookField('note',e.target.value);$('lessonDictation').oninput=e=>saveWorkbookField('dictation',e.target.value);
+$('clozeCheck').onclick=()=>{const answer=TEACHING[lessonCard().id].focus,typed=$('clozeInput').value.trim(),ok=normalizeAnswer(answer)===normalizeAnswer(typed);$('clozeFeedback').textContent=!typed?'先填入你想到的表达。':ok?'正确！再试着用这个表达说自己的事情。':'还不一致。回想原句中的时态和搭配，或点「看答案」。';$('clozeFeedback').className='feedback'+(ok?' correct':'');};
+$('clozeAnswer').onclick=()=>{$('clozeFeedback').textContent='本句答案：'+TEACHING[lessonCard().id].focus;$('clozeFeedback').className='feedback';};
+$('clozeInput').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('clozeCheck').click();}};
+$('dictationCheck').onclick=()=>{const value=$('lessonDictation').value.trim();if(!value){$('dictationFeedback').textContent='先写下听到的内容，再来核对。';return;}const diff=dictationDiff(lessonCard().front,value);$('dictationFeedback').innerHTML=(diff.correct?'内容一致！试着隐藏文字、恢复正常语速再听。':'对照下面的差异，重点重听遗漏或写错的部分。')+diff.html;};
+$('lessonMediaFile').onchange=e=>{
+  const file=e.target.files[0];if(!file)return;stopLessonAudio();
+  lesson.subtitleToken++;
+  if(lesson.mediaKey){lesson.cues=[];$('lessonSubtitleFile').value='';}
+  if(lesson.mediaURL)URL.revokeObjectURL(lesson.mediaURL);
+  lesson.mediaURL=URL.createObjectURL(file);lesson.mediaKey=lesson.deckId+'::'+file.name+'::'+file.size+'::'+file.lastModified;
+  const media=$('lessonMedia');media.src=lesson.mediaURL;media.classList.remove('hidden');media.load();$('mediaInfo').textContent='已选择：'+file.name+'。正在读取时长…';
+  resolveLessonRange();
+};
+$('lessonMedia').onloadedmetadata=()=>{$('mediaInfo').textContent='原声已就绪 · 时长 '+Math.round($('lessonMedia').duration)+' 秒。';resolveLessonRange();};
+$('lessonMedia').onerror=()=>{if(!lesson.mediaKey)return;stopLessonAudio();lesson.range=null;$('mediaInfo').textContent='这个文件无法播放。请换用浏览器支持的 MP3、M4A、MP4 或 WebM 文件。';updateAudioSource();};
+$('lessonMedia').ontimeupdate=()=>{if(lesson.segmentPlaying&&lesson.range&&$('lessonMedia').currentTime>=lesson.range.end)finishAudioSegment();};$('lessonMedia').onended=finishAudioSegment;
+$('lessonSubtitleFile').onchange=async e=>{
+  const file=e.target.files[0];if(!file)return;stopLessonAudio();
+  const token=++lesson.subtitleToken,deckId=lesson.deckId;
+  try{
+    if(file.size>5*1024*1024)throw new Error('字幕文件过大，请选择 5MB 以内的英文字幕。');
+    const text=await file.text();
+    if(token!==lesson.subtitleToken||deckId!==lesson.deckId)return;
+    const cues=LocalMedia.parseSrt(text);
+    if(!cues.length)throw new Error('没有读到有效字幕，请选择 UTF-8 编码的英文 SRT / VTT。');
+    stopLessonAudio();lesson.cues=cues;resolveLessonRange();toast('已读取 '+lesson.cues.length+' 条字幕。');
+  }catch(err){if(token!==lesson.subtitleToken||deckId!==lesson.deckId)return;stopLessonAudio();lesson.cues=[];resolveLessonRange();toast(err.message);}
+};
+$('saveMediaRange').onclick=()=>{
+  if(!lesson.mediaKey){toast('先选择本机音频或视频文件。');return;}
+  const start=$('mediaStart').value,end=$('mediaEnd').value;
+  if(start===''||end===''||!LocalMedia.validateRange(Number(start),Number(end),$('lessonMedia').duration)){toast('请输入有效起止秒数：结束应晚于开始，并在文件时长内。');return;}
+  stopLessonAudio();store.workbook.ranges[lesson.mediaKey]=store.workbook.ranges[lesson.mediaKey]||{};store.workbook.ranges[lesson.mediaKey][lessonCard().id]={start:Number(start),end:Number(end)};saveStore();resolveLessonRange();toast('本句原声定位已保存。');
+};
+$('captureMediaStart').onclick=()=>{if(lesson.mediaKey)$('mediaStart').value=$('lessonMedia').currentTime.toFixed(2);else toast('请先选择原声文件。');};$('captureMediaEnd').onclick=()=>{if(lesson.mediaKey)$('mediaEnd').value=$('lessonMedia').currentTime.toFixed(2);else toast('请先选择原声文件。');};$('clearLocalAudio').onclick=clearMedia;
+$('btnImport').onclick=()=>$('progressImport').click();
+$('progressImport').onchange=async e=>{
+  const file=e.target.files[0];e.target.value='';if(!file)return;
+  try{if(file.size>10*1024*1024)throw new Error('进度文件过大');const imported=validateProgress(JSON.parse(await file.text()));askConfirm('恢复学习进度','将替换当前浏览器的牌组、复习、精读、精听、收藏和笔记记录。建议先导出当前记录作为备份。','恢复',()=>{try{localStorage.setItem(LS_KEY,JSON.stringify(imported));}catch{toast('空间不足，恢复未完成，原记录已保留。');return;}stopLessonAudio();clearMedia();store=imported;syncCustomDecks();ensureWorkbook();applyTheme();renderDecks();openSheet();toast('进度已恢复。');});}catch(err){toast('无法导入：'+err.message);}
+};
+document.addEventListener('keydown',e=>{
+  if(!$('view-lesson').classList.contains('active')||$('lessonGuide')?.open||!$('confirm').classList.contains('hidden'))return;
+  if(e.target.closest('input,textarea,select,video,[contenteditable="true"]'))return;
+  if(e.key==='ArrowLeft'){e.preventDefault();moveLesson(-1);}else if(e.key==='ArrowRight'){e.preventDefault();moveLesson(1);}else if(e.key.toLowerCase()==='r'){e.preventDefault();playLesson();}else if(e.key==='Escape')$('lessonBack').click();
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopLessonAudio();});
+window.addEventListener('pagehide',stopLessonAudio);
 renderDecks();
+
+/* Online generation: credentials remain separate from progress and deck exports. */
+const generation = {controller:null,token:0,result:null};
+function addMessage(message,kind='') {$('addStatus').textContent=message;$('addStatus').className='microcopy'+(kind?' '+kind:'');}
+function generatorSettings() {
+  let url;try{url=new URL($('generatorUrl').value.trim());}catch{throw new Error('请先展开「连接生成服务」，填写服务地址');}
+  if(url.protocol!=='https:'||url.username||url.password||url.search||url.hash||url.pathname!=='/')throw new Error('请填写 HTTPS 服务根地址，例如 https://你的服务.workers.dev');
+  const token=$('generatorToken').value.trim();if(token.length<16)throw new Error('请填写服务端设置的访问口令（至少 16 个字符）');
+  try{localStorage.setItem('seriesVocabGenerator.url',url.origin);sessionStorage.setItem('seriesVocabGenerator.token',token);}catch{}
+  return {url:url.origin,headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}};
+}
+try{$('generatorUrl').value=localStorage.getItem('seriesVocabGenerator.url')||'';$('generatorToken').value=sessionStorage.getItem('seriesVocabGenerator.token')||'';}catch{}
+function showAddedResult(result) {
+  generation.result=result;$('addedDeckResult').classList.remove('hidden');
+  const d=DECKS[result.id];$('addedDeckSummary').textContent=(result.existing?'这集已经在片单中，已保留原有学习记录：':'已添加：')+d.showCn+' '+epCode(d)+' · 50 句，可直接精读、精听和复习。';
+  addMessage(result.existing?'已找到现有牌组，无需重复生成。':'已添加 50 句，包含中文用法、词汇和语法讲解。','success');
+}
+function currentDeckInput() {return DeckFormat.input({kind:$('addKind').value,show:$('addShow').value,season:$('addSeason').value,episode:$('addEpisode').value,year:$('addYear').value});}
+$('addKind').onchange=()=>{const movie=$('addKind').value==='movie';for(const id of ['addSeasonLabel','addEpisodeLabel'])$(id).classList.toggle('hidden',movie);$('addSeason').required=$('addEpisode').required=!movie;};
+$('testGenerator').onclick=async()=>{
+  const button=$('testGenerator');button.disabled=true;
+  try{const cfg=generatorSettings();const response=await fetch(cfg.url+'/health',{headers:cfg.headers,signal:AbortSignal.timeout(15000)});const data=await response.json();if(!response.ok)throw new Error(data.error||'连接失败');if(data.service!=='series-vocab-generator/v1')throw new Error('这个地址不是匹配的词汇生成服务');if(!data.ready)throw new Error('服务已连接，但服务端还未配置 AI 接口');addMessage('服务已连接，可以输入片名生成。','success');$('generationSettings').open=false;}
+  catch(err){addMessage(err instanceof TypeError?'连接失败，请检查服务地址和网页访问权限。':err.message,'error');$('generationSettings').open=true;}
+  finally{button.disabled=false;}
+};
+async function readGeneration(response,token) {
+  if(!response.ok){let error;try{error=(await response.json()).error;}catch{}throw new Error(error||'生成服务连接失败（HTTP '+response.status+'）');}
+  if(!response.headers.get('Content-Type')?.includes('application/x-ndjson'))throw new Error('服务返回格式不匹配，请检查服务地址');
+  const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='',size=0,payload=null;
+  const receive=line=>{
+    if(!line.trim())return;const event=JSON.parse(line);
+    if(event.type==='error')throw new Error(event.message||'生成失败');
+    if(event.type==='progress'&&generation.token===token)addMessage(String(event.message).slice(0,400));
+    if(event.type==='result'){if(payload)throw new Error('服务返回了多个结果');payload=event.payload;}
+  };
+  try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>1500000)throw new Error('生成结果过大');buffer+=decoder.decode(value,{stream:true});let index;while((index=buffer.indexOf('\n'))>=0){receive(buffer.slice(0,index));buffer=buffer.slice(index+1);}}buffer+=decoder.decode();receive(buffer);}
+  catch(err){await reader.cancel().catch(()=>{});throw err;}
+  if(!payload)throw new Error('生成中断，尚未添加任何内容。请重试');return payload;
+}
+$('addDeckForm').onsubmit=async e=>{
+  e.preventDefault();if(generation.controller)return;
+  let input;try{input=currentDeckInput();}catch(err){addMessage(err.message,'error');return;}
+  const existing=matchingDeck(input);
+  if(existing){store.removed=store.removed.filter(id=>id!==existing);saveStore();renderDecks();showAddedResult({id:existing,existing:true,payload:store.customDecks?.[existing]||null});return;}
+  let cfg;try{cfg=generatorSettings();}catch(err){addMessage(err.message,'error');$('generationSettings').open=true;return;}
+  generation.controller=new AbortController();const controller=generation.controller,token=++generation.token;
+  $('addGenerate').disabled=true;$('deckPackageImport').disabled=true;$('addCancel').classList.remove('hidden');$('addDeckForm').setAttribute('aria-busy','true');$('addedDeckResult').classList.add('hidden');
+  const timeout=setTimeout(()=>controller.abort('timeout'),500000);
+  try{
+    const file=$('generationSubtitle').files[0];
+    if(file){if(file.size>800000)throw new Error('字幕请控制在 800KB 内');input.transcript=await file.text();if(input.transcript.length>200000)throw new Error('字幕请控制在 200,000 字符内');}
+    controller.signal.throwIfAborted();addMessage('正在连接，通常需要几分钟。可以取消，完成前不会添加牌组。');
+    const response=await fetch(cfg.url+'/generate',{method:'POST',headers:cfg.headers,body:JSON.stringify(input),signal:controller.signal});
+    const payload=await readGeneration(response,token);
+    controller.signal.throwIfAborted();if(generation.token!==token)return;
+    // A response must belong to the requested episode, even when a service is misconfigured.
+    const checked=DeckFormat.validate(payload),d=checked.deck;
+    if(d.kind!==input.kind||d.season!==input.season||d.episode!==input.episode||(input.year&&d.year!==input.year)||(/[a-z]/i.test(input.show)&&DeckFormat.titleKey(d.show)!==DeckFormat.titleKey(input.show)))throw new Error('生成结果与所选片名或集数不一致，已停止添加');
+    showAddedResult(installGeneratedDeck(checked));
+  }catch(err){if(generation.token===token)addMessage(controller.signal.aborted?(controller.signal.reason==='timeout'?'生成超时，尚未添加。请稍后重试。':'已取消，尚未添加牌组。'):err.name==='QuotaExceededError'?'浏览器空间不足，请先导出备份，再清理不需要的自建牌组。':err instanceof TypeError?'服务连接中断，请检查地址、网络和服务端网页访问权限。':err.message,'error');}
+  finally{clearTimeout(timeout);if(generation.token===token){generation.controller=null;$('addGenerate').disabled=false;$('deckPackageImport').disabled=false;$('addCancel').classList.add('hidden');$('addDeckForm').setAttribute('aria-busy','false');}}
+};
+$('addCancel').onclick=()=>generation.controller?.abort();
+$('generationSubtitle').onchange=e=>{$('generationSubtitleInfo').textContent=e.target.files[0]?'已选择：'+e.target.files[0].name+'。请确认片名、季集与字幕相符。':'未选择字幕，自动查找。';};
+$('clearGenerationSubtitle').onclick=()=>{$('generationSubtitle').value='';$('generationSubtitleInfo').textContent='已移除字幕，将自动查找公开字幕。';};
+$('deckPackageImport').onclick=()=>$('deckPackageFile').click();
+$('deckPackageFile').onchange=async e=>{
+  const file=e.target.files[0];e.target.value='';if(!file||generation.controller)return;
+  try{if(file.size>1500000)throw new Error('词汇包过大');showAddedResult(installGeneratedDeck(JSON.parse(await file.text())));}
+  catch(err){addMessage('无法导入：'+(err.name==='QuotaExceededError'?'浏览器空间不足，请先备份并清理牌组':err.message),'error');}
+};
+$('studyAddedDeck').onclick=()=>{if(generation.result)startLesson(generation.result.id,0);};
+function addedPayload() {
+  const r=generation.result;if(!r)return null;if(r.payload)return r.payload;
+  const d=DECKS[r.id];return DeckFormat.validate({format:DeckFormat.FORMAT,deck:{...d,kind:d.kind||'series',cards:d.cards.map(c=>({...c,...TEACHING[c.id]}))}});
+}
+function downloadDeckFile(text,name,type) {const url=URL.createObjectURL(new Blob([text],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('exportAddedDeck').onclick=()=>{try{const p=addedPayload();if(p)downloadDeckFile(JSON.stringify(p,null,2),'series-vocab-'+DeckFormat.idFor(p.deck)+'.json','application/json');}catch(err){addMessage(err.message,'error');}};
+$('exportAddedAnki').onclick=()=>{try{const p=addedPayload();if(p)downloadDeckFile(DeckFormat.csv(p),'anki-'+DeckFormat.idFor(p.deck)+'.csv','text/csv;charset=utf-8');}catch(err){addMessage(err.message,'error');}};
+window.addEventListener('pagehide',()=>generation.controller?.abort());
+function purgeCustomDeck(id) {
+  if(!store.customDecks?.[id])return;
+  askConfirm('彻底删除自建牌组','将删除这集的台词、讲解和学习记录，释放浏览器空间。此操作不能撤销，请先导出备份。','彻底删除',()=>{
+    const next=JSON.parse(JSON.stringify(store)),ids=new Set(DECKS[id].cards.map(c=>c.id));
+    delete next.customDecks[id];next.removed=next.removed.filter(x=>x!==id);
+    for(const cardId of ids){delete next.cards[cardId];delete next.workbook.cards[cardId];}
+    if(next.workbook.last?.deckId===id)next.workbook.last=null;
+    for(const [key,ranges]of Object.entries(next.workbook.ranges)){for(const cardId of ids)delete ranges[cardId];if(!Object.keys(ranges).length)delete next.workbook.ranges[key];}
+    try{localStorage.setItem(LS_KEY,JSON.stringify(next));}catch{toast('未能保存，原牌组已保留。');return;}
+    if(lesson.deckId===id){clearMedia();lesson.deckId=null;}store=next;syncCustomDecks();
+    if(generation.result?.id===id){generation.result=null;$('addedDeckResult').classList.add('hidden');}
+    renderDeckManage();renderDecks();toast('自建牌组已彻底删除。');
+  });
+}
+
 </script>
 </body>
 </html>
