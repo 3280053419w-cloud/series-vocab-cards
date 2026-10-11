@@ -32,6 +32,14 @@ const supplemented=await generate({...meta,transcript},env,()=>{},async()=>{
   return respond({cards:Array.from({length:10},()=>note)});
 });
 assert.equal(supplemented.deck.cards.length,50);assert.equal(supplementCalls,7,'Top up a small verified shortfall once without regenerating all explanations');
+let retryCalls=0;
+const recovered=await generate({...meta,transcript},env,()=>{},async()=>{
+  retryCalls++;
+  if(retryCalls<=2)return respond({cards:selection.slice(0,49)});
+  if(retryCalls===3)return respond({cards:selection.slice(49)});
+  return respond({cards:Array.from({length:10},()=>note)});
+});
+assert.equal(recovered.deck.cards.length,50);assert.equal(retryCalls,8,'A duplicate-only supplement can be recovered without accepting an invented sentence');
 let indexedCalls=0;
 const indexedPayload=await generate({...meta,transcript},env,()=>{},async()=>++indexedCalls===1?respond({showCn:'示例剧集',cards:selection.map((c,i)=>({...c,front:'Model paraphrase must never replace the source.',lineStart:i+1,lineEnd:i+1}))}):respond({cards:Array.from({length:10},()=>note)}));
 assert.equal(indexedPayload.deck.cards[0].front,transcript.split('\n')[0],'Resolve line indexes to original subtitle text on the server');
@@ -59,7 +67,7 @@ assert.throws(()=>parseScript(page,meta,source.url.replace('s02e03','s02e04')),/
 assert.throws(()=>parseScript('<h1>Example Show</h1>'+Array(100).fill('<a href="x">Navigation link</a>').join('\n'),meta,source.url),/足够/);
 assert.throws(()=>suppliedSource('hello'),/字幕/);
 let badCalls=0;
-await assert.rejects(generate({...meta,transcript},env,()=>{},async()=>{badCalls++;const cards=structuredClone(selection);cards[0].front='This line never appears in the transcript.';return respond({cards});}),/核对的原句/);assert.equal(badCalls,2);
+await assert.rejects(generate({...meta,transcript},env,()=>{},async()=>{badCalls++;const cards=structuredClone(selection);cards[0].front='This line never appears in the transcript.';return respond({cards});}),/核对的原句/);assert.equal(badCalls,3,'Stop after two bounded attempts to fill a verified shortfall');
 await assert.rejects(askAI(env,[],async()=>new Response('sensitive upstream detail',{status:401})),/密钥或权限/);
 let redirectCalls=0;
 await assert.rejects(askAI(env,[],async(url,options)=>{redirectCalls++;assert.equal(options.redirect,'manual');return new Response('',{status:302,headers:{Location:'https://untrusted.example'}});}),/HTTP 302/);

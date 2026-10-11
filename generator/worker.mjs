@@ -2,7 +2,7 @@ import {generate,ServiceError} from './core.mjs';
 const encoder = new TextEncoder();
 const json = (data,status,headers) => new Response(JSON.stringify(data),{status,headers:{...headers,'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}});
 export default {
-  async fetch(request,env) {
+  async fetch(request,env,ctx) {
     const origin=request.headers.get('Origin')||'',allowed=String(env.ALLOWED_ORIGINS||'').split(',').map(s=>s.trim()).filter(Boolean);
     const headers={'Vary':'Origin','Cache-Control':'no-store'};
     if(!allowed.includes(origin))return json({error:'此网页未获准连接生成服务'},403,headers);
@@ -30,11 +30,13 @@ export default {
     const stream=new ReadableStream({
       start(output){
         const send=data=>{if(!controller.signal.aborted)output.enqueue(encoder.encode(JSON.stringify(data)+'\n'));};
-        (async()=>{
+        const heartbeat=setInterval(()=>{try{if(!controller.signal.aborted)output.enqueue(encoder.encode('\n'));}catch{}},15000);
+        const task=(async()=>{
           try{const deck=await generate(input,env,message=>send({type:'progress',message}),env.FETCH||fetch,controller.signal);send({type:'result',payload:deck});}
           catch(err){if(!controller.signal.aborted)send({type:'error',message:err instanceof ServiceError?err.message:'生成失败，请稍后重试'});}
-          finally{clearTimeout(timer);try{output.close();}catch{}}
+          finally{clearTimeout(timer);clearInterval(heartbeat);try{output.close();}catch{}}
         })();
+        ctx?.waitUntil(task);
       },
       cancel(){controller.abort();clearTimeout(timer);}
     });

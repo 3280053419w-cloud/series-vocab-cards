@@ -140,32 +140,44 @@ export async function generate(input, env, notify = ()=>{}, fetcher = fetch, sig
   if(!meta.year&&source.url){const year=source.title.match(/\((\d{4})/);if(year)meta={...meta,year:Number(year[1])};}
   notify('已找到英文对话，正在筛选 50 个表达…');
   const sourceLines=source.text.split('\n');
-  const result=await askAI(env,[{role:'system',content:rules+' 此步只筛选，不写翻译或讲解。返回 {"showCn":"中文片名","cards":[{"lineStart":1,"lineEnd":1,"word":"词典形式的词或短语","focus":"原句中连续出现的目标表达"}]}。lineStart 和 lineEnd 为输入 lines 中从 1 开始的行号，最多连续 3 行，服务端会从字幕取出原句；不要自行输出或改写 front。必须恰好 50 条，不重复原句；若材料不足，返回 {"error":"原因"}。不要输出整集剧本。优先排序最实用的表达，选择意思完整的句子。'},{role:'user',content:JSON.stringify({meta,lines:sourceLines.map((text,i)=>({line:i+1,text}))})}],fetcher,signal);
+  const result=await askAI(env,[{role:'system',content:rules+' 此步只筛选，不写翻译或讲解。返回 {"showCn":"中文片名","cards":[{"lineStart":1,"lineEnd":1,"word":"词典形式的词或短语","focus":"原句中连续出现的目标表达"}]}。lineStart 和 lineEnd 为输入 lines 中从 1 开始的行号，最多连续 3 行，服务端会从字幕取出原句；不要自行输出或改写 front。提供 60 个不同原句的候选，供服务端核对后选出 50 条；若材料不足，返回 {"error":"原因"}。不要输出整集剧本。优先排序最实用的表达，选择意思完整的句子。'},{role:'user',content:JSON.stringify({meta,lines:sourceLines.map((text,i)=>({line:i+1,text}))})}],fetcher,signal);
   const reference=F.normalize(source.text),seen=new Set();
-  const spans=sourceLines.flatMap((_,i)=>[1,2,3].filter(n=>i+n<=sourceLines.length).map(n=>{const text=sourceLines.slice(i,i+n).join('\n');return {start:i+1,text,normalized:F.normalize(text),size:n};}));
+  let spans;
   let invalidCandidates=false;
-  const verifiedCandidates=candidates=>candidates.flatMap(c=>{
-    if(!c||typeof c!=='object'){invalidCandidates=true;return [];}
+  const verifiedCandidates=(candidates,limit=50)=>{
+    const verified=[];
+    for(let c of candidates){
+    if(verified.length>=limit)break;
+    if(!c||typeof c!=='object'){invalidCandidates=true;continue;}
     if(c.lineStart!=null||c.lineEnd!=null){
       const start=Number(c.lineStart),end=Number(c.lineEnd??start);
       const validRange=Number.isInteger(start)&&Number.isInteger(end)&&start>=1&&end>=start&&end-start<=2&&end<=sourceLines.length;
       let front=validRange?sourceLines.slice(start-1,end).join('\n'):'';
       if(typeof c.focus==='string'&&(!front||!F.normalize(front).includes(F.normalize(c.focus)))){
         const focus=F.normalize(c.focus);
-        const matches=focus?spans.filter(s=>s.normalized.includes(focus)&&!seen.has(s.normalized)).sort((a,b)=>a.size-b.size||(Number.isInteger(start)?Math.abs(a.start-start)-Math.abs(b.start-start):a.start-b.start)):[];
-        front=matches[0]?.text||'';
+        if(focus){
+          spans??=sourceLines.flatMap((_,i)=>[1,2,3].filter(n=>i+n<=sourceLines.length).map(n=>{const text=sourceLines.slice(i,i+n).join('\n');return {start:i+1,text,normalized:F.normalize(text),size:n};}));
+          let best;
+          for(const span of spans){
+            if(!span.normalized.includes(focus)||seen.has(span.normalized))continue;
+            if(!best||span.size<best.size||span.size===best.size&&(Number.isInteger(start)?Math.abs(span.start-start)<Math.abs(best.start-start):span.start<best.start))best=span;
+          }
+          front=best?.text||'';
+        }else front='';
       }
       c={...c,front};
     }
-    if(typeof c.front!=='string'||c.front.length>1500||!reference.includes(F.normalize(c.front))||typeof c.focus!=='string'||!F.normalize(c.front).includes(F.normalize(c.focus))){invalidCandidates=true;return [];}
-    const key=F.normalize(c.front);if(seen.has(key))return [];seen.add(key);return [c];
-  });
-  if(Array.isArray(result.cards))result.cards=verifiedCandidates(result.cards).slice(0,50);
-  if(Array.isArray(result.cards)&&result.cards.length>=40&&result.cards.length<50){
+    if(typeof c.front!=='string'||!c.front.trim()||c.front.length>1500||!reference.includes(F.normalize(c.front))||typeof c.focus!=='string'||!c.focus.trim()||!F.normalize(c.front).includes(F.normalize(c.focus))){invalidCandidates=true;continue;}
+    const key=F.normalize(c.front);if(seen.has(key))continue;seen.add(key);verified.push(c);
+    }
+    return verified;
+  };
+  if(Array.isArray(result.cards))result.cards=verifiedCandidates(result.cards);
+  for(let attempt=0;attempt<2&&Array.isArray(result.cards)&&result.cards.length>=40&&result.cards.length<50;attempt++){
     const missing=50-result.cards.length;
     notify('已核对 '+result.cards.length+' 条，正在补充剩余表达…');
-    const supplement=await askAI(env,[{role:'system',content:rules+' 此步只补充筛选，不写翻译或讲解。返回 {"cards":[{"lineStart":1,"lineEnd":1,"word":"词典形式的词或短语","focus":"原句中连续出现的目标表达"}]}。行号从 1 开始，最多连续 3 行。补充 '+(missing+5)+' 个候选，不得重复 excluded 中的原句，focus 必须逐字出现在所选行内，不要改写。'},{role:'user',content:JSON.stringify({meta,excluded:result.cards.map(c=>c.front),lines:sourceLines.map((text,i)=>({line:i+1,text}))})}],fetcher,signal);
-    if(Array.isArray(supplement.cards))result.cards=[...result.cards,...verifiedCandidates(supplement.cards)].slice(0,50);
+    const supplement=await askAI(env,[{role:'system',content:rules+' 此步只补充筛选，不写翻译或讲解。返回 {"cards":[{"lineStart":1,"lineEnd":1,"word":"词典形式的词或短语","focus":"原句中连续出现的目标表达"}]}。行号从 1 开始，最多连续 3 行。补充 '+Math.max(missing+10,15)+' 个不同原句的候选，不得重复 excluded 中的原句，focus 必须逐字出现在所选行内，不要改写。'},{role:'user',content:JSON.stringify({meta,excluded:result.cards.map(c=>c.front),lines:sourceLines.map((text,i)=>({line:i+1,text}))})}],fetcher,signal);
+    if(Array.isArray(supplement.cards))result.cards.push(...verifiedCandidates(supplement.cards,missing));
   }
   if(!Array.isArray(result.cards)||result.cards.length!==50){
     if(invalidCandidates)throw new ServiceError('发现无法在字幕中核对的原句，已停止添加，请重试');
