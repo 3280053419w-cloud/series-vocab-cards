@@ -31,6 +31,8 @@ AI_MAX_TOKENS = "8192"
 
 OpenAI 官方接口默认使用 `max_completion_tokens`，其他兼容服务默认使用 `max_tokens`。第三方网关若要求不同参数，可设置 `AI_TOKEN_PARAMETER = "max_completion_tokens"` 或 `"max_tokens"`。`AI_MAX_TOKENS` 支持 2048—32768，实际值还需在模型允许范围内；推理模型需为推理与最终 JSON 一起预留输出空间。
 
+DeepSeek 当前可配置 `AI_BASE_URL = "https://api.deepseek.com"`、`AI_MODEL = "deepseek-flash"`、`AI_MAX_TOKENS = "32768"`、`AI_THINKING_MODE = "disabled"`。关闭思考模式可以减少这类词汇整理任务的等待和推理输出占用；若需要开启，可改为 `enabled` 并预留足够输出额度。其他供应商不支持此参数时应删除 `AI_THINKING_MODE`。模型名称以账号及官方文档为准。
+
 在终端逐项设置秘密，按提示输入，不要写进网页、Git 仓库或聊天：
 
 ```powershell
@@ -57,7 +59,7 @@ npx wrangler deploy
 
 ## 校验与失败处理
 
-- 所选 50 句逐条匹配来源字幕，检查原句重复、填空目标、句中单词和完整讲解。模型生成的解释仍需结合原声理解，生活例句为 AI 原创，不冒充剧集台词。
+- 模型选择字幕行号，服务端直接提取对应原句；对候选逐条核对来源、填空目标和重复，保留 50 条有效表达，再检查句中单词和完整讲解。候选不足时停止，不杜撰补足。模型生成的解释仍需结合原声理解，生活例句为 AI 原创，不冒充剧集台词。
 - 不会从任意网页搜索后猜造台词。自动查找使用 Springfield 和 subslikescript；字幕来源限制、同名版本不明确或短片素材不足时会要求提供字幕。
 - 取消、超时、AI 输出截断、数量不足或校验失败时，不导入半成品。已发送的 AI 请求可能已计入供应商额度。
 - 服务不会保存账号密钥到浏览器备份，也不会持久化整集字幕。主机与 AI 供应商各自的数据政策仍适用。

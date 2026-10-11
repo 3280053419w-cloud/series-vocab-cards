@@ -41,7 +41,7 @@ async function readText(response, max = 1000000) {
 async function pageAt(url, fetcher, signal, reader = false) {
   const target = reader ? 'https://r.jina.ai/' + url : url;
   const timeout = AbortSignal.timeout(18000), combined = AbortSignal.any([signal, timeout]);
-  const response = await fetcher(target,{signal:combined,redirect:'error',headers:{'Accept':'text/html,text/plain'}});
+  const response = await fetcher(target,{signal:combined,redirect:'manual',headers:{'Accept':'text/html,text/plain'}});
   return readText(response);
 }
 function links(markdown, pattern) {
@@ -111,9 +111,13 @@ export async function askAI(env, messages, fetcher = fetch, signal = new AbortCo
   const tokenField=env.AI_TOKEN_PARAMETER||(base.hostname==='api.openai.com'?'max_completion_tokens':'max_tokens');
   if(!['max_tokens','max_completion_tokens'].includes(tokenField))throw new ServiceError('AI_TOKEN_PARAMETER 配置不正确',503);
   const body={model:env.AI_MODEL,messages,[tokenField]:tokenLimit,stream:false};
+  if(env.AI_THINKING_MODE){
+    if(!['enabled','disabled'].includes(env.AI_THINKING_MODE))throw new ServiceError('AI_THINKING_MODE 应为 enabled 或 disabled',503);
+    body.thinking={type:env.AI_THINKING_MODE};
+  }
   if(env.AI_JSON_MODE!=='false')body.response_format={type:'json_object'};
   let response;
-  try{response=await fetcher(url,{method:'POST',signal:AbortSignal.any([signal,AbortSignal.timeout(110000)]),headers:{'Authorization':'Bearer '+env.AI_API_KEY,'Content-Type':'application/json'},body:JSON.stringify(body),redirect:'error'});}
+  try{response=await fetcher(url,{method:'POST',signal:AbortSignal.any([signal,AbortSignal.timeout(110000)]),headers:{'Authorization':'Bearer '+env.AI_API_KEY,'Content-Type':'application/json'},body:JSON.stringify(body),redirect:'manual'});}
   catch(err){if(signal.aborted)throw err;throw new ServiceError('AI 服务连接失败或超时，请稍后重试',502);}
   if(!response.ok){await response.body?.cancel().catch(()=>{});throw new ServiceError(response.status===401||response.status===403?'AI 服务密钥或权限不正确，请检查服务端设置':response.status===429?'AI 服务额度或请求频率受限，请稍后重试':'AI 服务暂时失败（HTTP '+response.status+'）',502);}
   let data;try{data=JSON.parse(await readText(response,1500000));}catch{throw new ServiceError('AI 服务未返回有效数据',502);}
@@ -135,20 +139,50 @@ export async function generate(input, env, notify = ()=>{}, fetcher = fetch, sig
   const source=input.transcript?suppliedSource(input.transcript):await findSource(meta,fetcher,signal,notify);
   if(!meta.year&&source.url){const year=source.title.match(/\((\d{4})/);if(year)meta={...meta,year:Number(year[1])};}
   notify('已找到英文对话，正在筛选 50 个表达…');
-  const result=await askAI(env,[{role:'system',content:rules+' 返回 {"showCn":"中文片名","cards":[{"front":"英文原句","word":"词典形式的词或短语","cn":"中文语境释义","ipa":"IPA","trans":"自然中文译句","focus":"原句中连续出现的目标表达"}]}。必须恰好 50 条，不重复原句；若材料不足，返回 {"error":"原因"}。不要输出整集剧本。每条原句应简短，截取仍需保持完整意思。'},{role:'user',content:JSON.stringify({meta,transcript:source.text})}],fetcher,signal);
-  if(!Array.isArray(result.cards)||result.cards.length!==50)throw new ServiceError('当前字幕或模型未能提供 50 条有效表达，请换用完整英文字幕或其他模型');
+  const sourceLines=source.text.split('\n');
+  const result=await askAI(env,[{role:'system',content:rules+' 此步只筛选，不写翻译或讲解。返回 {"showCn":"中文片名","cards":[{"lineStart":1,"lineEnd":1,"word":"词典形式的词或短语","focus":"原句中连续出现的目标表达"}]}。lineStart 和 lineEnd 为输入 lines 中从 1 开始的行号，最多连续 3 行，服务端会从字幕取出原句；不要自行输出或改写 front。必须恰好 50 条，不重复原句；若材料不足，返回 {"error":"原因"}。不要输出整集剧本。优先排序最实用的表达，选择意思完整的句子。'},{role:'user',content:JSON.stringify({meta,lines:sourceLines.map((text,i)=>({line:i+1,text}))})}],fetcher,signal);
   const reference=F.normalize(source.text),seen=new Set();
-  for(const c of result.cards) {
-    if(typeof c.front!=='string'||c.front.length>1500||!reference.includes(F.normalize(c.front))||typeof c.focus!=='string'||!F.normalize(c.front).includes(F.normalize(c.focus)))throw new ServiceError('发现无法在字幕中核对的原句，已停止添加，请重试');
-    const key=F.normalize(c.front);if(seen.has(key))throw new ServiceError('AI 选出了重复原句，已停止添加，请重试');seen.add(key);
+  const spans=sourceLines.flatMap((_,i)=>[1,2,3].filter(n=>i+n<=sourceLines.length).map(n=>{const text=sourceLines.slice(i,i+n).join('\n');return {start:i+1,text,normalized:F.normalize(text),size:n};}));
+  let invalidCandidates=false;
+  const verifiedCandidates=candidates=>candidates.flatMap(c=>{
+    if(!c||typeof c!=='object'){invalidCandidates=true;return [];}
+    if(c.lineStart!=null||c.lineEnd!=null){
+      const start=Number(c.lineStart),end=Number(c.lineEnd??start);
+      const validRange=Number.isInteger(start)&&Number.isInteger(end)&&start>=1&&end>=start&&end-start<=2&&end<=sourceLines.length;
+      let front=validRange?sourceLines.slice(start-1,end).join('\n'):'';
+      if(typeof c.focus==='string'&&(!front||!F.normalize(front).includes(F.normalize(c.focus)))){
+        const focus=F.normalize(c.focus);
+        const matches=focus?spans.filter(s=>s.normalized.includes(focus)&&!seen.has(s.normalized)).sort((a,b)=>a.size-b.size||(Number.isInteger(start)?Math.abs(a.start-start)-Math.abs(b.start-start):a.start-b.start)):[];
+        front=matches[0]?.text||'';
+      }
+      c={...c,front};
+    }
+    if(typeof c.front!=='string'||c.front.length>1500||!reference.includes(F.normalize(c.front))||typeof c.focus!=='string'||!F.normalize(c.front).includes(F.normalize(c.focus))){invalidCandidates=true;return [];}
+    const key=F.normalize(c.front);if(seen.has(key))return [];seen.add(key);return [c];
+  });
+  if(Array.isArray(result.cards))result.cards=verifiedCandidates(result.cards).slice(0,50);
+  if(Array.isArray(result.cards)&&result.cards.length>=40&&result.cards.length<50){
+    const missing=50-result.cards.length;
+    notify('已核对 '+result.cards.length+' 条，正在补充剩余表达…');
+    const supplement=await askAI(env,[{role:'system',content:rules+' 此步只补充筛选，不写翻译或讲解。返回 {"cards":[{"lineStart":1,"lineEnd":1,"word":"词典形式的词或短语","focus":"原句中连续出现的目标表达"}]}。行号从 1 开始，最多连续 3 行。补充 '+(missing+5)+' 个候选，不得重复 excluded 中的原句，focus 必须逐字出现在所选行内，不要改写。'},{role:'user',content:JSON.stringify({meta,excluded:result.cards.map(c=>c.front),lines:sourceLines.map((text,i)=>({line:i+1,text}))})}],fetcher,signal);
+    if(Array.isArray(supplement.cards))result.cards=[...result.cards,...verifiedCandidates(supplement.cards)].slice(0,50);
+  }
+  if(!Array.isArray(result.cards)||result.cards.length!==50){
+    if(invalidCandidates)throw new ServiceError('发现无法在字幕中核对的原句，已停止添加，请重试');
+    const detail=typeof result.error==='string'?'：'+result.error.slice(0,160):Array.isArray(result.cards)?'（本次返回 '+result.cards.length+' 条）':'';
+    throw new ServiceError('当前字幕或模型未能提供 50 条有效表达'+detail+'，请换用完整英文字幕或其他模型');
   }
   const cards=[];
   for(let offset=0;offset<50;offset+=10) {
     signal.throwIfAborted();notify('正在补充用法和语法：'+offset+'/50');
     const batch=result.cards.slice(offset,offset+10);
-    const extra=await askAI(env,[{role:'system',content:rules+' 对输入的 10 条卡片按原顺序补充讲解。返回 {"cards":[{"meaning":"本句语境释义","pattern":"可复用结构与搭配","example":"原创生活例句","exampleCn":"生活例句译文","grammar":"解释本句句法和关键语法，避免只报术语","note":"语气、语域或易错提醒","words":[{"word":"原句中连续出现的其他关键词","meaning":"中文词义与用法"}]}]}。每条补充 1—3 个有用的句中单词；不需要的可为空数组。不要重复输出台词。'},{role:'user',content:JSON.stringify(batch)}],fetcher,signal);
+    const extra=await askAI(env,[{role:'system',content:rules+' 对输入的 10 条卡片按原顺序补充翻译和讲解。返回 {"cards":[{"cn":"目标表达的中文语境释义","ipa":"目标表达的 IPA","trans":"原句自然中文译文","meaning":"本句语境释义","pattern":"可复用结构与搭配","example":"原创生活例句","exampleCn":"生活例句译文","grammar":"解释本句句法和关键语法，避免只报术语","note":"语气、语域或易错提醒","words":[{"word":"原句中连续出现的其他关键词","meaning":"中文词义与用法"}]}]}。必须恰好 10 条，每条补充 1—3 个有用的句中单词；不需要的可为空数组。不要重复输出台词，讲解简洁、具体、易懂。'},{role:'user',content:JSON.stringify(batch)}],fetcher,signal);
     if(!Array.isArray(extra.cards)||extra.cards.length!==10)throw new ServiceError('语法讲解未完整生成，请重试');
-    cards.push(...batch.map((c,i)=>({...c,...extra.cards[i],front:c.front,word:c.word,cn:c.cn,ipa:c.ipa,trans:c.trans,focus:c.focus})));
+    cards.push(...batch.map((c,i)=>{
+      const detail=extra.cards[i];
+      const words=Array.isArray(detail.words)?detail.words.filter(w=>typeof w?.word==='string'&&w.word.trim()&&w.word.length<=100&&typeof w.meaning==='string'&&w.meaning.trim()&&w.meaning.length<=500&&F.normalize(c.front).includes(F.normalize(w.word))).slice(0,12):[];
+      return {...c,...detail,front:c.front,word:c.word,cn:c.cn||detail.cn,ipa:c.ipa||detail.ipa,trans:c.trans||detail.trans,focus:c.focus,words};
+    }));
   }
   let packageData;
   try{packageData=F.validate({format:F.FORMAT,deck:{...meta,showCn:String(result.showCn||showCn).slice(0,120),epTitle:'精选 50 句',epTitleCn:'精选 50 句',date:new Date().toISOString().slice(0,10),source:source.name,sourceUrl:source.url,cards}});}
